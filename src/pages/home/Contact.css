@@ -1,0 +1,27 @@
+.contact {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+.contact > .MuiBadge-root{
+    padding: 6px;
+}
+
+.contact:hover{
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.contact > h4 {
+    flex: 1;
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.contact > .MuiBadge-root > .MuiBadge-badge {
+    bottom: 25%;
+    right: 25%;
+}

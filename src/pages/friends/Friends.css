@@ -1,0 +1,16 @@
+.friends{
+   
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.friends h2 {
+    font-size: 28px;
+}
+
+@media (max-width:867px){
+    .friends{
+         height: 100vh;
+    }
+}

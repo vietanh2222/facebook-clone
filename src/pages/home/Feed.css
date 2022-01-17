@@ -1,0 +1,31 @@
+.feed{
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 65%;
+    max-width: 780px;
+}
+
+.infinite-scroll-component__outerdiv {
+    width: 100%;
+}
+
+.infinite-scroll-component > p {
+    padding-top: 20px;
+}
+
+@media (max-width: 890px) {
+    .feed{
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .feed{
+        width: 96%;
+        padding: 20px 6px;
+}
+}

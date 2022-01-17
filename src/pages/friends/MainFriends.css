@@ -1,0 +1,48 @@
+.mainfriends{
+    width: calc(100% - 430px);
+    padding: 5px 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainfriends__header{
+    display: flex;
+    align-items: center;
+    padding: 10px 0 16px 0;
+}
+
+.mainfriends__header > h2{
+    flex: 1;
+}
+
+.mainfriends__header > p{
+    color: #216fdb;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.mainfriends__header > p:hover{
+    background-color: #cacdcf;
+}
+
+.mainfriends__body{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.friendsuggest__body{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mainfriends__hr{
+    border-top: 1px solid lightgray;
+}
+
+@media (max-width:867px) {
+    .mainfriends{
+        display: none;
+    }
+}

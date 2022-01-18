@@ -15,6 +15,8 @@ import ListIcon from '@mui/icons-material/List';
 import { useStateValue } from '../../store/StateProvider';
 import Sidebar from '../../pages/home/Sidebar';
 import { Link, useLocation } from '../../../node_modules/react-router-dom/index';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../pages/home/firebase';
 
 
 function Header() {
@@ -29,6 +31,25 @@ function Header() {
         setShowSidebar(!showSidebar)
     }
 
+    const handleLogOut = () => {
+        if(auth){
+            signOut(auth)
+            .then(() => {
+                alert('Sign out successfully');
+                localStorage.setItem('isSignIn', 'signOut');
+                localStorage.setItem('user', null);
+                window.location.reload();
+            })
+            .catch(() => {
+                alert('Sign out failed');
+            })
+        }else{
+            alert('Sign out successfully');
+            localStorage.setItem('isSignIn', 'signOut');
+            localStorage.setItem('user', null);
+            window.location.reload();
+        }
+    }
     return (
         <div className="header">
             {showSidebar && <Sidebar />}
@@ -99,7 +120,7 @@ function Header() {
                 <IconButton className='header__icon'>
                     <ExpandMoreIcon />
                 </IconButton>
-
+                <button onClick={handleLogOut}>Log out</button>
             </div>
         </div>
     )

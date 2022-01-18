@@ -18,7 +18,6 @@ function MessageSender() {
     const [imageUrl, setImageUrl] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        
         addDoc(collection(db, "posts"), {
             profilePic: user.photoURL,
             image: imageUrl,
@@ -75,6 +74,7 @@ function MessageSender() {
                                     onChange={e => setInput(e.target.value)}
                                 />
                                 <input
+                                    type="text"
                                     value={imageUrl}
                                     onChange={e => setImageUrl(e.target.value)}
                                     placeholder="image URL (Optional)"

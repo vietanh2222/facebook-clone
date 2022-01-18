@@ -45,19 +45,13 @@ table {
 	border-spacing: 0;
 }
 
-input:focus{
-  outline-width: 0;
-  border: 0;
-  box-shadow: none;
-}
-
-input[type="text"]
-{
-    font-size:18px;
-}
 
 *{
   margin: 0;
+}
+
+input:focus{
+	outline: 0 !important;
 }
 
 body {

@@ -19,13 +19,12 @@
 @media (max-width: 890px) {
     .feed{
         width: 100%;
-        padding: 20px;
+        padding: 20px 0;
     }
 }
 
 @media (max-width: 400px) {
     .feed{
         width: 96%;
-        padding: 20px 6px;
 }
 }

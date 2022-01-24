@@ -11,7 +11,6 @@ import { Avatar, IconButton } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ForumIcon from "@mui/icons-material/Forum";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ListIcon from "@mui/icons-material/List";
 import { useStateValue } from "../../store/StateProvider";
 import Sidebar from "../../pages/home/Sidebar";
@@ -21,6 +20,7 @@ import {
 } from "../../../node_modules/react-router-dom/index";
 import { signOut } from "firebase/auth";
 import { auth } from "../../pages/home/firebase";
+import SearchBar from '../SearchBar/SearchBar';
 
 function Header() {
   const [{ user }] = useStateValue();
@@ -33,8 +33,16 @@ function Header() {
     setShowSidebar(!showSidebar);
   };
 
+  const showSearchBar = () => {
+    document.querySelector('.searchBar').style.display ="block";
+    document.querySelector('.searchBar__input > form > input').focus();
+  }
+
+  const stopPropaganition = (e) => {
+    e.stopPropagation();
+  }
   const handleLogOut = () => {
-    if (auth) {
+    if (auth.currentUser) {
       signOut(auth)
         .then(() => {
           localStorage.setItem("isSignIn", "signOut");
@@ -51,18 +59,23 @@ function Header() {
     }
   };
   return (
-    <div className="header">
+    <div className="header" >
       {showSidebar && <Sidebar />}
-      <div className="header__left">
+      <div className="header__left" onClick={stopPropaganition}>
         <Link to="/">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
             alt=""
           />
         </Link>
+        <SearchBar />
         <div className="header__input">
           <SearchIcon />
-          <input type="text" placeholder="Search Facebook" />
+          <input 
+            type="text" 
+            placeholder="Search Facebook" 
+            onClick={showSearchBar}
+          />
         </div>
       </div>
 
@@ -150,9 +163,6 @@ function Header() {
         </IconButton>
         <IconButton className="header__icon">
           <NotificationsActiveIcon />
-        </IconButton>
-        <IconButton className="header__icon">
-          <ExpandMoreIcon />
         </IconButton>
         <IconButton className="header__icon" onClick={handleLogOut}>
           <LogoutIcon />

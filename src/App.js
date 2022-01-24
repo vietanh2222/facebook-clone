@@ -15,7 +15,6 @@ import Gaming from "./pages/gaming/Gaming";
 function App() {
   
   const [{ user }] = useStateValue();
-
   return (
     <div className="app">
       {!user ? <Login />

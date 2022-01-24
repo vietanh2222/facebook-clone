@@ -1,0 +1,78 @@
+.searchBar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 5px 10px 10px -8px 
+    rgba(0, 0, 0, 0.75);
+}
+
+.searchBar__header{
+    display: flex;
+    padding: 0 20px;
+    border-radius: 10px;
+    height: 61px;
+    align-items: center;
+}
+
+.searchBar__header > .MuiSvgIcon-root {
+    color: gray;
+    border-radius: 999px;
+    padding: 4px;
+    margin-right: 6px;
+}
+
+.searchBar__header > .MuiSvgIcon-root:hover {
+    background-color: #eff2f5;
+    cursor: pointer;
+}
+
+.searchBar__input {
+    display:flex;
+    align-items: center;
+    background-color: #eff2f5;
+    padding: 8px;
+    margin-left: 10px;
+    border-radius: 999px;
+}
+
+.searchBar__input > .MuiSvgIcon-root {
+    font-size: 22px;
+    color: gray;
+}
+
+.searchBar__input > form > input {
+    border: none;
+    background-color: transparent;
+    outline-width: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.searchBar__input > form > button {
+    display: none;
+}
+
+.searchBar__body  {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 0 12px;
+}
+
+.searchBar__body > p {
+    color: #8A8D91;
+}
+
+.searchBar__histories{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.searchBar__histories > h2 {
+    padding: 0 26px;
+    font-size: 20px;
+}

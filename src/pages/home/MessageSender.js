@@ -6,18 +6,23 @@ import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import { useStateValue } from '../../store/StateProvider';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
-import db from './firebase';
+import db, { auth } from './firebase';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRef } from 'react';
 
 function MessageSender() {
 
     const [{user}] = useStateValue();
-    
     const [input, setInput] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(!auth.currentUser){
+            alert(`Sorry you can't add a new post because you sign in Anomyous`);
+            setInput("");
+            setImageUrl("");
+            return;
+        }
         addDoc(collection(db, "posts"), {
             profilePic: user.photoURL,
             image: imageUrl,

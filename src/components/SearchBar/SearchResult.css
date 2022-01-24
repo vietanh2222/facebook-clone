@@ -1,0 +1,17 @@
+.searchResult {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.searchResult:hover {
+    background-color: #d9dcdf;
+    border-radius: 10px;
+}
+
+.searchResult > p {
+    flex: 1;
+    margin-left: 12px;
+}

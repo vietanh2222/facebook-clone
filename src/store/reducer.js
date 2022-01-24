@@ -6,6 +6,7 @@ export const initialState = {
 
 export const actionTypes = {
     SET_USER: "SET_USER",
+    SAVE_CONTACT: "SAVE_CONTACT"
 };
 
 const reducer = (state, action) => {
@@ -20,7 +21,12 @@ const reducer = (state, action) => {
             return{
                 ...state,
                 user: action.user,
-            }    
+            }
+        case actionTypes.SAVE_CONTACT:
+            return {
+                ...state,
+                contacts: action.contacts,
+            }   
         default:
             return state;
     }

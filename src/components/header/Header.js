@@ -27,6 +27,7 @@ function Header() {
 
   const [showSidebar, setShowSidebar] = useState(false);
 
+  const [searchValue, setSearchValue] = useState('');
   const { pathname } = useLocation();
 
   const handleClick = () => {
@@ -58,6 +59,10 @@ function Header() {
       window.location.reload();
     }
   };
+
+  const handleGetValueFromSearchBar = (value) => {
+    setSearchValue(value);
+  }
   return (
     <div className="header" >
       {showSidebar && <Sidebar />}
@@ -68,14 +73,12 @@ function Header() {
             alt=""
           />
         </Link>
-        <SearchBar />
-        <div className="header__input">
+        <SearchBar handleGetValue={handleGetValueFromSearchBar}/>
+        <div className="header__input" onClick={showSearchBar}>
           <SearchIcon />
-          <input 
-            type="text" 
-            placeholder="Search Facebook" 
-            onClick={showSearchBar}
-          />
+          <p className={searchValue ? "black" : {}}>
+            {searchValue || 'Search Facebook'}
+          </p>
         </div>
       </div>
 

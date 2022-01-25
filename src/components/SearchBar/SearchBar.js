@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import "./SearchBar.css";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchIcon from "@mui/icons-material/Search";
 import SearchHistory from './SearchHistory';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CloseIcon from '@mui/icons-material/Close';
+
 import { useStateValue } from '../../store/StateProvider';
 import SearchResult from './SearchResult';
-import { useRef } from 'react';
+import { doc, onSnapshot, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import db, { auth } from '../../pages/home/firebase';
 
 
-function SearchBar() {
+function SearchBar({handleGetValue}) {
+  
   const [{contacts}] = useStateValue();
   const [searchKey, setSearchKey] = useState('');
-  const searchHistory = ['a', 'b'];
+  const [searchHistory, setSearchHistory] = useState([]);
   const searchResult = useRef([]);
+
   const findContact = (key) => {
     setSearchKey(key);
+    handleGetValue(key);
     searchResult.current = contacts.filter((contact) => 
     contact.name.trim().toLowerCase().includes(key.toLowerCase()))
   }
- 
+
   const closeSearchBar = () => {
     document.querySelector('.searchBar').style.display ="none";
   }
@@ -29,9 +32,44 @@ function SearchBar() {
     e.stopPropagation();
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    closeSearchBar();
+    if(auth.currentUser !== null){
+      if(searchHistory.length === 0){
+        await setDoc(doc(db, "searchHistories", auth.currentUser.uid), {
+          historySearch: [{
+            searchKey,
+            name:"",
+            avatar:""
+          }],
+        });
+      }else{
+        await updateDoc(doc(db, "searchHistories", auth.currentUser.uid), {
+          historySearch: arrayUnion({
+            searchKey,
+            name:"",
+            avatar:""
+          })
+        });
+      }
+    }else{
+      return
+    }
   }
+
+
+  useEffect(() => {
+    if(auth.currentUser !== null){
+      
+        onSnapshot(doc(db, "searchHistories", auth.currentUser.uid), (doc) => {
+        console.log("Current data: ", doc.data());
+        setSearchHistory(doc.data().historySearch);
+    });
+    }else{
+      return
+    }
+  }, [])
 
   return (
     <div className='searchBar' onClick={stopPropaganition}>
@@ -40,7 +78,7 @@ function SearchBar() {
             <div className="searchBar__input">
               <SearchIcon />
               <form >
-                <input 
+                <input
                   type="text" 
                   placeholder="Search Facebook" 
                   onChange={(e) => {
@@ -52,19 +90,19 @@ function SearchBar() {
             </div>
           </div>
           <div className="searchBar__body">
-           {searchHistory && searchHistory.length === 0 
+           {searchKey === '' && searchHistory.length === 0 
            ? <p>No recent searches</p> 
            : <div className="searchBar__histories">
                 {searchKey === '' 
                 ? 
                 <>
                   <h2>Recent searches</h2>
-                  {searchHistory.map((a) => 
+                  {searchHistory.map((history,index) => 
                     <SearchHistory
-                      key={a}
-                      Icon={AccessTimeIcon}
-                      name={a}
-                      Close={CloseIcon}
+                      key={index}
+                      name={history.name}
+                      searchKey = {history.searchKey}
+                      avatar={history.avatar}
                   />)}
                 </>
                 : 
@@ -74,11 +112,13 @@ function SearchBar() {
                       ? <p>No contact found</p>
                       : <div className="searchBar__results">
                         {searchResult.current.map( (contact) => 
-                          (<SearchResult 
-                            key={contact.id}
-                            name={contact.name}
-                            avatar={contact.avatar}
-                          />))
+                          (
+                            <SearchResult 
+                              key={contact.id}
+                              name={contact.name}
+                              avatar={contact.avatar}
+                            />
+                          ))
                         }
                       </div>
                     }

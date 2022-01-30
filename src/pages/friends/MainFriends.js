@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import FriendRequest from './FriendRequest';
 import './MainFriends.css';
-import db from '../home/firebase';
-import { collection, onSnapshot } from 'firebase/firestore';
 import FriendSuggest from './FriendSuggest';
+import { useStateValue } from '../../store/StateProvider';
 
 
 function MainFriends() {
 
-    const [friendRequests, setFriendRequests] = useState([]);
-    const [friendSuggest, setFriendSuggest] = useState([]);
-
-    useEffect(() => {
-        onSnapshot(collection(db, "friendRequests"), (snapshot) => {
-            setFriendRequests(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-        })
-    }, [])
-
-    useEffect(() => {
-        onSnapshot(collection(db, "friendSuggest"), (snapshot) => {
-            setFriendSuggest(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
-        })
-    }, [])
-
+    const [{friendRequests, friendSuggest}] = useStateValue();
+ 
     return (
         <div className='mainfriends' >
             <div className='mainfriends__request'>

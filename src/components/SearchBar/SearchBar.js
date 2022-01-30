@@ -8,19 +8,31 @@ import { useStateValue } from '../../store/StateProvider';
 import SearchResult from './SearchResult';
 import { doc, onSnapshot, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import db, { auth } from '../../pages/home/firebase';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function SearchBar({handleGetValue}) {
   
-  const [{contacts}] = useStateValue();
+  const [{contacts, friendRequests, friendSuggest}] = useStateValue();
+  const friendList = contacts.map((contact) => 
+  ({...contact, isFriend: 'yes'}))
+  const noFriendList = 
+  [...friendRequests, ...friendSuggest]
+    .map((contact) => ({
+      ...contact, isFriend: 'no'
+    }))
+  const listSearch = [...friendList, ...noFriendList]
+  console.log(listSearch);
   const [searchKey, setSearchKey] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
   const searchResult = useRef([]);
+  const navigate = useNavigate();
 
   const findContact = (key) => {
     setSearchKey(key);
     handleGetValue(key);
-    searchResult.current = contacts.filter((contact) => 
+    searchResult.current = listSearch.filter((contact) => 
     contact.name.trim().toLowerCase().includes(key.toLowerCase()))
   }
 
@@ -44,6 +56,7 @@ function SearchBar({handleGetValue}) {
             avatar:""
           }],
         });
+      navigate('/search', {state: searchResult.current})
       }else{
         await updateDoc(doc(db, "searchHistories", auth.currentUser.uid), {
           historySearch: arrayUnion({
@@ -52,6 +65,7 @@ function SearchBar({handleGetValue}) {
             avatar:""
           })
         });
+        navigate('/search', {state: searchResult.current})
       }
     }else{
       return
@@ -61,10 +75,10 @@ function SearchBar({handleGetValue}) {
 
   useEffect(() => {
     if(auth.currentUser !== null){
-      
+        
         onSnapshot(doc(db, "searchHistories", auth.currentUser.uid), (doc) => {
         console.log("Current data: ", doc.data());
-        setSearchHistory(doc.data().historySearch);
+        setSearchHistory(doc.data().historySearch.reverse());
     });
     }else{
       return
@@ -116,7 +130,7 @@ function SearchBar({handleGetValue}) {
                             <SearchResult 
                               key={contact.id}
                               name={contact.name}
-                              avatar={contact.avatar}
+                              avatar={contact.avatar || contact.profilePic}
                             />
                           ))
                         }

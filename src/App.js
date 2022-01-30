@@ -10,6 +10,7 @@ import Layout from './pages/layout/Layout';
 import Watch from "./pages/watch/Watch";
 import Groups from './pages/group/Groups';
 import Gaming from "./pages/gaming/Gaming";
+import Search from "./pages/search/Search";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                   <Route path="watch" element={<Watch />} />
                   <Route path="groups" element={<Groups />} />
                   <Route path="gaming" element={<Gaming />} />
+                  <Route path="search" element={<Search />} />
                   <Route path="*" element={<NoPage />} />
                 </Route>
               </Routes>

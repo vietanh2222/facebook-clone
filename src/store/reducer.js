@@ -26,6 +26,8 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 contacts: action.contacts,
+                friendRequests: action.friendRequests,
+                friendSuggest:action.friendSuggest
             }   
         default:
             return state;

@@ -168,7 +168,7 @@
 
 .header__right > .MuiButtonBase-root {
     padding: 0;
-    margin: 0 8px;
+    margin-left: 8px;
 }
 
 .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {
@@ -211,7 +211,21 @@
     display: none;
 }
 
+@media (max-width: 1440px) {
+
+    .header__center > a[href="/gaming"],
+    .header__center > a[href="/groups"]
+    {
+        display: none;
+    }
+
+    .header__info {
+        right: 190px;
+    }
+}
+
 @media (max-width: 1360px) {
+
     .header__right > .header__icon {
         display: none;
     }
@@ -237,12 +251,7 @@
 }
 
 @media (max-width: 1200px) {
-    .header__option > a:last-child {
-        display: none;
-    }
-    .header__option{
-        padding: 12px 20px;
-    }
+
     .header__right > button > .header__list {
         display: block;
     }
@@ -259,12 +268,18 @@
         display: block;
     }
 
-    .header__info {
-        margin: 0 10px;
+    .header__info {  
+        margin: 0;
+        margin-left: 10px;
     }
 }
 
 @media (max-width: 890px) {
+
+    .header{
+        padding: 0 10px;
+    }
+
     .header__option{
         display: none;
     }
@@ -291,7 +306,7 @@
 @media (max-width: 300px) {
     .header__right > .MuiButtonBase-root {
         padding: 0;
-        margin: 0 4px;
+        margin-left: 4px;
     }
     
     .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {

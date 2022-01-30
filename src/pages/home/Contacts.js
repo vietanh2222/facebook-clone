@@ -13,10 +13,17 @@ import { useStateValue } from '../../store/StateProvider';
 function Contacts() {
     const [,dispatch] = useStateValue();
     const [contacts, setContacts] = useState([])
-
+    const [friendRequests, setFriendRequests] = useState([]);
+    const [friendSuggest, setFriendSuggest] = useState([]);
     useEffect(() => {
         onSnapshot(collection(db, "contacts"), (snapshot) => {
             setContacts(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+        })
+        onSnapshot(collection(db, "friendRequests"), (snapshot) => {
+            setFriendRequests(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+        })
+        onSnapshot(collection(db, "friendSuggest"), (snapshot) => {
+            setFriendSuggest(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
         })
     }, [])
     
@@ -24,8 +31,10 @@ function Contacts() {
         dispatch({
             type:actionTypes.SAVE_CONTACT,
             contacts,
+            friendRequests,
+            friendSuggest,
         })
-    }, [contacts, dispatch])
+    }, [contacts, friendRequests, friendSuggest , dispatch])
     return (
         <div className='contacts' >
             <div className='contacts__header'>

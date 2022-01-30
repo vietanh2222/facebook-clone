@@ -1,0 +1,69 @@
+.searchMain{
+    min-height: 100vh;
+    margin-left: 360px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%; 
+}
+
+.searchMain > p {
+    margin-top: 20px;
+    color: #757679;
+}
+
+.searchMain__result{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    background-color: #ffffff;
+    height: 60px;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    box-shadow: 1px 1px 10px -5px 
+    rgba(0, 0, 0, 0.75);
+}
+
+.searchMain__result > h1 {
+    font-size: 24px;
+}
+
+.result__info {
+    flex: 1;
+    margin-left: 20px;
+}
+
+.result__info > p {
+    font-size: 14px;
+    color: gray;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.searchMain__result > .MuiAvatar-root,
+.searchMain__result > .MuiSvgIcon-root,
+.result__info > h2 {
+    cursor: pointer;
+}
+
+.searchMain__result > .MuiAvatar-root {
+    width: 50px;
+    height: 50px;
+}
+
+.searchMain__result > .MuiSvgIcon-root {
+    background-color: rgb(235, 228, 228);
+    border-radius: 999px;
+    padding: 6px;
+}
+
+.searchMain__result > .MuiSvgIcon-root:hover {
+    background-color: rgb(194, 186, 186);
+}
+
+.result__info > h2:hover{
+    text-decoration: underline;
+}

@@ -135,10 +135,10 @@ function Header() {
             <p>Groups</p>
           </div>
         </Link>
-        <Link to="gaming">
+        <Link to="profile">
           <div
             className={
-              pathname === "/gaming"
+              pathname === "/profile"
                 ? `header__option 
                 header__option--active`
                 : `header__option`

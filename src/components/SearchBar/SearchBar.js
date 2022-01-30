@@ -14,7 +14,13 @@ import { useNavigate } from 'react-router-dom';
 
 function SearchBar({handleGetValue}) {
   
-  const [{contacts, friendRequests, friendSuggest}] = useStateValue();
+  let [{contacts, friendRequests, friendSuggest}] = useStateValue();
+  console.log(contacts);
+  if(contacts === undefined || friendRequests === undefined || friendSuggest === undefined){
+    contacts = [];
+    friendRequests = [];
+    friendSuggest = [];
+  }
   const friendList = contacts.map((contact) => 
   ({...contact, isFriend: 'yes'}))
   const noFriendList = 
@@ -117,6 +123,7 @@ function SearchBar({handleGetValue}) {
                       name={history.name}
                       searchKey = {history.searchKey}
                       avatar={history.avatar}
+                      isFriend={history.isFriend}
                   />)}
                 </>
                 : 
@@ -131,6 +138,8 @@ function SearchBar({handleGetValue}) {
                               key={contact.id}
                               name={contact.name}
                               avatar={contact.avatar || contact.profilePic}
+                              searchHistory={searchHistory}
+                              isFriend={contact.isFriend}
                             />
                           ))
                         }

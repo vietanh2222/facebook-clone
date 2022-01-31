@@ -30,7 +30,7 @@ function Profile() {
                         <p>{state === null ? '' : `${Math.floor(Math.random()*50)} friends together`}</p>
                     </div>
                     <IconButton>
-                        {state.isFriend === 'yes'
+                        {state !== null && state.isFriend === 'yes'
                         ?   
                             <>
                                 <CheckIcon />

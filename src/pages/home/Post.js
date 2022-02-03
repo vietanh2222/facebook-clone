@@ -100,13 +100,45 @@ function Post({ id, profilePic, image, username, email, timestamp, message, user
                             }
                             </>
                     }
-                    
+                    <div className='like__showUser'>
+                        <h2>Like</h2>
+                        {userLikes.length === 0 && <p>No like yet !</p>}
+                        {userLikes.map((user,index) => {
+                            
+                            if(index < 8){
+                               return <p key={index}>{user}</p>
+                            }else{
+                                if(index === 8){
+                                    return <p key={index}>and {userLikes.length - index} others...</p>
+                                }else{
+                                    return <></>
+                                }
+                            }
+                        } 
+                        )}
+                    </div>
                 </div>
                 <div className="option__count share__count">
                    {userShares.length > 1 
                     ? <p>{userShares.length} shares</p>
                     : <p>{userShares.length} share</p>
                    }
+                    <div className='share__showUser'>
+                        <h2>Share</h2>
+                        {userShares.length === 0 && <p>No share yet !</p>}
+                        {userShares.map((user,index) => {
+                            if(index < 8){
+                               return <p key={index}>{user}</p>
+                            }else{
+                                if(index === 8){
+                                    return <p key={index}>and {userShares.length - index} others...</p>
+                                }else{
+                                    return <></>
+                                }
+                            }
+                        } 
+                        )}
+                    </div>
                 </div>
             </div>
             <div className='post__options'>

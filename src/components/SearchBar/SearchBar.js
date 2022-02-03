@@ -78,7 +78,7 @@ function SearchBar({handleGetValue}) {
     }
   }
 
-
+  
   useEffect(() => {
     if(auth.currentUser !== null){
         
@@ -90,7 +90,7 @@ function SearchBar({handleGetValue}) {
       return
     }
   }, [])
-
+  
   return (
     <div className='searchBar' onClick={stopPropaganition}>
           <div className="searchBar__header">

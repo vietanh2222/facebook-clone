@@ -81,6 +81,41 @@
     border-radius: 10px;
 }
 
+.option--active {
+    color: #2e81f4;
+}
+
+.options__count {
+    border-top: 1px solid lightgray;
+    display: flex;
+    justify-content: space-between;
+    font-size: medium;
+    color: gray;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.options__count--unDisplay {
+    display: none;
+}
+
+.option__count {
+    display: flex;
+}
+
+.option__count > p {
+    margin-left: 10px;
+}
+.like__count > .MuiSvgIcon-root {
+    font-size: 1rem;
+
+    padding: 4px;
+
+    border-radius: 999px;
+    color: #ffffff;
+    background-color: #2e81f4;
+}
+
 @media (max-width: 400px) {
 
     .post__close{

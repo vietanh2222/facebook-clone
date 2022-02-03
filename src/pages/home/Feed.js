@@ -45,7 +45,7 @@ function Feed() {
             return;
         }
     }
-
+    
     return (
         <div className='feed' >
             <StoryReel />
@@ -77,6 +77,9 @@ function Feed() {
                     timestamp={post.timestamp}
                     message={post.message}
                     email={user.email}
+                    userLikes={post.userLikes || []}
+                    userShares={post.userShares || []}
+                    userLogin={user.displayName}
                 />
             )}
             </InfiniteScroll>

@@ -28,14 +28,16 @@ function MessageSender() {
             image: imageUrl,
             username: user.displayName,
             timestamp: serverTimestamp(),
-            message: input
+            message: input,
+            userLikes:[],
+            userShares: []
           });
 
         setInput("");
         setImageUrl("");
         closeHidenForm();
     };
-
+    
     const hidenForm = useRef();
     const inputFocus = useRef();
     const showHidenForm = (e) => {

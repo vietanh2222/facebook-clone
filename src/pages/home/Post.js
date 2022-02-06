@@ -7,16 +7,30 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import { doc, deleteDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
+import { doc, deleteDoc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, setDoc } from "firebase/firestore";
 import db from './firebase';
 
 
-function Post({ id, profilePic, image, username, email, timestamp, message, userLikes, userLogin, userShares }) {
+function Post({ id, profilePic, image, username, email, 
+                timestamp, message, userLikes, userLogin, 
+                userShares, userComment }) {
   
     if( timestamp !== undefined && timestamp !== null ) {
         var dateInMillis  = timestamp.seconds * 1000
     }
     const date = new Date(dateInMillis).toDateString() + ' at ' + new Date(dateInMillis).toLocaleTimeString('en-US');
+
+    const [isLike, setIsLike] = useState(false);
+    const [isShare, setIsShare] = useState(false);
+    const [comment, setComment] = useState("");
+    useEffect(() => {
+        const isCurrentUserLike = userLikes.some((user) => user === userLogin)
+        setIsLike(isCurrentUserLike)
+
+        const isCurrenUserShare = userShares.some((user) => user === userLogin)
+        setIsShare(isCurrenUserShare)
+    }, [userLikes, userLogin, userShares])
+
     const handleRemove = () => {
         if(email !== "nguyenvietanh2222@gmail.com"){
             alert(`You don't have permission to remove a post`);
@@ -25,19 +39,6 @@ function Post({ id, profilePic, image, username, email, timestamp, message, user
         }
     }
 
-    const [isLike, setIsLike] = useState(false);
-    const [isShare, setIsShare] = useState(false);
-    useEffect(() => {
-        const isCurrentUserLike = userLikes.some((user) => user === userLogin)
-        setIsLike(isCurrentUserLike)
-
-        const isCurrenUserShare = userShares.some((user) => user === userLogin)
-        setIsShare(isCurrenUserShare)
-    }, [userLikes, userLogin, userShares])
-    console.log(userShares);
-    if(userShares === undefined) {
-        userShares = []
-    }
     const handleLike = async () => {
         setIsLike(!isLike);
             if(!isLike){
@@ -63,7 +64,18 @@ function Post({ id, profilePic, image, username, email, timestamp, message, user
                 });
             } 
     }  
-    
+    console.log(userComment);
+    const handleComment = async (e) => {
+        e.preventDefault();
+        await setDoc(doc(db, "posts", id, 'userComment', userLogin), {
+            comment2:{
+                timestamp: serverTimestamp(),
+                title:comment
+            }
+        }, { capital: true }, { merge: true });
+       
+        setComment('');
+    }
     return (
         <div className='post' >
             <div className='post__top'>
@@ -163,6 +175,29 @@ function Post({ id, profilePic, image, username, email, timestamp, message, user
                 <div className='post__option'>
                     <AccountCircleIcon />
                     <ExpandMoreIcon />
+                </div>
+            </div>
+            <div className="post__comments">
+                <form>
+                    <Avatar />
+                    <input 
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        type="text" 
+                        placeholder='Write a comment...' 
+                    />
+                    <button type="submit" onClick={handleComment} >Hiden Button</button>
+                </form>
+                <div className="post__comment">
+                    <Avatar />
+                    <div className="comment__content">
+                        <h2>UserName</h2>
+                        <p>Comment title</p>
+                        <span>Timestamp</span>
+                    </div>
+                    <div className="comment__remove">
+                        <CloseIcon />
+                    </div>
                 </div>
             </div>
         </div>

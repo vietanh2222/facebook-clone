@@ -45,7 +45,7 @@ function Feed() {
             return;
         }
     }
-    
+   
     return (
         <div className='feed' >
             <StoryReel />
@@ -80,6 +80,7 @@ function Feed() {
                     userLikes={post.userLikes || []}
                     userShares={post.userShares || []}
                     userLogin={user.displayName}
+                    userComment={post.userComment || {}}
                 />
             )}
             </InfiniteScroll>

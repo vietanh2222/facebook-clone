@@ -15,6 +15,7 @@ function MessageSender() {
     const [{user}] = useStateValue();
     const [input, setInput] = useState("");
     const [imageUrl, setImageUrl] = useState("");
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!auth.currentUser){
@@ -30,7 +31,8 @@ function MessageSender() {
             timestamp: serverTimestamp(),
             message: input,
             userLikes:[],
-            userShares: []
+            userShares: [],
+            userComments:{}
           });
 
         setInput("");

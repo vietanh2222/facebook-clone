@@ -149,6 +149,60 @@
     margin-bottom: 4px;
 }
 
+.post__comments{
+    padding: 20px;
+}
+
+.post__comments > form > button{
+    display: none;
+}
+
+.post__comments > form > input{
+    flex: 1;
+}
+
+.post__comment {
+    display: flex;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+
+.comment__content {
+    padding: 10px;
+    border-radius: 20px;
+    background-color: #eff2f5;
+    margin-left: 10px;
+}
+
+.comment__content > h2{
+    font-size: 14px;
+}
+
+.comment__content > span{
+    font-size: 12px;
+    color: gray;
+}
+
+.comment__content > h2:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.comment__remove{
+    align-self: center;
+    margin-left: 10px;
+    display: none;
+}
+
+.post__comment:hover > .comment__remove {
+    display: block;
+}
+
+.MuiAvatar-root, .MuiSvgIcon-root {
+    cursor: pointer;
+}
+
+
 @media (max-width: 400px) {
 
     .post__close{

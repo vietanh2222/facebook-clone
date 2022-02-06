@@ -30,7 +30,6 @@ function Feed() {
         });
     }, [])
 
-    console.log(userComment);
     const fetchData = () => {
         if(documentSnapshots.current.docs){
         const lastVisible = documentSnapshots.current.docs[documentSnapshots.current.docs.length-1];

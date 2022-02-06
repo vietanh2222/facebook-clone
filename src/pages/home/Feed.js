@@ -11,20 +11,26 @@ import { useStateValue } from '../../store/StateProvider';
 function Feed() {
     const [{user}] = useStateValue();
     const [posts, setPosts] = useState([{username: "....Loading", id: "initial"}]);
-    const [hasMore, setHasMore] = useState(true)
+    const [hasMore, setHasMore] = useState(true);
+    const [userComment, setUserComment] = useState([]);
     const documentSnapshots = useRef("initial");
     
     useEffect(() => {
-        const q = query(collection(db, "posts"), orderBy("timestamp", "desc"), limit(2));
+        const qPosts = query(collection(db, "posts"), orderBy("timestamp", "desc"), limit(2));
         
-        onSnapshot(q, (snapshot) => {
-                documentSnapshots.current = snapshot;
-                setPosts(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
-                setHasMore(true)
+        onSnapshot(qPosts, (snapshot) => {
+            documentSnapshots.current = snapshot;
+            setPosts(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+            setHasMore(true)
+        });
+
+        const qUserComments = query(collection(db, "userComment"), orderBy("timestamp", "desc"));
+        onSnapshot(qUserComments, (snapshot) => {
+            setUserComment(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
         });
     }, [])
 
-
+    console.log(userComment);
     const fetchData = () => {
         if(documentSnapshots.current.docs){
         const lastVisible = documentSnapshots.current.docs[documentSnapshots.current.docs.length-1];
@@ -41,6 +47,7 @@ function Feed() {
             const nextPosts = snapshot.docs.map(doc => ({...doc.data(), id: doc.id}))
             setPosts([...posts, ...nextPosts])
         });
+
         } else {
             return;
         }
@@ -80,7 +87,9 @@ function Feed() {
                     userLikes={post.userLikes || []}
                     userShares={post.userShares || []}
                     userLogin={user.displayName}
-                    userComment={post.userComment || {}}
+                    userComment={userComment.filter(
+                        (postComment) => postComment.postId === post.id)}
+                    userAvatar={user.photoURL}
                 />
             )}
             </InfiniteScroll>

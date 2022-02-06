@@ -7,19 +7,14 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import CloseIcon from '@mui/icons-material/Close';
-import { doc, deleteDoc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, setDoc } from "firebase/firestore";
+import { collection, doc, deleteDoc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, addDoc } from "firebase/firestore";
 import db from './firebase';
-
+import Timestamp from 'react-timestamp';
 
 function Post({ id, profilePic, image, username, email, 
                 timestamp, message, userLikes, userLogin, 
-                userShares, userComment }) {
+                userShares, userComment, userAvatar }) {
   
-    if( timestamp !== undefined && timestamp !== null ) {
-        var dateInMillis  = timestamp.seconds * 1000
-    }
-    const date = new Date(dateInMillis).toDateString() + ' at ' + new Date(dateInMillis).toLocaleTimeString('en-US');
-
     const [isLike, setIsLike] = useState(false);
     const [isShare, setIsShare] = useState(false);
     const [comment, setComment] = useState("");
@@ -67,14 +62,16 @@ function Post({ id, profilePic, image, username, email,
     console.log(userComment);
     const handleComment = async (e) => {
         e.preventDefault();
-        await setDoc(doc(db, "posts", id, 'userComment', userLogin), {
-            comment2:{
-                timestamp: serverTimestamp(),
-                title:comment
-            }
-        }, { capital: true }, { merge: true });
-       
+        
+        await addDoc(collection(db, "userComment"), {
+            postId: id,
+            timestamp: serverTimestamp(),
+            title: comment,
+            user: userLogin,
+            profilePic: userAvatar
+        });
         setComment('');
+        
     }
     return (
         <div className='post' >
@@ -83,7 +80,7 @@ function Post({ id, profilePic, image, username, email,
                     className='post__avatar' />
                 <div className='post__topInfo'>
                     <h3>{username}</h3>
-                    <p>{timestamp === undefined ? "...Loading" : date}</p>
+                    <p>{timestamp === undefined ? "...Loading" : <Timestamp date={timestamp.seconds} />}</p>
                 </div>
                 <CloseIcon  onClick={handleRemove} className='post__close' />
             </div>
@@ -179,7 +176,7 @@ function Post({ id, profilePic, image, username, email,
             </div>
             <div className="post__comments">
                 <form>
-                    <Avatar />
+                    <Avatar src={userAvatar}/>
                     <input 
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
@@ -188,17 +185,19 @@ function Post({ id, profilePic, image, username, email,
                     />
                     <button type="submit" onClick={handleComment} >Hiden Button</button>
                 </form>
-                <div className="post__comment">
-                    <Avatar />
-                    <div className="comment__content">
-                        <h2>UserName</h2>
-                        <p>Comment title</p>
-                        <span>Timestamp</span>
+                {userComment.map((comment) =>
+                    <div className="post__comment" key={comment.id}>
+                        <Avatar src={comment.profilePic}/>
+                        <div className="comment__content" >
+                            <h2>{comment.user}</h2>
+                            <p>{comment.title}</p>
+                            <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
+                        </div>
+                        <div className="comment__remove">
+                            <CloseIcon />
+                        </div>
                     </div>
-                    <div className="comment__remove">
-                        <CloseIcon />
-                    </div>
-                </div>
+                )}
             </div>
         </div>
     )

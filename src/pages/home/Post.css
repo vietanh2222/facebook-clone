@@ -37,7 +37,7 @@
 
 .post__change > .MuiSvgIcon-root {
     cursor: pointer;
-    padding: 4px;
+    padding: 0 4px;
 }
 
 .post__change:hover {
@@ -49,6 +49,7 @@
     position: absolute;
     top: 40px;
     right: 2px;
+    z-index: 1;
 
     background-color: #ffffff;
     box-shadow: -2px 2px 8px 1px rgb(207, 205, 205);
@@ -64,6 +65,7 @@
     padding: 10px;
     border-radius: 10px;
     color: #000000;
+    cursor: pointer;
 }
 
 .post__remove::before{
@@ -78,6 +80,20 @@
     top: -8px;
     right: 8px;
     
+}
+
+
+.comment__remove::before {
+    content: '';
+    background-color: white;
+
+    width: 10px;
+    height: 15px;
+
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%) rotate(140deg);
 }
 
 .change__option:hover {
@@ -103,14 +119,42 @@
     margin-bottom: -5px;
 }
 
+.changeOptions{
+    background-color: black;
+    color: white;
+
+    border-radius: 10px;
+    opacity: 0.7;
+    padding: 4px 10px;
+
+    position: absolute;
+    top: -70%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: none;
+
+}
+
+.changeOptions > p{
+    white-space: nowrap;
+}
+
+.post__change:hover > .changeOptions {
+    display: block;
+}
+
 .post__options {
-    padding-top: 10px;
+
     border-top: 1px solid lightgray;
+
     display: flex;
     justify-content: space-evenly;
+
     font-size: medium;
     color: gray;
     cursor: pointer;
+    
     padding: 15px;
 }
 
@@ -186,6 +230,8 @@
 .like__showUser, .share__showUser {
     position: absolute;
     top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
 
     color: white;
     background-color: black;
@@ -256,13 +302,66 @@
     text-decoration: underline;
 }
 
-.comment__remove{
+.comment__change {
+    position: relative;
     align-self: center;
     margin-left: 10px;
-    display: none;
+    color: #65676b;
+    border-radius: 999px;
+    padding: 0 4px;
+    
 }
 
-.post__comment:hover > .comment__remove {
+.comment__change > .MuiSvgIcon-root {
+    visibility: hidden;
+}
+
+.post__comment:hover > .comment__change > .MuiSvgIcon-root{
+    visibility: visible;
+}
+
+.comment__change:hover {
+    background-color: #eff2f5;
+}
+
+.commentOptions{
+    background-color: black;
+    color: white;
+
+    border-radius: 10px;
+    opacity: 0.7;
+    padding: 4px 10px;
+
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: none;
+
+}
+
+.comment__options {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+
+    background-color: #ffffff;
+    box-shadow: -2px 2px 8px 1px rgb(207, 205, 205);
+
+    border-radius: 10px;
+
+    min-width: 200px;
+
+}
+
+.commentOptions > p{
+    white-space: nowrap;
+}
+
+.comment__change:hover > .commentOptions {
     display: block;
 }
 

@@ -11,6 +11,10 @@
     width: 100%;
 }
 
+.infinite-scroll-component {
+    overflow: visible !important;
+}
+
 .infinite-scroll-component > p {
     padding-top: 20px;
 }

@@ -6,13 +6,14 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import CloseIcon from '@mui/icons-material/Close';
 import { collection, doc, deleteDoc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, addDoc } from "firebase/firestore";
 import db from './firebase';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Timestamp from 'react-timestamp';
+import HidenForm from './HidenForm';
+import CommentOptions from './CommentOptions';
 
 function Post({ id, profilePic, image, username, email, 
                 timestamp, message, userLikes, userLogin, 
@@ -24,6 +25,9 @@ function Post({ id, profilePic, image, username, email,
     const [isOpenComment, setIsOpenComment] = useState(false);
     const [isInteract, setIsInteract] = useState(false);
     const [isChangeOptionsOpen, setIsChangeOptionsOpen] = useState(false);
+    const [isModifyFormOpen, setIsModifyFormOpen] = useState(false);
+    const [isChangeCommentOpen, setIsChangeCommentOpen] = useState(0);               
+
     useEffect(() => {
         const isCurrentUserLike = userLikes.some((user) => user === userLogin)
         setIsLike(isCurrentUserLike)
@@ -81,11 +85,14 @@ function Post({ id, profilePic, image, username, email,
     }
 
     const handleRemoveComment = async (commentId) => {
+        setIsChangeCommentOpen(-50);
         await deleteDoc(doc(db, "userComment", commentId))
     }
 
     const handleOpenComment = () => {
+        setIsChangeCommentOpen(-50)
         setIsOpenComment(!isOpenComment)
+
     }
     
     const handleInteraction = () => {
@@ -108,6 +115,22 @@ function Post({ id, profilePic, image, username, email,
         }
     }, [handleCloseChangeOptions])
 
+    const handleOpenMofidyForm = () => {
+        setIsModifyFormOpen(true)
+        setIsChangeOptionsOpen(false)
+    }
+    const handleCloseModifyForm = useCallback(() => {
+        setIsModifyFormOpen(false)
+    }, [])
+
+    const handleToggleChangeComment = (index) => {
+        if(isChangeCommentOpen === index){
+            setIsChangeCommentOpen(!index)
+        }else{
+            setIsChangeCommentOpen(index)
+        }
+    }
+
     return (
         <div className='post' >
             <div className='post__top'>
@@ -115,13 +138,18 @@ function Post({ id, profilePic, image, username, email,
                     className='post__avatar' />
                 <div className='post__topInfo'>
                     <h3>{username}</h3>
+                    {timestamp !== null && 
                     <p>{timestamp === undefined ? "...Loading" : <Timestamp date={timestamp.seconds} />}</p>
+                    }
                 </div>
                 <div className='post__change' onClick={(e) => {
                     e.stopPropagation();
                     document.querySelector('.searchBar').style.display ="none";
                 }}>
                     <MoreHorizIcon onClick={handleToggleChangeOptions}/>
+                    <div className='changeOptions'>
+                        <p>Modify or Delete this post</p>
+                    </div>
                     {isChangeOptionsOpen &&
                         <div className='change__options'>
                             <div 
@@ -131,17 +159,26 @@ function Post({ id, profilePic, image, username, email,
                                 <DeleteIcon   className='post__close' />
                                 <p>Delete post</p>
                             </div>
-                            <div className="post__modify change__option">
+                            <div 
+                                onClick={handleOpenMofidyForm}
+                                className="post__modify change__option"
+                            >
                                 <BorderColorIcon />
                                 <p>Modify Post</p>
                             </div>
                         </div>
                     }
                 </div>
-               
-                
             </div>
-
+            {isModifyFormOpen && 
+            <HidenForm 
+                closeForm={handleCloseModifyForm}
+                userAvatar={userAvatar}
+                userLogin={userLogin}
+                messageModify={message}
+                imageModify={image}
+                postId={id}
+            />}
             <div className='post__bottom'>
                 <p>{message}</p>
             </div>
@@ -262,7 +299,7 @@ function Post({ id, profilePic, image, username, email,
                         />
                         <button type="submit" onClick={handleComment} >Hiden Button</button>
                     </form>
-                    {userComment.map((comment) =>
+                    {userComment.map((comment, index) =>
                         <div className="post__comment" key={comment.id}>
                             <Avatar src={comment.profilePic}/>
                             <div className="comment__content" >
@@ -270,10 +307,21 @@ function Post({ id, profilePic, image, username, email,
                                 <p>{comment.title}</p>
                                 <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
                             </div>
-                            <div className="comment__remove">
-                                <CloseIcon onClick={() => {
-                                    handleRemoveComment(comment.id)
-                                }}/>
+                            
+                            <div className='comment__change' onClick={(e) => {
+                                e.stopPropagation();
+                                document.querySelector('.searchBar').style.display ="none";
+                            }}>
+                                <MoreHorizIcon onClick={() => handleToggleChangeComment(index)}/>
+                                <div className='commentOptions'>
+                                    <p>Modify or Delete this comment</p>
+                                </div>
+                                <CommentOptions 
+                                    isOpen={index}
+                                    indexToOpen={isChangeCommentOpen}
+                                    handleRemoveComment={() => handleRemoveComment(comment.id)}
+                                    commentId={comment.id}
+                                />
                             </div>
                         </div>
                     )}

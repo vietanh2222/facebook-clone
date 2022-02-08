@@ -1,0 +1,25 @@
+.hiddenButton {
+    display: none;
+}
+
+.modifyComment{
+    align-self: center;
+    flex: 1;
+}
+
+.modifyComment > form > input{
+    height: 26px;
+    width: 85%;
+}
+
+.modifyComment > span {
+    font-size: 12px;
+    color: rgb(77, 134, 207);
+    margin: 16px 0 0 16px;
+
+}
+
+.modifyComment > span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}

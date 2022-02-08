@@ -1,5 +1,5 @@
 import { Avatar } from '@mui/material';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Post.css";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Timestamp from 'react-timestamp';
 import HidenForm from './HidenForm';
 import CommentOptions from './CommentOptions';
+import ModifyComment from './ModifyComment';
 
 function Post({ id, profilePic, image, username, email, 
                 timestamp, message, userLikes, userLogin, 
@@ -27,7 +28,7 @@ function Post({ id, profilePic, image, username, email,
     const [isChangeOptionsOpen, setIsChangeOptionsOpen] = useState(false);
     const [isModifyFormOpen, setIsModifyFormOpen] = useState(false);
     const [isChangeCommentOpen, setIsChangeCommentOpen] = useState(0);               
-
+    const [modifyCommentId, setModifyCommentId] = useState('');               
     useEffect(() => {
         const isCurrentUserLike = userLikes.some((user) => user === userLogin)
         setIsLike(isCurrentUserLike)
@@ -72,7 +73,7 @@ function Post({ id, profilePic, image, username, email,
     
     const handleComment = async (e) => {
         e.preventDefault();
-        
+        setComment('');
         await addDoc(collection(db, "userComment"), {
             postId: id,
             timestamp: serverTimestamp(),
@@ -80,8 +81,6 @@ function Post({ id, profilePic, image, username, email,
             user: userLogin,
             profilePic: userAvatar
         });
-        setComment('');
-        
     }
 
     const handleRemoveComment = async (commentId) => {
@@ -89,10 +88,18 @@ function Post({ id, profilePic, image, username, email,
         await deleteDoc(doc(db, "userComment", commentId))
     }
 
+    const handleOpenModifyComment = (commentId) => {
+        handleCloseChangeComment();
+        setModifyCommentId(commentId)
+    }
+
+    const handleCloseModifyComment = () => {
+        setModifyCommentId(-50)
+    }
+
     const handleOpenComment = () => {
         setIsChangeCommentOpen(-50)
         setIsOpenComment(!isOpenComment)
-
     }
     
     const handleInteraction = () => {
@@ -101,34 +108,43 @@ function Post({ id, profilePic, image, username, email,
 
     const handleToggleChangeOptions = () => {
         setIsChangeOptionsOpen(!isChangeOptionsOpen)
+        if(isChangeOptionsOpen){
+            document.addEventListener('click', handleCloseChangeOptions)
+        }else{
+            handleCloseChangeComment()
+        }
     }
     
-    const handleCloseChangeOptions = useCallback(() => {
+    const handleCloseChangeOptions = () => {
         setIsChangeOptionsOpen(false)
-    }, [])
-        
-    useEffect(() =>
-    {
-        document.addEventListener('click', handleCloseChangeOptions)
-        return () => {
+        if(!isChangeCommentOpen){
             document.removeEventListener('click', handleCloseChangeOptions)
         }
-    }, [handleCloseChangeOptions])
+    }
 
     const handleOpenMofidyForm = () => {
         setIsModifyFormOpen(true)
         setIsChangeOptionsOpen(false)
     }
-    const handleCloseModifyForm = useCallback(() => {
+
+    const handleCloseModifyForm = () => {
         setIsModifyFormOpen(false)
-    }, [])
+    }
 
     const handleToggleChangeComment = (index) => {
         if(isChangeCommentOpen === index){
             setIsChangeCommentOpen(!index)
+            document.removeEventListener('click', handleToggleChangeComment)
         }else{
             setIsChangeCommentOpen(index)
-        }
+            handleCloseChangeOptions()
+            document.addEventListener('click', handleToggleChangeComment)
+        }   
+    }
+
+    const handleCloseChangeComment = () => {
+        setIsChangeCommentOpen(-50)
+        document.removeEventListener('click', handleToggleChangeComment)
     }
 
     return (
@@ -288,26 +304,24 @@ function Post({ id, profilePic, image, username, email,
             </div>
             {isOpenComment && 
                 <div className="post__comments">
-                    <form>
-                        <Avatar src={userAvatar}/>
-                        <input
-                            autoFocus 
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            type="text" 
-                            placeholder='Write a comment...' 
-                        />
-                        <button type="submit" onClick={handleComment} >Hiden Button</button>
-                    </form>
+                    
                     {userComment.map((comment, index) =>
                         <div className="post__comment" key={comment.id}>
                             <Avatar src={comment.profilePic}/>
-                            <div className="comment__content" >
-                                <h2>{comment.user}</h2>
-                                <p>{comment.title}</p>
-                                <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
-                            </div>
-                            
+                            {modifyCommentId === comment.id
+                            ? 
+                                <ModifyComment 
+                                   title={comment.title}
+                                   id={comment.id}
+                                   closeModifyComment={handleCloseModifyComment} 
+                                />
+                            :
+                                <div className="comment__content" >
+                                    <h2>{comment.user}</h2>
+                                    <p>{comment.title}</p>
+                                    <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
+                                </div>
+                            }
                             <div className='comment__change' onClick={(e) => {
                                 e.stopPropagation();
                                 document.querySelector('.searchBar').style.display ="none";
@@ -321,14 +335,26 @@ function Post({ id, profilePic, image, username, email,
                                     indexToOpen={isChangeCommentOpen}
                                     handleRemoveComment={() => handleRemoveComment(comment.id)}
                                     commentId={comment.id}
+                                    handleModifyComment={() => handleOpenModifyComment(comment.id)}
                                 />
                             </div>
                         </div>
                     )}
+                    <form>
+                        <Avatar src={userAvatar}/>
+                        <input
+                            autoFocus 
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            type="text" 
+                            placeholder='Write a comment...' 
+                        />
+                        <button type="submit" onClick={handleComment} >Hiden Button</button>
+                    </form>
                 </div>
             }
         </div>
     )
 }
-
+                
 export default Post

@@ -2,7 +2,7 @@ import React from "react";
 import  DeleteIcon from '@mui/icons-material/Delete';
 import  BorderColorIcon  from '@mui/icons-material/BorderColor';
 
-function CommentOptions({isOpen, indexToOpen, handleRemoveComment}) {
+function CommentOptions({isOpen, indexToOpen, handleRemoveComment, handleModifyComment}) {
 
   return (
     isOpen === indexToOpen ?
@@ -14,7 +14,8 @@ function CommentOptions({isOpen, indexToOpen, handleRemoveComment}) {
         <DeleteIcon className="post__close" />
         <p>Delete comment</p>
       </div>
-      <div 
+      <div
+        onClick={handleModifyComment}
         className="comment__modify change__option"
       >
         <BorderColorIcon />

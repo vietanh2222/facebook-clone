@@ -9,17 +9,21 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useStateValue } from '../../store/StateProvider';
+import { useNavigate } from 'react-router-dom';
 
 function Sidebar() {
 
 const [{user}] = useStateValue();
-
+const navigate = useNavigate()
     return (
         <div className='sidebar'>
+            <div onClick={() => 
+                {navigate(`/profile/me`, {state: {name: user.displayName, avatar:user.photoURL }})}}>
             <SidebarRow 
                 src={user.photoURL}
                 title={user.displayName}
             />
+            </div>
             <SidebarRow 
                 Icon={LocalHospitalIcon}
                 title="COVID-19 Information Center"
@@ -28,10 +32,12 @@ const [{user}] = useStateValue();
                 Icon={EmojiFlagsIcon}
                 title="Pages"
             />
+            <div onClick={() => {navigate('friends')}}>
             <SidebarRow 
                 Icon={PeopleIcon}
                 title="Friends"
             />
+            </div>
             <SidebarRow 
                 Icon={ChatIcon}
                 title="Messenger"

@@ -14,7 +14,7 @@ function SearchHistory({searchKey, name, avatar, isFriend }) {
   }
   const goToProfile = () => {
     closeSearchBar();
-    navigate(`profile/${name.replace(/\s/g, '')}`, {state: {name, avatar, isFriend}})
+    navigate(`profile/${name.replace(/\s/g, '')}`, {state: {name, avatar, isFriend }})
   }
   const removeSearchHistory = async (e) => {
     e.stopPropagation();

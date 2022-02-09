@@ -17,6 +17,7 @@ import Sidebar from "../../pages/home/Sidebar";
 import {
   Link,
   useLocation,
+  useNavigate,
 } from "../../../node_modules/react-router-dom/index";
 import { signOut } from "firebase/auth";
 import { auth } from "../../pages/home/firebase";
@@ -29,7 +30,7 @@ function Header() {
 
   const [searchValue, setSearchValue] = useState('');
   const { pathname } = useLocation();
-
+  const navigate = useNavigate()
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
@@ -135,10 +136,10 @@ function Header() {
             <p>Groups</p>
           </div>
         </Link>
-        <Link to="profile">
+        <Link to="gaming">
           <div
             className={
-              pathname === "/profile"
+              pathname === "/gaming"
                 ? `header__option 
                 header__option--active`
                 : `header__option`
@@ -154,7 +155,8 @@ function Header() {
         <IconButton onClick={handleClick}>
           <ListIcon className="header__list" />
         </IconButton>
-        <div className="header__info">
+        <div className="header__info" onClick={() => 
+                {navigate(`/profile/me`, {state: {name: user.displayName, avatar:user.photoURL }})}}>
           <Avatar src={user.photoURL} />
           <h4>{user.displayName}</h4>
         </div>

@@ -1,92 +1,215 @@
-import { Avatar, IconButton } from '@mui/material';
-import React from 'react';
-import './Profile.css';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import WorkIcon from '@mui/icons-material/Work';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { useLocation } from 'react-router-dom';
-import CheckIcon from '@mui/icons-material/Check';
+import { Avatar, IconButton } from "@mui/material";
+import React, { useState } from "react";
+import "./Profile.css";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import WorkIcon from "@mui/icons-material/Work";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import VideoCameraFrontIcon from "@mui/icons-material/VideoCameraFront";
+import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import EditIcon from "@mui/icons-material/Edit";
+import { useLocation } from "react-router-dom";
+import CheckIcon from "@mui/icons-material/Check";
 
 function Profile() {
+  let { state, pathname } = useLocation();
+  if (state === null) {
+    state = {};
+  }
+  const isUserPage = pathname.substring(9) === "me";
+  const width = 950 + Math.floor(Math.random() * 40);
+  const height = 650 + Math.floor(Math.random() * 30);
 
-    const {state} = useLocation();
-
-  return <div className="profile">
-        <div className="profile__header">
-            <div className="profile__banner">
-                <img src="https://scontent.fhph1-3.fna.fbcdn.net/v/t1.6435-9/s960x960/119063430_1974525656015733_2865548469370594218_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=e3f864&_nc_ohc=EhOUAwTHD-QAX9fqasT&_nc_ht=scontent.fhph1-3.fna&oh=00_AT84a1A2zQJj78vh9ztd4o6KDDXQ1Tvy4V7Lz2KKA5l9cg&oe=621B6912"
-                    alt=""
-                />
-            </div>
-            <div className="profile__container">
-                <div className="profile__info">
-                    <div className="profile__avatar">
-                        <Avatar src={state === null ? '' : state.avatar}/>
-                    </div>
-                    <div className="profile__name">
-                        <h1>{state === null ?'Name' : state.name}</h1>
-                        <p>{state === null ? '' : `${Math.floor(Math.random()*50)} friends together`}</p>
-                    </div>
-                    <IconButton>
-                        {state !== null && state.isFriend === 'yes'
-                        ?   
-                            <>
-                                <CheckIcon />
-                                <p>Friend</p>
-                            </>
-                        :   
-                            <>
-                                <PersonAddIcon />
-                                <p>Add Friend</p>
-                            </>
-                        }
-                    </IconButton>
-                    <IconButton>
-                        <ChatBubbleOutlineIcon />
-                        <p>Chat</p>
-                    </IconButton>
-                </div>
-                <div className="profile__navlink">
-                    <ul>
-                        <li><p>Posts</p></li>
-                        <li><p>Introduce</p></li>
-                        <li><p>Friends</p></li>
-                        <li><p>Images</p></li>
-                        <li><p>Check in</p></li>
-                        <li><p>Sport</p></li>
-                        <li><p>More</p><ArrowDropDownIcon /></li>
-                    </ul>
-                </div>
-            </div>
+  const [isFriend, setIsFriend] = useState(state.isFriend === "yes");
+  return (
+    <div className="profile">
+      <div className="profile__header">
+        <div className="profile__banner">
+          <img src={`https://picsum.photos/${width}/${height}`} alt="" />
         </div>
         <div className="profile__container">
-            <div className="profile__body">
-                <div className="profile__sidebar">
-                    <div className="profile__introduce profile__box">
-                        <h3>Introduce</h3>
-                        <div className="introduce__info">
-                            <WorkIcon />
-                            <p>Work from home</p>
-                        </div>
-                    </div>
-                    <div className="profile__image">
-                        
-                    </div>
+          <div className="profile__info">
+            <div className="profile__avatar">
+              <Avatar src={state.avatar} />
+            </div>
+            <div className="profile__name">
+              <h1>{state.name}</h1>
+              {isUserPage ? (
+                <p>{`${Math.floor(Math.random() * 1000)} friends`}</p>
+              ) : (
+                <p>{`${Math.floor(Math.random() * 50)} friends together`}</p>
+              )}
+            </div>
+            {isUserPage ? (
+              <>
+                <IconButton>
+                  <AddCircleOutlineIcon />
+                  <p>Add more information</p>
+                </IconButton>
+                <IconButton>
+                  <EditIcon />
+                  <p>Modify personal page</p>
+                </IconButton>
+              </>
+            ) : (
+              <>
+                <IconButton onClick={() => setIsFriend(!isFriend)}>
+                  {state !== null && isFriend ? (
+                    <>
+                      <CheckIcon />
+                      <p>Friend</p>
+                    </>
+                  ) : (
+                    <>
+                      <PersonAddIcon />
+                      <p>Add Friend</p>
+                    </>
+                  )}
+                </IconButton>
+                <IconButton>
+                  <ChatBubbleOutlineIcon />
+                  <p>Chat</p>
+                </IconButton>
+              </>
+            )}
+          </div>
+          <div className="profile__navlink">
+            <ul>
+              <li>
+                <p>Posts</p>
+              </li>
+              <li>
+                <p>Introduce</p>
+              </li>
+              <li>
+                <p>Friends</p>
+              </li>
+              <li>
+                <p>Images</p>
+              </li>
+              <li>
+                <p>Check in</p>
+              </li>
+              <li>
+                <p>Sport</p>
+              </li>
+              <li>
+                <p>More</p>
+                <ArrowDropDownIcon />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="profile__container">
+        <div className="profile__body">
+          <div className="profile__sidebar">
+            <div className="profile__introduce profile__box">
+              <h3>Introduce</h3>
+              <div className="introduce__info">
+                <WorkIcon />
+                <p>Work from home</p>
+              </div>
+              {isUserPage && (
+                <>
+                  <div className="introduce__option">
+                    <h2>Add more profile</h2>
+                  </div>
+                  <div className="introduce__option">
+                    <h2>Modify detail</h2>
+                  </div>
+                  <div className="introduce__option">
+                    <h2>Add hobby</h2>
+                  </div>
+                  <div className="introduce__option">
+                    <h2>Add noticeable content</h2>
+                  </div>
+                </>
+              )}
+            </div>
+            <div className="profile__image profile__box">
+                <h1>Images</h1>
+                <IconButton >
+                    <p>View all images</p>
+                </IconButton>
+            </div>
+            <div className="profile__image profile__box">
+                <h1>Friends</h1>
+                <IconButton >
+                    <p>View all friends</p>
+                </IconButton>
+            </div>
+          </div>
+          <div className="profile__post">
+          <div className="profile__filter profile__box">
+              <h3>Post</h3>
+              <IconButton>
+                <FilterListIcon />
+                <p>Filter</p>
+              </IconButton>
+            </div>
+            {isUserPage && (
+              <div className="messageSender">
+                <div className="messageSender__top">
+                  <Avatar src={state.avatar} />
+                  <form>
+                    <button
+                      className="messageSender__button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                      }}
+                    >
+                      {`What's on your mind, ${state.name} ?`}
+                    </button>
+                  </form>
                 </div>
-                <div className="profile__post">
-                    <div className="profile__filter profile__box">
-                        <h3>Post</h3>
-                        <IconButton>
-                            <FilterListIcon />
-                            <p>Filter</p>
-                        </IconButton>
-                    </div>
+
+                <div className="messageSender__bottom">
+                  <div className="messageSender__option">
+                    <VideoCameraFrontIcon
+                      style={{
+                        color: "red",
+                      }}
+                    />
+                    <h3>Live Video</h3>
+                  </div>
+                  <div className="messageSender__option">
+                    <PhotoLibraryIcon
+                      style={{
+                        color: "green",
+                      }}
+                    />
+                    <h3>Photo/Video</h3>
+                  </div>
+                  <div className="messageSender__option">
+                    <InsertEmoticonIcon
+                      style={{
+                        color: "orange",
+                      }}
+                    />
+                    <h3>Feeling/Activity</h3>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div className='postProfile profile__box'>
+                <div className="postProfile__top">
+                <Avatar src={state.avatar} />
+                <h1>{state.name}</h1>
+                </div>
+                <div className="postProfile__bottom">
+
                 </div>
             </div>
+           
+          </div>
         </div>
-  </div>;
+      </div>
+    </div>
+  );
 }
 
 export default Profile;

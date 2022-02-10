@@ -13,12 +13,13 @@ function HidenForm({closeForm, userAvatar,
 
     const handleModifyPost = async (e) => {
         e.preventDefault();
+        closeForm();
         await updateDoc(doc(db, 'posts', postId), {
-            timestamp: serverTimestamp(),
+            timesupdate: serverTimestamp(),
             image,
             message
         })
-        closeForm();
+        
     }
   return (
     <div className="hidenForm" onClick={closeForm}>

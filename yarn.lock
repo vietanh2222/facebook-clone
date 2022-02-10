@@ -1076,6 +1076,11 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@charkour/react-reactions@^0.6.1":
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/@charkour/react-reactions/-/react-reactions-0.6.1.tgz#afce6994bce6f4809b52294aaec9d9cb618032ff"
+  integrity sha512-cEPATHEV3oGnUvAwYVPs/pjptwkNv6voD4QY9XWInikcrvM1dN8hBVAYYzM+Tz1r8ieG6+oBKjvEAZSfZFDvRw==
+
 "@csstools/normalize.css@*":
   version "12.0.0"
   resolved "https://registry.npmjs.org/@csstools/normalize.css/-/normalize.css-12.0.0.tgz"

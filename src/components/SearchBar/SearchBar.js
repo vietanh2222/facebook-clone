@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 function SearchBar({handleGetValue}) {
   
   let [{contacts, friendRequests, friendSuggest}] = useStateValue();
-  console.log(contacts);
+  
   if(contacts === undefined || friendRequests === undefined || friendSuggest === undefined){
     contacts = [];
     friendRequests = [];
@@ -29,7 +29,7 @@ function SearchBar({handleGetValue}) {
       ...contact, isFriend: 'no'
     }))
   const listSearch = [...friendList, ...noFriendList]
-  console.log(listSearch);
+  
   const [searchKey, setSearchKey] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
   const searchResult = useRef([]);
@@ -83,7 +83,6 @@ function SearchBar({handleGetValue}) {
     if(auth.currentUser !== null){
         
         onSnapshot(doc(db, "searchHistories", auth.currentUser.uid), (doc) => {
-        console.log("Current data: ", doc.data());
         setSearchHistory(doc.data().historySearch.reverse());
     });
     }else{

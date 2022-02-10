@@ -1,12 +1,11 @@
 import { Avatar } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import "./Post.css";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { collection, doc, deleteDoc, updateDoc, arrayUnion, arrayRemove, serverTimestamp, addDoc } from "firebase/firestore";
+import { collection, doc, deleteDoc, updateDoc, serverTimestamp, addDoc } from "firebase/firestore";
 import db from './firebase';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -15,12 +14,17 @@ import Timestamp from 'react-timestamp';
 import HidenForm from './HidenForm';
 import CommentOptions from './CommentOptions';
 import ModifyComment from './ModifyComment';
+import { FacebookSelector } from '@charkour/react-reactions';
+import PostReactionDisplay from './PostReactionDisplay';
+import ReactionCounter from './ReactionCounter';
+import CommentReaction from './CommentReaction';
+
 
 function Post({ id, profilePic, image, username, email, 
-                timestamp, message, userLikes, userLogin, 
-                userShares, userComment, userAvatar }) {
+                timestamp, message, reaction, userLogin, 
+                userShares, userComment, userAvatar,  userReactionComment }) {
                     
-    const [isLike, setIsLike] = useState(false);
+    const [userReaction, setUserReaction] = useState('');
     const [isShare, setIsShare] = useState(false);
     const [comment, setComment] = useState("");
     const [isOpenComment, setIsOpenComment] = useState(false);
@@ -28,14 +32,35 @@ function Post({ id, profilePic, image, username, email,
     const [isChangeOptionsOpen, setIsChangeOptionsOpen] = useState(false);
     const [isModifyFormOpen, setIsModifyFormOpen] = useState(false);
     const [isChangeCommentOpen, setIsChangeCommentOpen] = useState(0);               
-    const [modifyCommentId, setModifyCommentId] = useState('');               
+    const [modifyCommentId, setModifyCommentId] = useState('');
+    const [isEmojiBarOpen, setIsEmojiBarOpen] = useState(false);
+    const reactionList = useRef([])
+    const currentUserReaction = useRef({})
+    const listUserReaction = useRef([])
+    const isCurrenUserShare = useRef({})
+    const listUserShare = useRef([])
     useEffect(() => {
-        const isCurrentUserLike = userLikes.some((user) => user === userLogin)
-        setIsLike(isCurrentUserLike)
+        reactionList.current = ['haha', 'sad', 'angry', 'love', 'wow']  
+    }, [])
+    
+    useEffect(() => {
+   
+        currentUserReaction.current = reaction.find((user) => user.user === userLogin) || {};
+        setUserReaction(currentUserReaction.current.emoji)
+        listUserReaction.current = reaction.filter((user) => user.emoji !== '')
+    }, [reaction, userLogin])
 
-        const isCurrenUserShare = userShares.some((user) => user === userLogin)
-        setIsShare(isCurrenUserShare)
-    }, [userLikes, userLogin, userShares])
+    useEffect(() => {
+        isCurrenUserShare.current = userShares.find((user) => user.user === userLogin)
+        
+        if(isCurrenUserShare.current === undefined){
+            setIsShare(undefined)
+        }else{
+            setIsShare(isCurrenUserShare.current.isShare)
+        }
+
+        listUserShare.current = userShares.filter((user) => user.isShare === true)
+    }, [userLogin, userShares])
 
     const handleRemove = () => {
         if(email !== "nguyenvietanh2222@gmail.com"){
@@ -44,31 +69,73 @@ function Post({ id, profilePic, image, username, email,
             deleteDoc(doc(db, "posts", id));
         }
     }
-
+    
     const handleLike = async () => {
-        setIsLike(!isLike);
-            if(!isLike){
-                await updateDoc(doc(db, "posts", id), {
-                    userLikes: arrayUnion(userLogin)
-                });
+            if(userReaction === undefined){
+                await addDoc(collection(db, 'userReaction'), {
+                    postId:id,
+                    user: userLogin,
+                    emoji:'like'
+                })
+                handleCloseEmojiBar()
+                return
+            }
+            if(userReaction !== 'like' && !reactionList.current.includes(userReaction)){
+               await updateDoc(doc(db, 'userReaction', currentUserReaction.current.id), {
+                    emoji:'like'
+               })
             }else{
-                await updateDoc(doc(db, "posts", id), {
-                    userLikes: arrayRemove(userLogin)
-                });
-            } 
+                await updateDoc(doc(db, 'userReaction', currentUserReaction.current.id), {
+                    emoji:''
+               })
+            }  
+            handleCloseEmojiBar() 
     }   
 
+    const handleReaction =  async (emoji) => {
+        
+        if(emoji === userReaction){
+            handleCloseEmojiBar();
+            return
+        }
+        if(userReaction === undefined){
+            await addDoc(collection(db, 'userReaction'), {
+                postId:id,
+                user: userLogin,
+                emoji,
+            })
+            handleCloseEmojiBar();
+            
+        }
+        else{
+            handleCloseEmojiBar();
+            await updateDoc(doc(db, 'userReaction', currentUserReaction.current.id), {
+                emoji,
+           })
+        }
+    }
+    const handleCloseEmojiBar = () => {
+        setIsEmojiBarOpen(false)
+    }
+
     const handleShare = async () => {
-        setIsShare(!isShare);
-            if(!isShare){
-                await updateDoc(doc(db, "posts", id), {
-                    userShares: arrayUnion(userLogin)
-                });
-            }else{
-                await updateDoc(doc(db, "posts", id), {
-                    userShares: arrayRemove(userLogin)
-                });
-            } 
+            if(isShare === undefined){
+                await addDoc(collection(db, "userShare"), {
+                    postId: id,
+                    user: userLogin,
+                    isShare:true
+                })
+                return
+            }
+            if(isShare){
+                await updateDoc(doc(db, 'userShare', isCurrenUserShare.current.id), {
+                    isShare:false
+                })
+            } else {
+                await updateDoc(doc(db, 'userShare', isCurrenUserShare.current.id), {
+                    isShare:true
+                })
+            }
     }  
     
     const handleComment = async (e) => {
@@ -204,59 +271,34 @@ function Post({ id, profilePic, image, username, email,
             </div>
            
             <div className={
-                userLikes.length > 0 
-                || userShares.length > 0 || userComment.length > 0
+                listUserReaction.current.length > 0 
+                || listUserShare.current.length > 0 || userComment.length > 0
                     ? "options__count" 
                     : "options__count--unDisplay"}>
-                <div className="option__count like__count">
-                    <ThumbUpIcon />
-                    {userLikes.length === 1 && isLike 
-                        ? <p>You</p>
-                        : 
-                            <>
-                            {userLikes.length > 1 && isLike
-                                ? <p>You and {userLikes.length - 1 } others</p>
-                                : <p>{userLikes.length}</p>
-                            }
-                            </>
-                    }
-                    <div className='like__showUser'>
-                        <h2>Like</h2>
-                        {userLikes.length === 0 && <p>No like yet !</p>}
-                        {userLikes.map((user,index) => {
-                            
-                            if(index < 8){
-                               return <p key={index}>{user}</p>
-                            }else{
-                                if(index === 8){
-                                    return <p key={index}>and {userLikes.length - index} others...</p>
-                                }else{
-                                    return <></>
-                                }
-                            }
-                        } 
-                        )}
-                    </div>
-                </div>
+                 <ReactionCounter 
+                    reaction={reaction}
+                    currentUserReaction={currentUserReaction.current}
+                />
+                
                 <div className="wrapOptions">
                     <div className="option__count comment__count" onClick={handleOpenComment}>
                         <p>{userComment.length} comments</p>
                     </div> 
 
                     <div className="option__count share__count">
-                    {userShares.length > 1 
-                        ? <p>{userShares.length} shares</p>
-                        : <p>{userShares.length} share</p>
+                    {listUserShare.current.length > 1 
+                        ? <p>{listUserShare.current.length} shares</p>
+                        : <p>{listUserShare.current.length} share</p>
                     }
                         <div className='share__showUser'>
                             <h2>Share</h2>
-                            {userShares.length === 0 && <p>No share yet !</p>}
-                            {userShares.map((user,index) => {
+                            {listUserShare.current.length === 0 && <p>No share yet !</p>}
+                            {listUserShare.current.map((user,index) => {
                                 if(index < 8){
-                                return <p key={index}>{user}</p>
+                                return <p key={index}>{user.user}</p>
                                 }else{
                                     if(index === 8){
-                                        return <p key={index}>and {userShares.length - index} others...</p>
+                                        return <p key={index}>and {listUserShare.current.length - index} others...</p>
                                     }else{
                                         return <></>
                                     }
@@ -272,14 +314,27 @@ function Post({ id, profilePic, image, username, email,
                     </div>}
                 </div>
             </div>
+
             <div className='post__options'>
-               
+                
                 <div 
                     onClick={handleLike}
-                    className={isLike ? 'option--active post__option' : 'post__option'}
+                    onMouseEnter={() => setIsEmojiBarOpen(true)}
+                    onMouseLeave={() => setIsEmojiBarOpen(false)}
+                    className={userReaction === 'like' ? 'option--active post__option' : 'post__option'}
                 >
-                    <ThumbUpIcon />
-                    <p>Like</p>
+                    {isEmojiBarOpen && 
+                    <div className='facebookSelector' onClick={(e) => {e.stopPropagation()}}>
+                        <FacebookSelector 
+                            onSelect={(emoji) => handleReaction(emoji)}
+                        />
+                    </div>
+                    }
+                    <PostReactionDisplay 
+                        userReaction={userReaction}
+                        reactionList={reactionList.current}
+
+                    />
                 </div>
                 <div 
                     className={isOpenComment ? 'option--active post__option' : 'post__option'}
@@ -315,11 +370,22 @@ function Post({ id, profilePic, image, username, email,
                                    id={comment.id}
                                    closeModifyComment={handleCloseModifyComment} 
                                 />
-                            :
-                                <div className="comment__content" >
-                                    <h2>{comment.user}</h2>
-                                    <p>{comment.title}</p>
-                                    <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
+                            :   <div className='wrapComment'>
+                                    <div className="comment__content" >
+                                        <h2>{comment.user}</h2>
+                                        <p>{comment.title}</p> 
+                                    </div>
+                                    <div className='comment__reaction'>
+                                            <CommentReaction 
+                                                 userReactionComment={userReactionComment.filter((
+                                                     (commentReaction) => commentReaction.commentId === comment.id
+                                                 ))}
+                                                 commentId={comment.id}
+                                                 postId={id}
+                                                 userLogin={userLogin}
+                                            />
+                                            <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
+                                    </div>
                                 </div>
                             }
                             <div className='comment__change' onClick={(e) => {

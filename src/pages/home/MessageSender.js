@@ -30,7 +30,7 @@ function MessageSender() {
             username: user.displayName,
             timestamp: serverTimestamp(),
             message: input,
-            userLikes:[],
+            userReaction:[],
             userShares: [],
             userComments:{}
           });

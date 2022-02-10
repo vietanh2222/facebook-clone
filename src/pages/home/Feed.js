@@ -14,7 +14,9 @@ function Feed() {
     const [hasMore, setHasMore] = useState(true);
     const [userComment, setUserComment] = useState([]);
     const documentSnapshots = useRef("initial");
-    
+    const [userReaction, setUserReaction] = useState([]);
+    const [userShare, setUserShare] = useState([]);
+    const [userReactionComment, setUserReactionComment] = useState([])
     useEffect(() => {
         const qPosts = query(collection(db, "posts"), orderBy("timestamp", "desc"), limit(2));
         
@@ -28,8 +30,20 @@ function Feed() {
         onSnapshot(qUserComments, (snapshot) => {
             setUserComment(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
         });
-    }, [])
 
+        onSnapshot(collection(db, 'userReaction'), (snapshot) => {
+            setUserReaction(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+        });
+
+        onSnapshot(collection(db, 'userShare'), (snapshot) => {
+            setUserShare(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+        });
+
+        onSnapshot(collection(db, 'userReactionComment'), (snapshot) => {
+            setUserReactionComment(snapshot.docs.map(doc => ({...doc.data(), id: doc.id})))
+        });
+    }, [])
+    
     const fetchData = () => {
         if(documentSnapshots.current.docs){
         const lastVisible = documentSnapshots.current.docs[documentSnapshots.current.docs.length-1];
@@ -83,12 +97,18 @@ function Feed() {
                     timestamp={post.timestamp}
                     message={post.message}
                     email={user.email}
-                    userLikes={post.userLikes || []}
-                    userShares={post.userShares || []}
+                    reaction={userReaction.filter(
+                        (postReaction) => postReaction.postId === post.id
+                    )}
+                    userShares={userShare.filter(
+                        (postShare) => postShare.postId === post.id)}
                     userLogin={user.displayName}
                     userComment={userComment.filter(
                         (postComment) => postComment.postId === post.id)}
                     userAvatar={user.photoURL}
+                    userReactionComment={userReactionComment.filter(
+                        (postReaction) => postReaction.postId === post.id
+                    )}
                 />
             )}
             </InfiniteScroll>

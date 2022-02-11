@@ -3,6 +3,8 @@ import "./CommentReaction.css";
 import { FacebookSelector } from "@charkour/react-reactions";
 import { collection, doc, updateDoc, addDoc } from "firebase/firestore";
 import db from './firebase';
+import CommentReactionDisplay from './CommentReactionDisplay';
+
 function CommentReaction({userReactionComment, commentId, postId, userLogin}) {
     const [isOpenBar, setIsOpenBar] = useState(false);
     const [userReaction, setUserReaction] = useState('');
@@ -12,7 +14,7 @@ function CommentReaction({userReactionComment, commentId, postId, userLogin}) {
     useEffect(() => {
         reactionList.current = ['haha', 'sad', 'angry', 'love', 'wow']  
     }, [])
-
+    
     useEffect(() => {
         currentUserReaction.current = userReactionComment.find((user) => user.user === userLogin) || {};
         setUserReaction(currentUserReaction.current.emoji)
@@ -90,12 +92,18 @@ function CommentReaction({userReactionComment, commentId, postId, userLogin}) {
           />
         </div>
       )}
-      <p 
-      
-      onClick={handleLike}
-      style={currentUserReaction.current.emoji === 'like' ? {color:'blue'}:{}}
-      >Like</p>
+      <div 
+        onClick={handleLike}
+        style={currentUserReaction.current.emoji === 'like' ? {color:'rgb(32, 120, 244)'}:{}}
+        className="commentReaction__Display"
+      >
+        <CommentReactionDisplay
+          userReaction={currentUserReaction.current.emoji}
+          reactionList={reactionList.current}
+        />
+      </div>
     </div>
+    
   );
 }
 

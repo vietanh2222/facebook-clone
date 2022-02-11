@@ -199,7 +199,7 @@
 }
 
 .emoji > img{
-    width: 20px;
+    width: 24px;
     margin-right: 10px;
 }
 
@@ -346,6 +346,8 @@
     margin-left: 10px;
     max-width: 85%;
     white-space: wrap;
+
+    position: relative;
 }
 
 .comment__content > h2{
@@ -371,7 +373,7 @@
 .comment__reaction > .commentReactionOptions > p{
     font-size: 14px;
     color: rgb(104, 102, 102);
-    font-weight: 700;
+    font-weight: 600;
     margin-right: 16px;
 }
 

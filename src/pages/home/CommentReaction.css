@@ -1,3 +1,7 @@
-/* .commentReactionOptions{
-    position: relative;
-} */
+.commentReaction__Display > .emoji > p, 
+.commentReaction__Display > p 
+{
+    font-size: 12px;
+    margin-right: 10px;
+    cursor: pointer;
+}

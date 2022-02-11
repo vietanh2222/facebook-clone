@@ -12,7 +12,7 @@ function ModifyComment({title, id, closeModifyComment}) {
         closeModifyComment();
         await updateDoc(doc(db, 'userComment', id), {
            title: commentTitle,
-           timestamp: serverTimestamp() 
+           timesupdate: serverTimestamp() 
         })
     }
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './ReactionCounter.css';
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import wow from "../../assets/images/emoji/wow.png";
 import angry from "../../assets/images/emoji/angry.png";
@@ -6,7 +7,7 @@ import sad from "../../assets/images/emoji/sad.png";
 import haha from "../../assets/images/emoji/haha.png";
 import love from "../../assets/images/emoji/love.png";
 
-function ReactionCounter({ reaction, currentUserReaction }) {
+function ReactionCounter({ reaction, currentUserReaction, isComment }) {
   const reactionLike = reaction.filter((like) => like.emoji === "like");
   const reactionHaha = reaction.filter((haha) => haha.emoji === "haha");
   const reactionAngry = reaction.filter((angry) => angry.emoji === "angry");
@@ -22,6 +23,8 @@ function ReactionCounter({ reaction, currentUserReaction }) {
   const [hahaShowUserOpen, setHahaShowUserOpen] = useState(false);
   const [sadShowUserOpen, setSadShowUserOpen] = useState(false);
   const [allShowUserOpen, setAllShowUserOpen] = useState(false);
+
+  console.log(currentUserReaction.emoji);
   return (
     <div className="option__count">
       {reactionLike.length > 0 && (
@@ -212,12 +215,12 @@ function ReactionCounter({ reaction, currentUserReaction }) {
         onMouseEnter={() => setAllShowUserOpen(true)}
         onMouseLeave={() => setAllShowUserOpen(false)}
       >
-        {reaction.length === 1 && currentUserReaction.emoji !== "" ? (
-          <p>{reaction[0].user}</p>
+        {reaction.length === 1 && currentUserReaction.emoji !== "" && currentUserReaction.emoji !== undefined ? (
+          <p>{isComment ? reaction.length : reaction[0].user}</p>
         ) : (
           <>
             {reaction.length > 1 && currentUserReaction.emoji !== "" ? (
-              <p>You and {reaction.length - 1} others</p>
+              <p>{isComment ? reaction.length : `You and ${reaction.length - 1} others`}</p>
             ) : (
               <>
                 {reaction.length > noReaction.length && (

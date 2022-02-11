@@ -62,11 +62,14 @@ function Post({ id, profilePic, image, username, email,
         listUserShare.current = userShares.filter((user) => user.isShare === true)
     }, [userLogin, userShares])
 
-    const handleRemove = () => {
+    const handleRemove = async () => {
         if(email !== "nguyenvietanh2222@gmail.com"){
             alert(`You don't have permission to remove a post`);
         }else{
-            deleteDoc(doc(db, "posts", id));
+            await userComment.forEach(
+                (commentUser) =>  handleRemoveComment(commentUser.id)
+            )
+            await deleteDoc(doc(db, "posts", id));
         }
     }
     
@@ -152,6 +155,11 @@ function Post({ id, profilePic, image, username, email,
 
     const handleRemoveComment = async (commentId) => {
         setIsChangeCommentOpen(-50);
+        const reactionListOfComment = await userReactionComment.filter(
+            (comment) => comment.commentId ===  commentId) || []
+        await reactionListOfComment.forEach(
+            (reaction) => deleteDoc(doc(db, 'userReactionComment', reaction.id))
+        )
         await deleteDoc(doc(db, "userComment", commentId))
     }
 
@@ -278,6 +286,7 @@ function Post({ id, profilePic, image, username, email,
                  <ReactionCounter 
                     reaction={reaction}
                     currentUserReaction={currentUserReaction.current}
+                    isComment={false}
                 />
                 
                 <div className="wrapOptions">
@@ -373,7 +382,8 @@ function Post({ id, profilePic, image, username, email,
                             :   <div className='wrapComment'>
                                     <div className="comment__content" >
                                         <h2>{comment.user}</h2>
-                                        <p>{comment.title}</p> 
+                                        <p>{comment.title}</p>
+                                        
                                     </div>
                                     <div className='comment__reaction'>
                                             <CommentReaction 
@@ -388,6 +398,17 @@ function Post({ id, profilePic, image, username, email,
                                     </div>
                                 </div>
                             }
+                            <div className='comment__reaction-counter'>
+                                <ReactionCounter 
+                                    reaction={userReactionComment.filter((
+                                    (commentReaction) => commentReaction.commentId === comment.id
+                                    ))} 
+                                    currentUserReaction={userReactionComment.filter((
+                                        (commentReaction) => commentReaction.commentId === comment.id && commentReaction.user === userLogin
+                                    ))}
+                                    isComment={true}
+                                />
+                            </div>
                             <div className='comment__change' onClick={(e) => {
                                 e.stopPropagation();
                                 document.querySelector('.searchBar').style.display ="none";

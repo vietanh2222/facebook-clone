@@ -10,6 +10,7 @@ import db from './firebase';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
+import CloseIcon from '@mui/icons-material/Close';
 import Timestamp from 'react-timestamp';
 import HidenForm from './HidenForm';
 import CommentOptions from './CommentOptions';
@@ -18,6 +19,8 @@ import { FacebookSelector } from '@charkour/react-reactions';
 import PostReactionDisplay from './PostReactionDisplay';
 import ReactionCounter from './ReactionCounter';
 import CommentReaction from './CommentReaction';
+import ImageUpload from './ImageUpload';
+import { deleteObject } from 'firebase/storage';
 
 
 function Post({ id, profilePic, image, username, email, 
@@ -34,6 +37,12 @@ function Post({ id, profilePic, image, username, email,
     const [isChangeCommentOpen, setIsChangeCommentOpen] = useState(0);               
     const [modifyCommentId, setModifyCommentId] = useState('');
     const [isEmojiBarOpen, setIsEmojiBarOpen] = useState(false);
+
+    const [imageUpLoadUrl, setImageUpLoadUrl] = useState('');
+    const [progress, setProgress] = useState(0);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+    const [imageRef, setImageRef] = useState();
+
     const reactionList = useRef([])
     const currentUserReaction = useRef({})
     const listUserReaction = useRef([])
@@ -143,14 +152,16 @@ function Post({ id, profilePic, image, username, email,
     
     const handleComment = async (e) => {
         e.preventDefault();
-        setComment('');
         await addDoc(collection(db, "userComment"), {
             postId: id,
             timestamp: serverTimestamp(),
             title: comment,
             user: userLogin,
-            profilePic: userAvatar
+            profilePic: userAvatar,
+            image:imageUpLoadUrl
         });
+        setComment('');
+        setImagePreviewUrl('');
     }
 
     const handleRemoveComment = async (commentId) => {
@@ -161,6 +172,13 @@ function Post({ id, profilePic, image, username, email,
             (reaction) => deleteDoc(doc(db, 'userReactionComment', reaction.id))
         )
         await deleteDoc(doc(db, "userComment", commentId))
+        await deleteObject(imageRef);
+    }
+
+    const removeUploadImage = () => {
+        setImagePreviewUrl("");
+        setProgress(0);
+        deleteObject(imageRef);
     }
 
     const handleOpenModifyComment = (commentId) => {
@@ -383,6 +401,7 @@ function Post({ id, profilePic, image, username, email,
                                     <div className="comment__content" >
                                         <h2>{comment.user}</h2>
                                         <p>{comment.title}</p>
+                                        {![undefined, ''].includes(comment.image) && <img src={comment.image} alt="" />}
                                         
                                     </div>
                                     <div className='comment__reaction'>
@@ -396,6 +415,7 @@ function Post({ id, profilePic, image, username, email,
                                             />
                                             <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
                                     </div>
+                                    
                                 </div>
                             }
                             <div className='comment__reaction-counter'>
@@ -429,13 +449,36 @@ function Post({ id, profilePic, image, username, email,
                     )}
                     <form>
                         <Avatar src={userAvatar}/>
-                        <input
-                            autoFocus 
-                            value={comment}
-                            onChange={(e) => setComment(e.target.value)}
-                            type="text" 
-                            placeholder='Write a comment...' 
-                        />
+                        <div className="input-icons">
+                            <input
+                                autoFocus 
+                                value={comment}
+                                onChange={(e) => setComment(e.target.value)}
+                                type="text" 
+                                placeholder='Write a comment...' 
+                            />
+                            <div className='input-icons__icon'>
+                                <ImageUpload 
+                                    getUrlUpLoad={setImageUpLoadUrl}
+                                    getProgress={setProgress}
+                                    getUrlPreview={setImagePreviewUrl}
+                                    getRef={setImageRef}
+                                />
+                            </div>
+                            {imagePreviewUrl &&
+                                <div className='hidenForm__imagePreview'>
+                                    <div className='imagePreview__progress'> 
+                                        {![0, 100].includes(progress) && <progress value={progress} max="100" />}
+
+                                        <img src={imagePreviewUrl} alt="" />
+                                    </div>
+                                    <div  className='imagePreview__remove' >
+                                        <CloseIcon onClick={removeUploadImage}></CloseIcon> 
+                                    </div>
+                            
+                                </div>
+                            }
+                        </div>
                         <button type="submit" onClick={handleComment} >Hiden Button</button>
                     </form>
                 </div>

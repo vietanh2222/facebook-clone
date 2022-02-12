@@ -1,7 +1,7 @@
 .commentReaction__Display > .emoji > p, 
 .commentReaction__Display > p 
 {
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 10px;
     cursor: pointer;
 }

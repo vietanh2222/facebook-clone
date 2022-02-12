@@ -94,7 +94,7 @@ function CommentReaction({userReactionComment, commentId, postId, userLogin}) {
       )}
       <div 
         onClick={handleLike}
-        style={currentUserReaction.current.emoji === 'like' ? {color:'rgb(32, 120, 244)'}:{}}
+        
         className="commentReaction__Display"
       >
         <CommentReactionDisplay

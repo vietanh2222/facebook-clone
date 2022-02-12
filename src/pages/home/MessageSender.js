@@ -8,52 +8,60 @@ import { useStateValue } from '../../store/StateProvider';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
 import db, { auth } from './firebase';
 import CloseIcon from '@mui/icons-material/Close';
-import { useRef } from 'react';
+import ImageUpload from './ImageUpload';
+import { deleteObject } from 'firebase/storage';
+
 
 function MessageSender() {
 
     const [{user}] = useStateValue();
     const [input, setInput] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
-    
+    const [showForm, setShowForm] = useState(false);
+    const [imageUpLoadUrl, setImageUpLoadUrl] = useState('');
+    const [progress, setProgress] = useState(0);
+    const [imagePreviewUrl, setImagePreviewUrl] = useState('');
+    const [imageRef, setImageRef] = useState();
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!auth.currentUser){
             alert(`Sorry you can't add a new post because you sign in Anomyous`);
             setInput("");
-            setImageUrl("");
             return;
         }
         addDoc(collection(db, "posts"), {
             profilePic: user.photoURL,
-            image: imageUrl,
             username: user.displayName,
             timestamp: serverTimestamp(),
             message: input,
-            userReaction:[],
-            userShares: [],
-            userComments:{}
+            image:imageUpLoadUrl
           });
 
         setInput("");
-        setImageUrl("");
-        closeHidenForm();
+        setImageUpLoadUrl("");
+        setImagePreviewUrl("");
+        setShowForm(false)
     };
-    
-    const hidenForm = useRef();
-    const inputFocus = useRef();
+    const removeUploadImage = () => {
+        setImagePreviewUrl("");
+        setProgress(0);
+        deleteObject(imageRef);
+    }
     const showHidenForm = (e) => {
         e.preventDefault();
-        hidenForm.current.style.display = "flex";
-        inputFocus.current.focus();
+        setShowForm(true);
+        if(showForm){
+            document.querySelector('.messageSender__hidenForm').style.display = 'flex';
+            document.querySelector('.hidenForm__bottom > form > input').focus();
+      }
     }
     const closeHidenForm = () => {
-        hidenForm.current.style.display = "none";
+        document.querySelector('.messageSender__hidenForm').style.display = 'none';
     }
 
     const stopCloseHidenForm = (e) => {
         e.stopPropagation();
     }
+  
     return (
         <div className='messageSender'>
             <div className='messageSender__top'>
@@ -63,44 +71,64 @@ function MessageSender() {
                         {`What's on your mind, ${user.displayName} ?`}
                     </button>
                 </form>
-                <div className="messageSender__hidenForm" ref={hidenForm} onClick={closeHidenForm}>
+                {showForm && 
+                <div className="messageSender__hidenForm" onClick={closeHidenForm}>
                     <div className="hidenForm__wrapper" onClick={stopCloseHidenForm} >
                         <div className="hidenForm__top">
-                            <h2> New post</h2>
+                            <h1> New post</h1>
                             <CloseIcon onClick={closeHidenForm} ></CloseIcon>
                         </div>
                         <div className="hidenForm__bottom">
                             <div className="hidenForm__userInfo">
                                 <Avatar src={user.photoURL}/>
-                                <h4>{user.displayName}</h4>
+                                <h3>{user.displayName}</h3>
                             </div>
                             <form>
                                 <input
                                     type="text"
-                                    ref={inputFocus}
+                                    autoFocus
                                     value={input}
                                     placeholder={`What's on your mind, ${user.displayName} ?`}
                                     onChange={e => setInput(e.target.value)}
                                 />
-                                <input
-                                    type="text"
-                                    value={imageUrl}
-                                    onChange={e => setImageUrl(e.target.value)}
-                                    placeholder="image URL (Optional)"
-                                />
+                                {imagePreviewUrl &&
+                                    <div className='hidenForm__imagePreview'>
+                                        <div className='imagePreview__progress'> 
+                                            {![0, 100].includes(progress) && <progress value={progress} max="100" />}
 
+                                            <img src={imagePreviewUrl} alt="" />
+                                        </div>
+                                        <div  className='imagePreview__remove' >
+                                            <CloseIcon onClick={removeUploadImage}></CloseIcon> 
+                                        </div>
+                            
+                                    </div>
+                                }
+                                <div className="hidenForm__add">
+                                    <h3>Add to your post</h3>
+                                    
+                                    <div className='add__options'>
+                                        <ImageUpload 
+                                            getUrlUpLoad={setImageUpLoadUrl}
+                                            getProgress={setProgress}
+                                            getUrlPreview={setImagePreviewUrl}
+                                            getRef={setImageRef}
+                                        />
+                                    </div>
+                                </div> 
+                                
                                 <button 
                                     onClick={handleSubmit} 
                                     type="submit"
-                                    className={input === ""?`button--disabled`:""}
-                                    disabled={input === ""}
+                                    className={input !== "" || progress === 100 ? "" : `button--disabled`}
+                                    disabled={input !== "" || progress === 100 ? false : true}
                                 >
                                     POST
                                 </button>
                             </form>
                         </div>
                     </div>
-                </div>
+                </div>}
             </div>
 
             <div className='messageSender__bottom'>

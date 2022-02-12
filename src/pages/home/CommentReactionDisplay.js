@@ -37,7 +37,11 @@ function CommentReactionDisplay({userReaction, reactionList}) {
     }
     {!reactionList.includes(userReaction) && 
     <>
-        <p>Like</p>
+        <p  
+        style={userReaction === 'like' ? {color:'rgb(32, 120, 244)'}:{}}
+        >
+          Like
+        </p>
     </>
     }
     </>

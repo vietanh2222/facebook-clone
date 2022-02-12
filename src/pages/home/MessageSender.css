@@ -53,21 +53,25 @@ form > .messageSender__button {
     width: 100%;
 }
 
-.messageSender__hidenForm{
+.messageSender__hidenForm, .hidenForm{
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     background-color: rgba(243, 243, 244,0.5);
-    z-index: 2;
-    display: none;
+    z-index: 103;
     justify-content: center;
     align-items: center;
+    display: flex;
+}
+
+#upload-image{
+    display: none;
 }
 
 .hidenForm__wrapper{
-    height: 400px;
+    /* height: 400px; */
     width: 500px;
     z-index: 10;
     border: none;
@@ -85,9 +89,11 @@ form > .messageSender__button {
     position: relative;
 }
 
-.hidenForm__top > h2{
+.hidenForm__top > h1{
     font-size: 24px;
     flex: 1;
+    font-weight: 700;
+    text-align: center;
 }
 
 .hidenForm__top > .MuiSvgIcon-root {
@@ -112,6 +118,66 @@ form > .messageSender__button {
 
 .hidenForm__userInfo > .MuiAvatar-root{
     margin: 16px;
+}
+
+.hidenForm__imagePreview{
+    margin: 16px;
+    padding: 8px;
+
+    border: 1px solid #CED0D4;
+    border-radius: 8px;
+
+    display: flex;
+}
+
+.imagePreview__progress {
+    flex: 1;
+}
+
+.hidenForm__imagePreview > .imagePreview__progress > progress {
+    width: 100%;
+    margin-bottom: 8px;
+    margin-top: 5px;
+}
+
+.imagePreview__progress > img {
+    border-radius: 8px;
+}
+
+.imagePreview__remove {
+    margin-left: 8px;
+}
+
+.hidenForm__imagePreview > .imagePreview__remove > .MuiSvgIcon-root {
+    color: #606770;
+    padding: 4px;
+    font-size: 16px;
+
+    border: 1px solid #e4e6eb;
+    background-color: #ffffff;
+    border-radius: 999px;
+
+    cursor: pointer;
+}
+
+.hidenForm__imagePreview > .imagePreview__remove > .MuiSvgIcon-root:hover {
+    background-color: #dcdee4;
+}
+
+.hidenForm__add {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin: 0 16px;
+    padding: 8px;
+    border: 1px solid #CED0D4;
+    border-radius: 8px;
+}
+
+.hidenForm__wrapper  h3 {
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .hidenForm__bottom > form {
@@ -160,6 +226,12 @@ form > .messageSender__button {
     border: none;
     border-radius: 10px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.hidenForm__bottom > form > button:hover {
+    opacity: 0.7;
 }
 
 .hidenForm__bottom > form > .button--disabled {
@@ -176,7 +248,7 @@ form > .messageSender__button {
 }
 
 .messageSender__option {
-    padding: 20px;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     color: gray;
@@ -185,7 +257,7 @@ form > .messageSender__button {
 
 .messageSender__option:hover{
     background-color: #eff2f5;
-    border-radius: 20px;
+    border-radius: 12px;
 }
 
 .messageSender__option > h3 {

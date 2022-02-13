@@ -93,6 +93,7 @@ function Feed() {
                     key = {post.id}
                     profilePic= {post.profilePic}
                     image={post.image}
+                    imageNameDelete={post.imageName}
                     username={post.username}
                     timestamp={post.timestamp}
                     message={post.message}

@@ -4,10 +4,11 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from "./firebase";
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 
-function ImageUpload({ getUrlUpLoad, getProgress, getUrlPreview, getRef }) {
+function ImageUpload({ getUrlUpLoad, getProgress, getUrlPreview, getRef, getName }) {
 
     const handleUpload = async (image) => {
         getUrlPreview(URL.createObjectURL(image));
+        getName(image.name)
         const imageRef = ref(storage, `images/${image.name}`)
         getRef(imageRef)
         const uploadTask = uploadBytesResumable(imageRef, image)   

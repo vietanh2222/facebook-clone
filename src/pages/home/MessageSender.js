@@ -10,6 +10,7 @@ import db, { auth } from './firebase';
 import CloseIcon from '@mui/icons-material/Close';
 import ImageUpload from './ImageUpload';
 import { deleteObject } from 'firebase/storage';
+import { SlackSelector } from '@charkour/react-reactions';
 
 
 function MessageSender() {
@@ -21,6 +22,9 @@ function MessageSender() {
     const [progress, setProgress] = useState(0);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [imageRef, setImageRef] = useState();
+    const [imageName, setImageName] = useState('');
+    const [showSlackBar, setShowSlackBar] = useState(false);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!auth.currentUser){
@@ -33,7 +37,8 @@ function MessageSender() {
             username: user.displayName,
             timestamp: serverTimestamp(),
             message: input,
-            image:imageUpLoadUrl
+            image:imageUpLoadUrl,
+            imageName:imageName
           });
 
         setInput("");
@@ -61,7 +66,22 @@ function MessageSender() {
     const stopCloseHidenForm = (e) => {
         e.stopPropagation();
     }
-  
+    
+    const handleToggleShowSlackBar = () => {
+        
+        if(showSlackBar){
+            setShowSlackBar(false);
+            window.removeEventListener('click', handeCloseShowSlackBar)
+        }else {
+            setShowSlackBar(true);
+            window.addEventListener('click', handeCloseShowSlackBar) 
+        }
+    }
+
+    const handeCloseShowSlackBar = () => {
+        setShowSlackBar(false);
+    }
+
     return (
         <div className='messageSender'>
             <div className='messageSender__top'>
@@ -108,20 +128,45 @@ function MessageSender() {
                                     <h3>Add to your post</h3>
                                     
                                     <div className='add__options'>
-                                        <ImageUpload 
-                                            getUrlUpLoad={setImageUpLoadUrl}
-                                            getProgress={setProgress}
-                                            getUrlPreview={setImagePreviewUrl}
-                                            getRef={setImageRef}
+                                        <div className="input-icon"
+                                            onClick={(e) => e.stopPropagation()}
+                                        >
+                                        <InsertEmoticonIcon 
+                                            style={{
+                                                color:'rgb(247, 177, 37)'
+                                            }}
+                                            onClick={handleToggleShowSlackBar}
                                         />
+                                        {showSlackBar && 
+                                        <div className="slack" >
+                                            <SlackSelector 
+                                                onSelect={(e) => {
+                                                    setInput(`${input}${e}`)
+                                                    handeCloseShowSlackBar();
+                                                    document.querySelector('.hidenForm__bottom > form > input').focus();
+                                                }}
+                                            />
+                                        </div>
+                                                
+                                        }
+                                    </div>
+                                        <div className="input-icon">
+                                            <ImageUpload 
+                                                getUrlUpLoad={setImageUpLoadUrl}
+                                                getProgress={setProgress}
+                                                getUrlPreview={setImagePreviewUrl}
+                                                getRef={setImageRef}
+                                                getName={setImageName}
+                                            />
+                                        </div>
                                     </div>
                                 </div> 
                                 
                                 <button 
                                     onClick={handleSubmit} 
                                     type="submit"
-                                    className={input !== "" || progress === 100 ? "" : `button--disabled`}
-                                    disabled={input !== "" || progress === 100 ? false : true}
+                                    className={(input !== "" && imagePreviewUrl === '') || (progress === 100 && imagePreviewUrl !== '') ? "" : `button--disabled`}
+                                    disabled={(input !== "" && imagePreviewUrl === '') || (progress === 100 && imagePreviewUrl !== '') ? false : true}
                                 >
                                     POST
                                 </button>

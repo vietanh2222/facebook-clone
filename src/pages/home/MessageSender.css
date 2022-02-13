@@ -175,6 +175,10 @@ form > .messageSender__button {
     border-radius: 8px;
 }
 
+.add__options {
+    display: flex;
+}
+
 .hidenForm__wrapper  h3 {
     font-size: 18px;
     font-weight: 600;
@@ -197,7 +201,7 @@ form > .messageSender__button {
 }
 
 .hidenForm__bottom > form >input:focus:first-child {
-    font-size:18px;
+    font-size:16px;
     outline-width: 0;
     border: none;
     box-shadow: none;
@@ -232,9 +236,10 @@ form > .messageSender__button {
 
 .hidenForm__bottom > form > button:hover {
     opacity: 0.7;
+    background-color: #1b74e4;
 }
 
-.hidenForm__bottom > form > .button--disabled {
+.hidenForm__wrapper > .hidenForm__bottom > form > .button--disabled {
     color: #1c1e21;
     font-weight: 600;
     background-color: #E4E6EB;

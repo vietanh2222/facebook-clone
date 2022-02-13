@@ -6,7 +6,7 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { collection, doc, deleteDoc, updateDoc, serverTimestamp, addDoc } from "firebase/firestore";
-import db from './firebase';
+import db, { storage } from './firebase';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,15 +15,17 @@ import Timestamp from 'react-timestamp';
 import HidenForm from './HidenForm';
 import CommentOptions from './CommentOptions';
 import ModifyComment from './ModifyComment';
-import { FacebookSelector } from '@charkour/react-reactions';
+import { FacebookSelector, SlackSelector } from '@charkour/react-reactions';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import PostReactionDisplay from './PostReactionDisplay';
 import ReactionCounter from './ReactionCounter';
 import CommentReaction from './CommentReaction';
 import ImageUpload from './ImageUpload';
-import { deleteObject } from 'firebase/storage';
+import { deleteObject, ref } from 'firebase/storage';
 
 
-function Post({ id, profilePic, image, username, email, 
+
+function Post({ id, profilePic, image, imageNameDelete, username, email, 
                 timestamp, message, reaction, userLogin, 
                 userShares, userComment, userAvatar,  userReactionComment }) {
                     
@@ -42,6 +44,9 @@ function Post({ id, profilePic, image, username, email,
     const [progress, setProgress] = useState(0);
     const [imagePreviewUrl, setImagePreviewUrl] = useState('');
     const [imageRef, setImageRef] = useState();
+    const [imageName, setImageName] = useState('');
+
+    const [showSlackBar, setShowSlackBar] = useState(false)
 
     const reactionList = useRef([])
     const currentUserReaction = useRef({})
@@ -78,6 +83,9 @@ function Post({ id, profilePic, image, username, email,
             await userComment.forEach(
                 (commentUser) =>  handleRemoveComment(commentUser.id)
             )
+            if(!['', undefined].includes(imageNameDelete)){
+                await deleteObject(ref(storage, `images/${imageNameDelete}`));
+            }
             await deleteDoc(doc(db, "posts", id));
         }
     }
@@ -158,10 +166,13 @@ function Post({ id, profilePic, image, username, email,
             title: comment,
             user: userLogin,
             profilePic: userAvatar,
-            image:imageUpLoadUrl
+            image:imageUpLoadUrl,
+            imageName:imageName
         });
         setComment('');
         setImagePreviewUrl('');
+        setImageUpLoadUrl('');
+        setImageName('');
     }
 
     const handleRemoveComment = async (commentId) => {
@@ -171,8 +182,12 @@ function Post({ id, profilePic, image, username, email,
         await reactionListOfComment.forEach(
             (reaction) => deleteDoc(doc(db, 'userReactionComment', reaction.id))
         )
-        await deleteDoc(doc(db, "userComment", commentId))
-        await deleteObject(imageRef);
+        const imageNameDelete = await userComment.find((comment) => comment.id === commentId).imageName;
+        
+        if(!['', undefined].includes(imageNameDelete)){
+            await deleteObject(ref(storage, `images/${imageNameDelete}`));
+        }
+        await deleteDoc(doc(db, "userComment", commentId))  
     }
 
     const removeUploadImage = () => {
@@ -238,6 +253,21 @@ function Post({ id, profilePic, image, username, email,
     const handleCloseChangeComment = () => {
         setIsChangeCommentOpen(-50)
         document.removeEventListener('click', handleToggleChangeComment)
+    }
+
+    const handleToggleShowSlackBar = () => {
+        
+        if(showSlackBar){
+            setShowSlackBar(false);
+            window.removeEventListener('click', handeCloseShowSlackBar)
+        }else {
+            setShowSlackBar(true);
+            window.addEventListener('click', handeCloseShowSlackBar) 
+        }
+    }
+
+    const handeCloseShowSlackBar = () => {
+        setShowSlackBar(false);
     }
 
     return (
@@ -458,12 +488,38 @@ function Post({ id, profilePic, image, username, email,
                                 placeholder='Write a comment...' 
                             />
                             <div className='input-icons__icon'>
-                                <ImageUpload 
-                                    getUrlUpLoad={setImageUpLoadUrl}
-                                    getProgress={setProgress}
-                                    getUrlPreview={setImagePreviewUrl}
-                                    getRef={setImageRef}
-                                />
+                                <div className="input-icon"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <InsertEmoticonIcon 
+                                        style={{
+                                            color:'rgb(247, 177, 37)'
+                                        }}
+                                        onClick={handleToggleShowSlackBar}
+                                    />
+                                    {showSlackBar && 
+                                    <div className="slack" >
+                                        <SlackSelector 
+                                            onSelect={(e) => {
+                                                setComment(`${comment}${e}`)
+                                                handeCloseShowSlackBar();
+                                                document.querySelector('.input-icons > input').focus();
+                                            }}
+                                        />
+                                    </div>
+                                             
+                                    }
+                                </div>
+                                <div className="input-icon">
+                                    <ImageUpload 
+                                        getUrlUpLoad={setImageUpLoadUrl}
+                                        getProgress={setProgress}
+                                        getUrlPreview={setImagePreviewUrl}
+                                        getRef={setImageRef}
+                                        getName={setImageName}
+                                    />
+                                </div>
+                                 
                             </div>
                             {imagePreviewUrl &&
                                 <div className='hidenForm__imagePreview'>

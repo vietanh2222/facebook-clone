@@ -1,3 +1,9 @@
+@font-face {
+    font-family: Slack;
+    src: url(../../assets/fonts/slack-icons-Regular.woff) format('woff'),
+        url(../../assets/fonts/slack-icons-Regular.ttf) format('truetype');
+}
+
 .post {
     width: 100%;
     margin-top: 15px;
@@ -376,6 +382,20 @@ form > .input-icons > input {
 
 .input-icons > .hidenForm__imagePreview > .imagePreview__progress > img {
     max-width: 200px;
+}
+
+.input-icon {
+    margin-left: 10px;
+    position: relative;
+}
+
+.slack {
+    position: absolute;
+    bottom: 36px;
+    right: 15px;
+    z-index: 100;
+
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .comment__content {

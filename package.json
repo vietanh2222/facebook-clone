@@ -11,6 +11,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "@trendyol-js/react-carousel": "^2.0.1",
     "firebase": "^9.6.1",
     "firebase-tools": "^10.1.0",
     "react": "^17.0.2",

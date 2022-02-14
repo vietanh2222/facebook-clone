@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     width: 65%;
-    max-width: 780px;
+    max-width: 680px;
 }
 
 .infinite-scroll-component__outerdiv {

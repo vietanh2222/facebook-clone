@@ -1,21 +1,20 @@
 import React, { useEffect, useState, useRef } from 'react';
 import "./SearchBar.css";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import SearchIcon from "@mui/icons-material/Search";
 import SearchHistory from './SearchHistory';
-
 import { useStateValue } from '../../store/StateProvider';
 import SearchResult from './SearchResult';
-import { doc, onSnapshot, setDoc, updateDoc, arrayUnion } from 'firebase/firestore';
-import db, { auth } from '../../pages/home/firebase';
+import { onSnapshot, addDoc, collection, where } from 'firebase/firestore';
+import db from '../../pages/home/firebase';
 import { useNavigate } from 'react-router-dom';
+import { query } from 'firebase/firestore';
 
 
 
-function SearchBar({handleGetValue}) {
+function SearchBar({handleGetValue, closeSearchBar, valueSearchInit}) {
   
   let [{contacts, friendRequests, friendSuggest}] = useStateValue();
-  
+  const [{user}] = useStateValue();
   if(contacts === undefined || friendRequests === undefined || friendSuggest === undefined){
     contacts = [];
     friendRequests = [];
@@ -30,7 +29,7 @@ function SearchBar({handleGetValue}) {
     }))
   const listSearch = [...friendList, ...noFriendList]
   
-  const [searchKey, setSearchKey] = useState('');
+  const [searchKey, setSearchKey] = useState(valueSearchInit);
   const [searchHistory, setSearchHistory] = useState([]);
   const searchResult = useRef([]);
   const navigate = useNavigate();
@@ -39,70 +38,50 @@ function SearchBar({handleGetValue}) {
     setSearchKey(key);
     handleGetValue(key);
     searchResult.current = listSearch.filter((contact) => 
-    contact.name.trim().toLowerCase().includes(key.toLowerCase()))
-  }
-
-  const closeSearchBar = () => {
-    document.querySelector('.searchBar').style.display ="none";
+    contact.name.trim().toLowerCase().includes(searchKey.toLowerCase()))
   }
 
   const stopPropaganition = (e) => {
     e.stopPropagation();
   }
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     closeSearchBar();
-    if(auth.currentUser !== null){
-      if(searchHistory.length === 0){
-        await setDoc(doc(db, "searchHistories", auth.currentUser.uid), {
-          historySearch: [{
+    await addDoc(collection(db, "searchHistories"), {
+            user: user.displayName,
             searchKey,
             name:"",
             avatar:""
-          }],
-        });
-      navigate('/search', {state: searchResult.current})
-      }else{
-        await updateDoc(doc(db, "searchHistories", auth.currentUser.uid), {
-          historySearch: arrayUnion({
-            searchKey,
-            name:"",
-            avatar:""
-          })
-        });
-        navigate('/search', {state: searchResult.current})
-      }
-    }else{
-      return
-    }
+          }
+        );
+    navigate('/search', {state: searchResult.current})
   }
 
   
   useEffect(() => {
-    if(auth.currentUser !== null){
-        
-        onSnapshot(doc(db, "searchHistories", auth.currentUser.uid), (doc) => {
-        setSearchHistory(doc.data().historySearch.reverse());
-    });
-    }else{
-      return
-    }
-  }, [])
-  
+        const q = query(collection(db, "searchHistories"), where("user", "==" , user.displayName))
+        onSnapshot(q, (snapshot) => {
+          setSearchHistory((snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))).reverse())
+        })
+  }, [user.displayName])
+
+  console.log(searchHistory);
+  console.log(user.displayName);
   return (
     <div className='searchBar' onClick={stopPropaganition}>
           <div className="searchBar__header">
             <ArrowBackIcon onClick={closeSearchBar} />
             <div className="searchBar__input">
-              <SearchIcon />
               <form >
                 <input
+                  autoFocus
                   type="text" 
                   placeholder="Search Facebook" 
                   onChange={(e) => {
                     findContact(e.target.value);
                   }}
+                  value={searchKey}
                 />
                 <button type='submit' onClick={handleSubmit}>Hiden button</button>
               </form>
@@ -123,6 +102,8 @@ function SearchBar({handleGetValue}) {
                       searchKey = {history.searchKey}
                       avatar={history.avatar}
                       isFriend={history.isFriend}
+                      closeSearchBar={closeSearchBar}
+                      historyId={history.id}
                   />)}
                 </>
                 : 
@@ -136,9 +117,11 @@ function SearchBar({handleGetValue}) {
                             <SearchResult 
                               key={contact.id}
                               name={contact.name}
-                              avatar={contact.avatar || contact.profilePic}
+                              avatar={contact.profilePic || contact.avatar}
                               searchHistory={searchHistory}
                               isFriend={contact.isFriend}
+                              closeSearchBar={closeSearchBar}
+                              user={user.displayName}
                             />
                           ))
                         }

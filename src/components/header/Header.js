@@ -31,13 +31,20 @@ function Header() {
   const [searchValue, setSearchValue] = useState('');
   const { pathname } = useLocation();
   const navigate = useNavigate()
+  const [showSearchBar, setShowSearchBar] = useState(false);
+
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
 
-  const showSearchBar = () => {
-    document.querySelector('.searchBar').style.display ="block";
-    document.querySelector('.searchBar__input > form > input').focus();
+  const handleShowSearchBar = () => {
+    setShowSearchBar(true);
+    window.addEventListener('click', handleCloseSearchBar);
+  }
+
+  const handleCloseSearchBar = () => {
+    setShowSearchBar(false);
+    window.removeEventListener('click', handleCloseSearchBar);
   }
 
   const stopPropaganition = (e) => {
@@ -74,8 +81,14 @@ function Header() {
             alt=""
           />
         </Link>
-        <SearchBar handleGetValue={handleGetValueFromSearchBar}/>
-        <div className="header__input" onClick={showSearchBar}>
+        {showSearchBar && 
+          <SearchBar 
+            handleGetValue={handleGetValueFromSearchBar}
+            closeSearchBar={handleCloseSearchBar}
+            valueSearchInit={searchValue}
+          />
+        }
+        <div className="header__input" onClick={handleShowSearchBar}>
           <SearchIcon />
           <p className={searchValue ? "black" : {}}>
             {searchValue || 'Search Facebook'}

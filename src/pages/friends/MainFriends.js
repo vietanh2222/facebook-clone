@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import FriendRequest from './FriendRequest';
 import './MainFriends.css';
 import FriendSuggest from './FriendSuggest';
-import { useStateValue } from '../../store/StateProvider';
+import { collection, onSnapshot } from 'firebase/firestore';
+import db from '../home/firebase';
 
 
 function MainFriends() {
 
-    const [{friendRequests, friendSuggest}] = useStateValue();
- 
+    const [friendRequests, setFriendRequests] = useState([]);
+    const [friendSuggest, setFriendSuggest] = useState([]);
+
+    useEffect(() => {
+
+        onSnapshot(collection(db, "friendRequests"), (snapshot) => {
+            setFriendRequests(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+        })
+         
+
+        onSnapshot(collection(db, "friendSuggest"), (snapshot) => {
+            setFriendSuggest(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })))
+        })
+    }, [])
+
     return (
         <div className='mainfriends' >
             <div className='mainfriends__request'>
@@ -17,7 +31,7 @@ function MainFriends() {
                     <p>View All</p>
                 </div>
                 <div className="mainfriends__body">
-                    {friendRequests.map(friend =>
+                    {friendRequests.map((friend) =>
                         <FriendRequest
                             key={friend.id}
                             profilePic={friend.profilePic}
@@ -33,7 +47,7 @@ function MainFriends() {
                     <p>View All</p>
                 </div>
                 <div className="friendsuggest__body">
-                    {friendSuggest.map(friend =>
+                    {friendSuggest.map((friend) =>
                         <FriendSuggest
                             key={friend.id}
                             profilePic={friend.profilePic}

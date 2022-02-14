@@ -283,7 +283,6 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                 </div>
                 <div className='post__change' onClick={(e) => {
                     e.stopPropagation();
-                    document.querySelector('.searchBar').style.display ="none";
                 }}>
                     <MoreHorizIcon onClick={handleToggleChangeOptions}/>
                     <div className='changeOptions'>
@@ -461,7 +460,6 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                             </div>
                             <div className='comment__change' onClick={(e) => {
                                 e.stopPropagation();
-                                document.querySelector('.searchBar').style.display ="none";
                             }}>
                                 <MoreHorizIcon onClick={() => handleToggleChangeComment(index)}/>
                                 <div className='commentOptions'>

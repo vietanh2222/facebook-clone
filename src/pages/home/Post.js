@@ -21,8 +21,9 @@ import PostReactionDisplay from './PostReactionDisplay';
 import ReactionCounter from './ReactionCounter';
 import CommentReaction from './CommentReaction';
 import ImageUpload from './ImageUpload';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DoneIcon from '@mui/icons-material/Done';
 import { deleteObject, ref } from 'firebase/storage';
-
 
 
 function Post({ id, profilePic, image, imageNameDelete, username, email, 
@@ -39,6 +40,7 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
     const [isChangeCommentOpen, setIsChangeCommentOpen] = useState(0);               
     const [modifyCommentId, setModifyCommentId] = useState('');
     const [isEmojiBarOpen, setIsEmojiBarOpen] = useState(false);
+    const [isEmojiBarMobileOpen, setIsEmojiMobileOpen] = useState(false);
 
     const [imageUpLoadUrl, setImageUpLoadUrl] = useState('');
     const [progress, setProgress] = useState(0);
@@ -53,6 +55,8 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
     const listUserReaction = useRef([])
     const isCurrenUserShare = useRef({})
     const listUserShare = useRef([])
+    const timeOutEmojibarOpen = useRef('')
+    const timeOutEmojibarClose = useRef('')
     useEffect(() => {
         reactionList.current = ['haha', 'sad', 'angry', 'love', 'wow']  
     }, [])
@@ -134,9 +138,16 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
            })
         }
     }
-    const handleCloseEmojiBar = () => {
+    const handleCloseEmojiBar = () => {  
         setIsEmojiBarOpen(false)
+        
     }
+
+    const handleOpenEmojiBar = () => {
+        setIsEmojiBarOpen(true)
+        
+    }
+
 
     const handleShare = async () => {
             if(isShare === undefined){
@@ -160,6 +171,10 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
     
     const handleComment = async (e) => {
         e.preventDefault();
+        setComment('');
+        setImagePreviewUrl('');
+        setImageUpLoadUrl('');
+        setImageName('');
         await addDoc(collection(db, "userComment"), {
             postId: id,
             timestamp: serverTimestamp(),
@@ -169,10 +184,6 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
             image:imageUpLoadUrl,
             imageName:imageName
         });
-        setComment('');
-        setImagePreviewUrl('');
-        setImageUpLoadUrl('');
-        setImageName('');
     }
 
     const handleRemoveComment = async (commentId) => {
@@ -193,9 +204,11 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
     const removeUploadImage = () => {
         setImagePreviewUrl("");
         setProgress(0);
+        setImageUpLoadUrl('');
         deleteObject(imageRef);
     }
-
+    
+    
     const handleOpenModifyComment = (commentId) => {
         handleCloseChangeComment();
         setModifyCommentId(commentId)
@@ -270,6 +283,15 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
         setShowSlackBar(false);
     }
 
+    const handleOpenEmojiBarMobile = () => {
+        setIsEmojiMobileOpen(true);
+        window.addEventListener('click', handleCloseEmojiBarMobile);
+    }
+    const handleCloseEmojiBarMobile = () => {
+        setIsEmojiMobileOpen(false);
+        window.removeEventListener('click', handleCloseEmojiBarMobile)
+    }
+
     return (
         <div className='post' >
             <div className='post__top'>
@@ -322,7 +344,7 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
             </div>
 
             <div className='post__image'>
-                <img src={image} alt='' />
+                {!['', undefined].includes(image) && <img src={image} alt='' />}
             </div>
            
             <div className={
@@ -372,26 +394,70 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
             </div>
 
             <div className='post__options'>
-                
-                <div 
-                    onClick={handleLike}
-                    onMouseEnter={() => setIsEmojiBarOpen(true)}
-                    onMouseLeave={() => setIsEmojiBarOpen(false)}
-                    className={userReaction === 'like' ? 'option--active post__option' : 'post__option'}
-                >
-                    {isEmojiBarOpen && 
-                    <div className='facebookSelector' onClick={(e) => {e.stopPropagation()}}>
+                {isEmojiBarOpen && 
+                    <div 
+                        className='facebookSelector'
+                        onMouseEnter={() => {
+                            clearTimeout(timeOutEmojibarClose.current)
+                            }
+                        }
+                        onMouseLeave={() => {
+                            clearTimeout(timeOutEmojibarOpen.current)
+                            timeOutEmojibarClose.current = setTimeout(handleCloseEmojiBar, 2000)}}
+                    >
                         <FacebookSelector 
                             onSelect={(emoji) => handleReaction(emoji)}
                         />
                     </div>
-                    }
+                }
+                <div 
+                    onClick={handleLike}
+                    onMouseEnter={() => {
+                        
+                        timeOutEmojibarOpen.current = setTimeout(handleOpenEmojiBar, 1000);
+                        clearTimeout(timeOutEmojibarClose.current)
+                    }}
+                    onMouseLeave={() => {
+                            timeOutEmojibarClose.current = setTimeout(handleCloseEmojiBar, 2000)
+                            clearTimeout(timeOutEmojibarOpen.current)
+                    }}
+                    className={userReaction === 'like' ? 'option--active post__option' : 'post__option'}
+                    
+                >
+                   
                     <PostReactionDisplay 
                         userReaction={userReaction}
                         reactionList={reactionList.current}
 
                     />
                 </div>
+                {isEmojiBarMobileOpen && 
+                     <div 
+                        className='facebookSelector'
+                        onClick={handleCloseEmojiBarMobile}
+                    >
+                     <FacebookSelector 
+                         onSelect={(emoji) => handleReaction(emoji)}
+                     />
+                 </div>
+                }
+                <div 
+                    className={userReaction === 'like' ? 'post__reaction-mobile option--active' : 'post__reaction-mobile'}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        if(isEmojiBarMobileOpen){
+                            handleCloseEmojiBarMobile();
+                        }else{
+                            handleOpenEmojiBarMobile();
+                        }
+                    }}
+                >
+                    <PostReactionDisplay 
+                        userReaction={userReaction}
+                        reactionList={reactionList.current}
+                    />
+                </div>
+
                 <div 
                     className={isOpenComment ? 'option--active post__option' : 'post__option'}
                     onClick={handleOpenComment}
@@ -424,14 +490,17 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                 <ModifyComment 
                                    title={comment.title}
                                    id={comment.id}
-                                   closeModifyComment={handleCloseModifyComment} 
+                                   closeModifyComment={handleCloseModifyComment}
+                                   imageModify={comment.image}
+                                   removeUploadImage={removeUploadImage}
+                                   imageModifyName={comment.imageName}
                                 />
-                            :   <div className='wrapComment'>
+                            :   <>
+                                <div className='wrapComment'>
                                     <div className="comment__content" >
                                         <h2>{comment.user}</h2>
                                         <p>{comment.title}</p>
                                         {![undefined, ''].includes(comment.image) && <img src={comment.image} alt="" />}
-                                        
                                     </div>
                                     <div className='comment__reaction'>
                                             <CommentReaction 
@@ -442,12 +511,14 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                                  postId={id}
                                                  userLogin={userLogin}
                                             />
-                                            <span>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</span>
+                                            <p>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</p>
+                                            <p onClick={() => handleOpenModifyComment(comment.id)}>Modify</p>
+                                            <p onClick={() => handleRemoveComment(comment.id)}>Delete</p>
+                                            
                                     </div>
                                     
                                 </div>
-                            }
-                            <div className='comment__reaction-counter'>
+                                <div className='comment__reaction-counter'>
                                 <ReactionCounter 
                                     reaction={userReactionComment.filter((
                                     (commentReaction) => commentReaction.commentId === comment.id
@@ -457,22 +528,25 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                     ))}
                                     isComment={true}
                                 />
-                            </div>
-                            <div className='comment__change' onClick={(e) => {
-                                e.stopPropagation();
-                            }}>
-                                <MoreHorizIcon onClick={() => handleToggleChangeComment(index)}/>
-                                <div className='commentOptions'>
-                                    <p>Modify or Delete this comment</p>
                                 </div>
-                                <CommentOptions 
-                                    isOpen={index}
-                                    indexToOpen={isChangeCommentOpen}
-                                    handleRemoveComment={() => handleRemoveComment(comment.id)}
-                                    commentId={comment.id}
-                                    handleModifyComment={() => handleOpenModifyComment(comment.id)}
-                                />
-                            </div>
+                                    <div className='comment__change' onClick={(e) => {
+                                        e.stopPropagation();
+                                    }}>
+                                        <MoreHorizIcon onClick={() => handleToggleChangeComment(index)}/>
+                                        <div className='commentOptions'>
+                                            <p>Modify or Delete this comment</p>
+                                        </div>
+                                        <CommentOptions 
+                                            isOpen={index}
+                                            indexToOpen={isChangeCommentOpen}
+                                            handleRemoveComment={() => handleRemoveComment(comment.id)}
+                                            commentId={comment.id}
+                                            handleModifyComment={() => handleOpenModifyComment(comment.id)}
+                                        />
+                                    </div>                       
+                                </>
+                            }
+                            
                         </div>
                     )}
                     <form>
@@ -515,25 +589,41 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                         getUrlPreview={setImagePreviewUrl}
                                         getRef={setImageRef}
                                         getName={setImageName}
+                                        id={id}
                                     />
                                 </div>
                                  
                             </div>
-                            {imagePreviewUrl &&
+                            {!['', undefined].includes(imagePreviewUrl) &&
                                 <div className='hidenForm__imagePreview'>
                                     <div className='imagePreview__progress'> 
                                         {![0, 100].includes(progress) && <progress value={progress} max="100" />}
 
                                         <img src={imagePreviewUrl} alt="" />
+                                        {imageUpLoadUrl !== '' 
+                                        ? 
+                                            <div className='imagePreview__done'>
+                                                <DoneIcon />
+                                            </div> 
+                                        : 
+                                            <div className='imagePreview__uploading'>
+                                                <RefreshIcon />
+                                            </div>
+                                        }
                                     </div>
                                     <div  className='imagePreview__remove' >
                                         <CloseIcon onClick={removeUploadImage}></CloseIcon> 
                                     </div>
-                            
+                                    
                                 </div>
                             }
                         </div>
-                        <button type="submit" onClick={handleComment} >Hiden Button</button>
+                        <button 
+                            type="submit" 
+                            onClick={handleComment} 
+                            disabled={imagePreviewUrl !== '' && imageUpLoadUrl === '' ? true : false}
+                        >
+                            Hiden Button</button>
                     </form>
                 </div>
             }

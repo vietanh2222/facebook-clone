@@ -80,6 +80,7 @@ function Header() {
             src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
             alt=""
           />
+        
         </Link>
         {showSearchBar && 
           <SearchBar 
@@ -165,14 +166,15 @@ function Header() {
       </div>
 
       <div className="header__right">
-        <IconButton onClick={handleClick}>
-          <ListIcon className="header__list" />
-        </IconButton>
+       
         <div className="header__info" onClick={() => 
                 {navigate(`/profile/me`, {state: {name: user.displayName, avatar:user.photoURL }})}}>
           <Avatar src={user.photoURL} />
           <h4>{user.displayName}</h4>
         </div>
+        <IconButton onClick={handleClick}>
+          <ListIcon className="header__list" />
+        </IconButton>
         <IconButton className="header__icon">
           <AddIcon />
         </IconButton>

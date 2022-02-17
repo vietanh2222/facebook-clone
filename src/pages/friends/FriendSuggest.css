@@ -1,11 +1,10 @@
 .friendSuggest{
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 197px;
     height: 360px;
     box-shadow: 0px 5px 17px -7px rgba(0, 0, 0, 0.75);
     border-radius: 10px;
-    margin-right: 10px;
     margin-top: 10px;
     transition: transform 100ms ease-in;
 }
@@ -56,3 +55,17 @@
     background-color: #e4e6eb;
 }
     
+@media (max-width: 500px) {
+    .friendSuggest{
+        width: 120px;
+        height: 260px;
+    }
+
+    .friendSuggest__title > .MuiButton-root {
+        font-size: 12px;
+    }
+
+    .friendSuggest__title {
+        padding: 6px;
+    }
+}

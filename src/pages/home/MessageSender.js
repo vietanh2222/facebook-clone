@@ -11,6 +11,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import ImageUpload from './ImageUpload';
 import { deleteObject } from 'firebase/storage';
 import { SlackSelector } from '@charkour/react-reactions';
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DoneIcon from '@mui/icons-material/Done';
 
 
 function MessageSender() {
@@ -24,7 +26,7 @@ function MessageSender() {
     const [imageRef, setImageRef] = useState();
     const [imageName, setImageName] = useState('');
     const [showSlackBar, setShowSlackBar] = useState(false);
-
+  
     const handleSubmit = (e) => {
         e.preventDefault();
         if(!auth.currentUser){
@@ -46,10 +48,11 @@ function MessageSender() {
         setImagePreviewUrl("");
         setShowForm(false)
     };
-    const removeUploadImage = () => {
+    const removeUploadImage = async () => {
         setImagePreviewUrl("");
+        setImageUpLoadUrl("");
         setProgress(0);
-        deleteObject(imageRef);
+        await deleteObject(imageRef);
     }
     const showHidenForm = (e) => {
         e.preventDefault();
@@ -117,6 +120,16 @@ function MessageSender() {
                                             {![0, 100].includes(progress) && <progress value={progress} max="100" />}
 
                                             <img src={imagePreviewUrl} alt="" />
+                                            {imageUpLoadUrl !== '' 
+                                            ? 
+                                                <div className='imagePreview__done'>
+                                                    <DoneIcon />
+                                                </div> 
+                                            : 
+                                                <div className='imagePreview__uploading'>
+                                                    <RefreshIcon />
+                                                </div>
+                                            }
                                         </div>
                                         <div  className='imagePreview__remove' >
                                             <CloseIcon onClick={removeUploadImage}></CloseIcon> 
@@ -151,12 +164,13 @@ function MessageSender() {
                                         }
                                     </div>
                                         <div className="input-icon">
-                                            <ImageUpload 
+                                            <ImageUpload
                                                 getUrlUpLoad={setImageUpLoadUrl}
                                                 getProgress={setProgress}
                                                 getUrlPreview={setImagePreviewUrl}
                                                 getRef={setImageRef}
                                                 getName={setImageName}
+                                                id={'messageSender'}
                                             />
                                         </div>
                                     </div>
@@ -165,8 +179,8 @@ function MessageSender() {
                                 <button 
                                     onClick={handleSubmit} 
                                     type="submit"
-                                    className={(input !== "" && imagePreviewUrl === '') || (progress === 100 && imagePreviewUrl !== '') ? "" : `button--disabled`}
-                                    disabled={(input !== "" && imagePreviewUrl === '') || (progress === 100 && imagePreviewUrl !== '') ? false : true}
+                                    className={(input !== "" && imageUpLoadUrl === '' && imagePreviewUrl === '') || (imageUpLoadUrl !== '') ? "" : `button--disabled`}
+                                    disabled={(input !== "" && imageUpLoadUrl === '' && imagePreviewUrl === '') || (imageUpLoadUrl !== '') ? false : true}
                                 >
                                     POST
                                 </button>

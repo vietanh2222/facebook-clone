@@ -78,3 +78,13 @@
     padding: 0 26px;
     font-size: 20px;
 }
+
+@media (max-width: 450px) {
+    .searchBar {
+        width: 100%;
+        height: 100vh;
+    }
+    .searchBar__input {
+        flex: 1;
+    }
+}

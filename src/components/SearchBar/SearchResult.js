@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import "./SearchResult.css";
 import React from 'react';
 import db from '../../pages/home/firebase';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 function SearchResult({name, avatar, isFriend, closeSearchBar, user}) {
@@ -15,7 +15,8 @@ function SearchResult({name, avatar, isFriend, closeSearchBar, user}) {
       user,
       searchKey:'',
       name,
-      avatar
+      avatar,
+      timestamp:serverTimestamp()
     })
     closeSearchBar();
   }

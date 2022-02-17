@@ -31,12 +31,12 @@
 
 @media (max-width: 1200px) {
     .contacts {
-        width: 28%;
-        top: 42px;
+        width: 25%;
+        max-width: 300px;
     }
 }
 
-@media (max-width: 890px) {
+@media (max-width: 980px) {
     .contacts {
         display: none;
     }

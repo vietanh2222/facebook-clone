@@ -14,6 +14,7 @@
     padding: 15px;
 }
 
+
  form {
     width: 100%;
     display: flex;
@@ -66,8 +67,9 @@ form > .messageSender__button {
     display: flex;
 }
 
-#upload-image{
+.upload-image{
     display: none;
+    color: green;
 }
 
 .hidenForm__wrapper{
@@ -308,6 +310,18 @@ form > .messageSender__button {
         width: 90%;
         margin: 0 auto;
     }
+
+    .slack {
+        right: -50px;
+    }
+
+    .slack > div {
+        width: 230px !important;
+    }
+
+    .slack > div > div:nth-child(2){
+        overflow: scroll;
+    }
 }
 
 @media (max-width: 400px) {
@@ -316,10 +330,11 @@ form > .messageSender__button {
         padding: 4px;
     }
     .messageSender__option > h3 {
-        font-size: 10px;
+        font-size: 12px;
+        margin-left: 5px;
     }
 
     .messageSender__option > .MuiSvgIcon-root {
-        font-size: 12px;
+        font-size: 22px;
     }
 }

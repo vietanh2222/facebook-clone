@@ -20,15 +20,14 @@ function Profile() {
     state = {};
   }
   const isUserPage = pathname.substring(9) === "me";
-  const width = 950 + Math.floor(Math.random() * 40);
-  const height = 650 + Math.floor(Math.random() * 30);
+  const width = 1250 + Math.floor(Math.random() * 40);
 
   const [isFriend, setIsFriend] = useState(state.isFriend === "yes");
   return (
     <div className="profile">
       <div className="profile__header">
         <div className="profile__banner">
-          <img src={`https://picsum.photos/${width}/${height}`} alt="" />
+          <img src={`https://picsum.photos/${width}/720`} alt="" />
         </div>
         <div className="profile__container">
           <div className="profile__info">
@@ -44,7 +43,7 @@ function Profile() {
               )}
             </div>
             {isUserPage ? (
-              <>
+              <div className="profile__options">
                 <IconButton>
                   <AddCircleOutlineIcon />
                   <p>Add more information</p>
@@ -53,9 +52,9 @@ function Profile() {
                   <EditIcon />
                   <p>Modify personal page</p>
                 </IconButton>
-              </>
+              </div>
             ) : (
-              <>
+              <div className="profile__options">
                 <IconButton onClick={() => setIsFriend(!isFriend)}>
                   {state !== null && isFriend ? (
                     <>
@@ -73,7 +72,7 @@ function Profile() {
                   <ChatBubbleOutlineIcon />
                   <p>Chat</p>
                 </IconButton>
-              </>
+              </div>
             )}
           </div>
           <div className="profile__navlink">
@@ -131,13 +130,13 @@ function Profile() {
               )}
             </div>
             <div className="profile__image profile__box">
-                <h1>Images</h1>
+                <h3>Images</h3>
                 <IconButton >
                     <p>View all images</p>
                 </IconButton>
             </div>
             <div className="profile__image profile__box">
-                <h1>Friends</h1>
+                <h3>Friends</h3>
                 <IconButton >
                     <p>View all friends</p>
                 </IconButton>
@@ -198,10 +197,11 @@ function Profile() {
             <div className='postProfile profile__box'>
                 <div className="postProfile__top">
                 <Avatar src={state.avatar} />
-                <h1>{state.name}</h1>
+                <h2>{state.name}</h2>
                 </div>
                 <div className="postProfile__bottom">
-
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                    <img src="https://picsum.photos/800/800" alt=""/>
                 </div>
             </div>
            

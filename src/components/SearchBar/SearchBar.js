@@ -4,7 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SearchHistory from './SearchHistory';
 import { useStateValue } from '../../store/StateProvider';
 import SearchResult from './SearchResult';
-import { onSnapshot, addDoc, collection, where } from 'firebase/firestore';
+import { onSnapshot, addDoc, collection, where, serverTimestamp, orderBy } from 'firebase/firestore';
 import db from '../../pages/home/firebase';
 import { useNavigate } from 'react-router-dom';
 import { query } from 'firebase/firestore';
@@ -20,25 +20,36 @@ function SearchBar({handleGetValue, closeSearchBar, valueSearchInit}) {
     friendRequests = [];
     friendSuggest = [];
   }
-  const friendList = contacts.map((contact) => 
+
+  const [searchKey, setSearchKey] = useState(valueSearchInit);
+  const [searchHistory, setSearchHistory] = useState([]);
+  const listSearch = useRef([])
+  const searchResult = useRef([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const friendList = contacts.map((contact) => 
   ({...contact, isFriend: 'yes'}))
   const noFriendList = 
   [...friendRequests, ...friendSuggest]
     .map((contact) => ({
       ...contact, isFriend: 'no'
     }))
-  const listSearch = [...friendList, ...noFriendList]
+    listSearch.current=[...friendList, ...noFriendList]
+  }, [contacts, friendRequests, friendSuggest])
   
-  const [searchKey, setSearchKey] = useState(valueSearchInit);
-  const [searchHistory, setSearchHistory] = useState([]);
-  const searchResult = useRef([]);
-  const navigate = useNavigate();
+  useEffect(() => {
+        const q = query(collection(db, "searchHistories"), where("user", "==" , user.displayName), orderBy("timestamp", "desc"))
+        onSnapshot(q, (snapshot) => {
+          setSearchHistory((snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))))
+        })
+  }, [user.displayName])
 
-  const findContact = (key) => {
+  const handleFindContact = (key) => {
     setSearchKey(key);
     handleGetValue(key);
-    searchResult.current = listSearch.filter((contact) => 
-    contact.name.trim().toLowerCase().includes(searchKey.toLowerCase()))
+    searchResult.current = listSearch.current.filter((contact) => 
+    contact.name.trim().toLowerCase().includes(key.toLowerCase()))
   }
 
   const stopPropaganition = (e) => {
@@ -52,22 +63,13 @@ function SearchBar({handleGetValue, closeSearchBar, valueSearchInit}) {
             user: user.displayName,
             searchKey,
             name:"",
-            avatar:""
+            avatar:"",
+            timestamp: serverTimestamp()
           }
         );
     navigate('/search', {state: searchResult.current})
   }
 
-  
-  useEffect(() => {
-        const q = query(collection(db, "searchHistories"), where("user", "==" , user.displayName))
-        onSnapshot(q, (snapshot) => {
-          setSearchHistory((snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))).reverse())
-        })
-  }, [user.displayName])
-
-  console.log(searchHistory);
-  console.log(user.displayName);
   return (
     <div className='searchBar' onClick={stopPropaganition}>
           <div className="searchBar__header">
@@ -79,7 +81,7 @@ function SearchBar({handleGetValue, closeSearchBar, valueSearchInit}) {
                   type="text" 
                   placeholder="Search Facebook" 
                   onChange={(e) => {
-                    findContact(e.target.value);
+                    handleFindContact(e.target.value);
                   }}
                   value={searchKey}
                 />

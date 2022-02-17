@@ -9,8 +9,18 @@
     font-size: 28px;
 }
 
-@media (max-width:867px){
+@media (max-width:960px){
     .friends{
-         height: 100vh;
+         min-height: 100vh;
+         justify-content: center;
+    }
+    .sidebarfriends {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .friends h2 {
+        font-size: 20px;
     }
 }

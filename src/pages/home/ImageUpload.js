@@ -4,8 +4,8 @@ import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { storage } from "./firebase";
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 
-function ImageUpload({ getUrlUpLoad, getProgress, getUrlPreview, getRef, getName }) {
-
+function ImageUpload({ getUrlUpLoad, getProgress, getUrlPreview, getRef, getName, id }) {
+ 
     const handleUpload = async (image) => {
         getUrlPreview(URL.createObjectURL(image));
         getName(image.name)
@@ -36,11 +36,12 @@ function ImageUpload({ getUrlUpLoad, getProgress, getUrlPreview, getRef, getName
   return (
   
     <div className="input-uploadImage">
-        <label htmlFor="upload-image">
+        <label htmlFor={`${id}__upload-image`}>
            <PhotoLibraryIcon />
         </label>
         <input
-          id="upload-image"
+          className="upload-image"
+          id={`${id}__upload-image`}
           type="file"
           onChange={(e) => handleUpload(e.target.files[0])}
         />

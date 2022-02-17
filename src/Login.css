@@ -1,74 +1,119 @@
 .login {
-    background-color: white;
     display: flex;
     justify-content: center;
     height: 100vh;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
 }
 
-.login > button {
-    width: 30%;
-    min-width: 250px;
+.login__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login__wrapper > .login__logo {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+}
+
+.login__logo > h1 {
+    font-size: 46px;
+    font-weight: 700;
+    color: #0e3264;
+    font-style: italic;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login__button {
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.login__button > button {
+    width: 85%;
+    min-width: 220px;
     max-width: 300px;
     background-color: #2e81f4;
     color: #eff2f5;
     font-weight: 800;
-    margin: 20px 0;
+    margin: 20px;
+    display: flex;
+    align-items: center;
 }
 
-.login > button:nth-child(2) {
+.login__button > button:nth-child(1) {
     background-color: red;
 }
 
-.login > button:last-child {
+.login__button > button:nth-child(2) {
     color: #1c1e21;
     font-weight: 600;
     background-color: #E4E6EB;
     opacity: 0.6;
 }
 
-.login > span {
+.login__button > span {
     color: gray ;
     font-weight: bolder;
     font-size: 20px;
+    text-align: center;
 }
 
-
-.login > button:hover {
-    background-color: white;
-    color: #2e81f4;
+.login__button > button > .MuiSvgIcon-root {
+    font-size: 30px;
+    padding: 6px 0;
 }
 
-.login > div > img:first-child {
-    object-fit: contain;
-    height: 17vh;
+.login__button > button > p {
+    margin-left: 10px;
+    padding-top: 5px;
+}
+
+#button__divider {
+    display: block;
+    position: relative;
+    border-top: 0.1rem solid #a8a6a6;
+    height: 0.1rem;
+    margin: 2rem 0;
+    text-align: center;
     width: 100%;
+    max-width: 300px;
+    min-width: 220px;
+    width: 85%;
 }
 
-.login > div > img:last-child {
-    object-fit: contain;
-    height: 34vh;
-    width: 100%;
+#button__divider::after {
+    background: #f1f2f5;
+    color: #7a7a7a;
+    content: "OR";
+    display: inline-block;
+    font-size: 20px;
+    padding: 0.4rem 0.8rem;
+    -webkit-transform: translateY(-1.1rem);
+    transform: translateY(-1.4rem);
+    text-align: center;
+    font-weight: 700;
 }
 
-.login > div {
-    display: flex;
-    flex-direction: column;
+.login__button > .css-1e6y48t-MuiButtonBase-root-MuiButton-root:last-child:hover {
+    background-color: #2e81f4;
 }
 
 @media (max-width: 600px) {
-    .login > div > img:first-child {
-        height: 15vh;
-    }
 
-    .login > div > img:last-child {
-        object-fit: contain;
-        height: 30vh;
-    }
-
-    .login > button {
+    .login__wrapper > button {
         font-size: 16px;
+    }
+
+    .login__logo > h1 {
+        font-size: 35px;
     }
 }

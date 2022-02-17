@@ -19,6 +19,8 @@
 .header__left{
     justify-content: space-evenly;
     align-items: center;
+    width: 14%;
+    min-width: 250px;
 }
 
 .header__input {
@@ -123,6 +125,9 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    width: 14%;
+    min-width: 250px;
+    position: relative;
 }
 
 .header__info {
@@ -130,9 +135,8 @@
     align-items: center;
     height: 36px;
     cursor: pointer;
-    margin: 0 20px;
     position: absolute;
-    right: 225px;
+    left: -50px;
 }
 
 .header__info:hover {
@@ -141,8 +145,8 @@
 }
 
 .header__info > .MuiAvatar-root {
-    height: 30px;
-    width: 30px;
+    height: 35px;
+    width: 35px;
 }
 
 .header__info > h4 {
@@ -211,7 +215,7 @@
 .header > .sidebar {
     display: none;
 }
-
+/* 
 @media (max-width: 1440px) {
 
     .header__center > a[href="/gaming"],
@@ -223,38 +227,51 @@
     .header__info {
         right: 190px;
     }
-}
+} */
 
 @media (max-width: 1360px) {
 
-    .header__right > .header__icon {
-        display: none;
-    }
-    .header__right > .header__icon:last-child {
-        display: flex;
-        align-items: center;
-    }
-    .header__info{
-        right: 70px;
+    .header__option{
+        padding: 12px 40px;
     }
 }
 
 @media (max-width: 1260px) {
+
+     .header__right > .header__icon {
+        display: none;
+    }
+
+    .header__right > .header__icon:last-child {
+        display: flex;
+        align-items: center;
+    }
+
+    .header__right > button > .header__list {
+        display: block;
+    }
+
     .header__input{
         width: 100%;
     }
-    .header__input > p {
+    /* .header__input > p {
         display: none;
-    }
+    } */
     .header__info{
-        right: 126px;
+        position: relative;
+        margin-right: 20px;
+        left: 0;
     }
 }
 
 @media (max-width: 1200px) {
 
-    .header__right > button > .header__list {
-        display: block;
+
+
+    .header__center > a[href="/gaming"],
+    .header__center > a[href="/groups"]
+    {
+        display: none;
     }
 
     .header > .sidebar {
@@ -269,10 +286,6 @@
         display: block;
     }
 
-    .header__info {  
-        margin: 0;
-        margin-left: 10px;
-    }
 }
 
 @media (max-width: 890px) {
@@ -294,14 +307,43 @@
     }
 
     .header > .sidebar {
-        top: 50px;
+        top: 44px;
     }
+}
+
+@media (max-width: 520px) {
+
+    .header__input {
+        width: 22px;
+    }
+
+    .header__left  {
+        width: 90px;
+        min-width: 0px;
+    }
+    .header__right {
+        min-width: 0;
+    }
+
+    .header__input > p {
+        display: none;
+    }
+
 }
 
 @media (max-width: 380px) {
     .header__info {
-        position: static;
+        margin-right: 0px;
     }
+
+    .header__input {
+        margin-left: 4px;
+    }
+
+    .header__info > h4{
+        width: 40px;
+    }
+
 }
 
 @media (max-width: 300px) {
@@ -310,11 +352,12 @@
         margin-left: 4px;
     }
     
-    .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {
+    
+    /* .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {
         color: black;
         font-size: 16px;
         background-color: #e4e7eb;
         padding: 4px;
         border-radius: 999px;
-    }
+    } */
 }

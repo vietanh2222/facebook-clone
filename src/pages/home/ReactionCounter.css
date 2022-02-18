@@ -1,6 +1,5 @@
 .comment__reaction-counter > .option__count > .showUser > p{
     font-size: 14px;
-    padding: 2px;
     margin-left: 4px;
     cursor: pointer;
     
@@ -10,22 +9,13 @@
     text-decoration: underline;
 }
 
-.comment__reaction-counter > .option__count > .showUser > .MuiSvgIcon-root{
-    width: 12px;
-    height: 12px;
-}
-
-.comment__reaction-counter > .option__count > .showUser > img{
-    width: 16px;
-    height: 16px;
-}
 
 .comment__reaction-counter > .option__count{
     margin-left: 0;
 }
 
 .comment__reaction-counter {
-    padding: 2px;
+
     margin-left: -5px;
     margin-bottom: 20px;
 

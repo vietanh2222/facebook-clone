@@ -292,6 +292,10 @@ form > button:hover {
     .profile__banner {
         width: 100%;
     }
+
+    .profile__banner > img {
+        border-radius: 0;
+    }
 }
 
 @media (max-width: 730px) {
@@ -316,6 +320,12 @@ form > button:hover {
     }
     
     .profile__options {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .profile__options > button {
         margin-bottom: 20px;
     }
 
@@ -352,4 +362,8 @@ form > button:hover {
           width: 144px;
           height: 144px;
       }
+
+    .profile__post > .messageSender h3 {
+        font-size: 14px;
+    }
 }

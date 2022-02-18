@@ -38,7 +38,7 @@ form > .messageSender__button {
     background-color: #eff2f5;
     width: 100%;
     text-align: start;
-    color: #000;
+    color: rgb(112, 110, 110);
 }
 
 
@@ -49,6 +49,7 @@ form > .messageSender__button {
 .hidenForm__top > h2{
     flex: 1;
     text-align: center;
+    font-size: 27px;
 }
 
 .messageSender__input {
@@ -131,6 +132,10 @@ form > .messageSender__button {
     border-radius: 8px;
 
     display: flex;
+}
+
+.modifyComment .hidenForm__imagePreview {
+    margin-bottom: 4px;
 }
 
 .imagePreview__progress {

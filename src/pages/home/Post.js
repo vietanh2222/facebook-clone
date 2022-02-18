@@ -229,10 +229,11 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
 
     const handleToggleChangeOptions = () => {
         setIsChangeOptionsOpen(!isChangeOptionsOpen)
-        if(isChangeOptionsOpen){
+        if(!isChangeOptionsOpen){
             document.addEventListener('click', handleCloseChangeOptions)
         }else{
             handleCloseChangeComment()
+            document.removeEventListener('click', handleCloseChangeOptions)
         }
     }
     
@@ -338,6 +339,7 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                 messageModify={message}
                 imageModify={image}
                 postId={id}
+                imageNameDelete={imageNameDelete}
             />}
             <div className='post__bottom'>
                 <p>{message}</p>
@@ -621,8 +623,10 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                         <button 
                             type="submit" 
                             onClick={handleComment} 
-                            disabled={(imagePreviewUrl !== '' && imageUpLoadUrl === '') || comment === '' ? true : false}
-                            className={(imagePreviewUrl !== '' && imageUpLoadUrl === '') || comment === '' ? 'button--disabled displayNone' : ''}
+                            disabled={(imagePreviewUrl !== '' && imageUpLoadUrl === '') || 
+                            (comment === '' && imageUpLoadUrl === '')? true : false}
+                            className={(imagePreviewUrl !== '' && imageUpLoadUrl === '') || 
+                            (comment === '' &&  imageUpLoadUrl === '')? 'button--disabled displayNone' : ''}
                         >
                             Send</button>
                     </form>

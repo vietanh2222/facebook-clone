@@ -74,10 +74,12 @@ function MessageSender() {
         
         if(showSlackBar){
             setShowSlackBar(false);
-            window.removeEventListener('click', handeCloseShowSlackBar)
+            document.querySelector('.messageSender__hidenForm > .hidenForm__wrapper')
+            .removeEventListener('click', handeCloseShowSlackBar)
         }else {
             setShowSlackBar(true);
-            window.addEventListener('click', handeCloseShowSlackBar) 
+            document.querySelector('.messageSender__hidenForm > .hidenForm__wrapper')
+            .addEventListener('click', handeCloseShowSlackBar)
         }
     }
 
@@ -191,19 +193,28 @@ function MessageSender() {
             </div>
 
             <div className='messageSender__bottom'>
-                <div className='messageSender__option'>
+                <div 
+                    className='messageSender__option'
+                    onClick={showHidenForm}
+                >
                     <VideoCameraFrontIcon style={{
                         color: "red"
                     }} />
                     <h3>Live Video</h3>
                 </div>
-                <div className='messageSender__option'>
+                <div 
+                    className='messageSender__option'
+                    onClick={showHidenForm}
+                >
                     <PhotoLibraryIcon style={{
                         color: "green"
                     }} />
                     <h3>Photo</h3>
                 </div>
-                <div className='messageSender__option'>
+                <div 
+                    className='messageSender__option'
+                    onClick={showHidenForm}
+                >
                     <InsertEmoticonIcon style={{
                         color: "orange"
                     }} />

@@ -309,6 +309,10 @@
     .header > .sidebar {
         top: 44px;
     }
+
+    .header__left > a {
+        padding: 6px 0;
+    }
 }
 
 @media (max-width: 520px) {

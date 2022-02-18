@@ -272,12 +272,12 @@
 }
 
 .option__count > .showUser > img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
 }
 
 .option__count > .showUser > .MuiSvgIcon-root {
-    font-size: 1rem;
+    font-size: 14px;
 
     padding: 4px;
 
@@ -605,17 +605,18 @@ form > .input-icons > input {
 }
 
 @media (max-width: 1200px) {
-    .comment__reaction > p:not(:nth-child(2)){
+    /* .comment__reaction > p:not(:nth-child(2)){
         display: block;
     }
 
     .comment__reaction > p:not(:nth-child(2)):hover{
         cursor: pointer;
         text-decoration: underline;
-    }
+    } */
 
     .comment__change > .MuiSvgIcon-root{
-        display: none;
+        display: block;
+        visibility: visible;
     }
 
     .post__reaction-mobile {
@@ -647,6 +648,18 @@ form > .input-icons > input {
     .comment__reaction-counter .showUserDetail {
         left: 100%;
         transform: translateX(-100%);
+    }
+
+    .comment__change:hover > .commentOptions {
+        display: none;
+    }
+
+    .comment__options {
+        transform: translateX(-95%);
+    }
+
+    .comment__remove::before {
+        left: 95%;
     }
 }
 
@@ -711,9 +724,15 @@ form > .input-icons > input {
     }
 
     .input-icons > .input-icons__icon {
-        margin-right: 15px;
+        margin-right: 35px;
         margin-top: 5px;
         position: relative;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .input-icon > .slack {
+        transform: translateX(30%);
     }
 
     .comment__content > p {
@@ -748,4 +767,6 @@ form > .input-icons > input {
         margin-left: 5px;
         font-size: 12px;
     }
+
+    
 }

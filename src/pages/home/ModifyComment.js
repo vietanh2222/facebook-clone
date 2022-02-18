@@ -7,6 +7,8 @@ import db, { storage } from "./firebase";
 import { SlackSelector } from "@charkour/react-reactions";
 import ImageUpload from "./ImageUpload";
 import { deleteObject, ref } from "firebase/storage";
+import RefreshIcon from '@mui/icons-material/Refresh';
+import DoneIcon from '@mui/icons-material/Done';
 
 function ModifyComment({
   title,
@@ -22,19 +24,28 @@ function ModifyComment({
   const [imageUploadUrl, setImageUpLoadUrl] = useState("");
   const [imageName, setImageName] = useState("");
   const [imageRef, setImageRef] = useState("");
+  const [isHaveImage, setIsHaveImage] = useState(imageModify !== '')
 
   const handleModifyComment = async (e) => {
     e.preventDefault();
     closeModifyComment();
     if(imageUploadUrl !== ''){
+      if(imageModify !== ""){
+        setIsHaveImage(false);
+        await deleteObject(ref(storage, `images/${imageModifyName}`));
+      }
       await updateDoc(doc(db, "userComment", id), {
         title: commentTitle,
         timesupdate: serverTimestamp(),
         imageName: imageName,
         image: imageUploadUrl,
       });
+      
     }else{
-      await deleteObject(ref(storage, `images/${imageModifyName}`));
+      if(imagePreviewUrl === ''){
+        await deleteObject(ref(storage, `images/${imageModifyName}`));
+        setIsHaveImage(false);
+      }
       await updateDoc(doc(db, "userComment", id), {
         title: commentTitle,
         timesupdate: serverTimestamp(),
@@ -62,15 +73,9 @@ function ModifyComment({
   const removeUploadImage = async () => {
     setImagePreviewUrl("");
     setProgress(0);
-    if (!["", undefined].includes(imageModifyName)) {
-      // await deleteObject(ref(storage, `images/${imageModifyName}`));
-      // // await updateDoc(doc(db, "userComment", id), {
-      // //   image: "",
-      // //   imageName: "",
-      // // });
-      return
-    } else {
-      await deleteObject(imageRef);
+    setIsHaveImage(false);
+    if(imageUploadUrl !== ""){
+      setImagePreviewUrl('');
     }
   };
 
@@ -130,6 +135,19 @@ function ModifyComment({
                 )}
 
                 <img src={imagePreviewUrl} alt="" />
+                {!isHaveImage && 
+                  <>
+                    {imageUploadUrl !== "" ? (
+                      <div className="imagePreview__done">
+                        <DoneIcon />
+                      </div>
+                    ) : (
+                      <div className="imagePreview__uploading">
+                        <RefreshIcon />
+                      </div>
+                    )}
+                  </>
+                }
               </div>
               <div className="imagePreview__remove">
                 <CloseIcon onClick={removeUploadImage}></CloseIcon>
@@ -146,10 +164,11 @@ function ModifyComment({
       )}
       <span
         onClick={async () => {
-          if(imagePreviewUrl !== ''){
+          if(imageUploadUrl !== ''){
             await deleteObject(imageRef);
           }
           closeModifyComment();
+          setIsHaveImage(imageModify !== '');
         }}
       >
         Cancel

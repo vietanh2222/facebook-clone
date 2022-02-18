@@ -73,7 +73,12 @@ function Header() {
   }
   return (
     <div className="header" >
-      {showSidebar && <Sidebar />}
+      {showSidebar && 
+        <Sidebar 
+          closeSideBarHeader={setShowSidebar}
+          isHeaderClick={true}
+        />
+      }
       <div className="header__left" onClick={stopPropaganition}>
         <Link to="/">
           <img

@@ -621,9 +621,10 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                         <button 
                             type="submit" 
                             onClick={handleComment} 
-                            disabled={imagePreviewUrl !== '' && imageUpLoadUrl === '' ? true : false}
+                            disabled={(imagePreviewUrl !== '' && imageUpLoadUrl === '') || comment === '' ? true : false}
+                            className={(imagePreviewUrl !== '' && imageUpLoadUrl === '') || comment === '' ? 'button--disabled displayNone' : ''}
                         >
-                            Hiden Button</button>
+                            Send</button>
                     </form>
                 </div>
             }

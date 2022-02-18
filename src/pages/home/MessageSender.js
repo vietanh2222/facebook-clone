@@ -201,13 +201,13 @@ function MessageSender() {
                     <PhotoLibraryIcon style={{
                         color: "green"
                     }} />
-                    <h3>Photo/Video</h3>
+                    <h3>Photo</h3>
                 </div>
                 <div className='messageSender__option'>
                     <InsertEmoticonIcon style={{
                         color: "orange"
                     }} />
-                    <h3>Feeling/Activity</h3>
+                    <h3>Feeling</h3>
                 </div>
             </div>
         </div>

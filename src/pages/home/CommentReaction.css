@@ -1,7 +1,7 @@
 .commentReaction__Display > .emoji > p, 
 .commentReaction__Display > p 
 {
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
     cursor: pointer;
 }
@@ -16,8 +16,8 @@
 }
 
 .post__reaction-mobile > p {
-    font-size: 12px;
-    margin-right: 5px;
+    font-size: 14px;
+    margin-right: 10px;
     cursor: pointer;
     color: #65676B;
     font-weight: 600;
@@ -25,7 +25,7 @@
 }
 
 .post__reaction-mobile > .emoji > p {
-    font-size: 12px;
+    font-size: 14px;
     margin-right: 10px;
     cursor: pointer;
     display: none;

@@ -13,6 +13,7 @@ function StoryReel() {
                 swiping={true}
                 useArrowKeys={true}
                 rightArrow={<ArrowRightAltIcon />}
+                responsive={false}
               >
                 
                 <Story 

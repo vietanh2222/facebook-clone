@@ -85,7 +85,14 @@ function SearchBar({handleGetValue, closeSearchBar, valueSearchInit}) {
                   }}
                   value={searchKey}
                 />
-                <button type='submit' onClick={handleSubmit}>Hiden button</button>
+                <button 
+                  type='submit' 
+                  onClick={handleSubmit}
+                  disabled={searchKey === '' ? true : false}
+                  className={searchKey === '' ? 'button--disabled displayNone' : ''}
+                >
+                    Search
+                </button>
               </form>
             </div>
           </div>

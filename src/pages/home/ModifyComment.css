@@ -15,8 +15,7 @@
 .modifyComment > span {
     font-size: 12px;
     color: rgb(77, 134, 207);
-    margin: 16px 0 0 16px;
-
+    padding: 16px;
 }
 
 .modifyComment > span:hover {

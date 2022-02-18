@@ -354,6 +354,24 @@
 
 .post__comments > form > button{
     display: none;
+    padding: 0 12px;
+    color: white;
+    background-color: #1b74e4;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+    max-height: 40px;
+}
+
+.post__comments > form > button:not(.button--disabled):hover{
+    background-color: #1b74e4;
+    opacity: 0.7;
+}
+
+.displayNone {
+    display: none !important;
 }
 
 .post__comment {
@@ -446,7 +464,7 @@ form > .input-icons > input {
 }
 
 .comment__reaction > p{
-    font-size: 12px;
+    font-size: 14px;
     color: #65676B;
     font-weight: 600;
     margin-right: 10px;
@@ -566,6 +584,25 @@ form > .input-icons > input {
     justify-content: center;
 }
 
+.post__options > .post__reaction-mobile > p {
+    font-weight: 500;
+    margin-left: 10px;
+    font-size: 16px;
+    color: gray;
+}
+
+.post__options > .post__reaction-mobile:hover {
+    background-color: #eff2f5;
+    border-radius: 10px;
+}
+
+.post__options > .post__reaction-mobile.option--active > p {
+    color: rgb(32, 120, 244);
+}
+
+.post__options > .post__reaction-mobile > .emoji > p {
+    font-size: 16px;
+}
 
 @media (max-width: 1200px) {
     .comment__reaction > p:not(:nth-child(2)){
@@ -586,6 +623,30 @@ form > .input-icons > input {
     }
     .post__options > .post__option:first-child {
         display: none;
+    }
+
+    .post__comments > form > button {
+        display: block;
+    }
+    .changeOptions {
+        top: -100%;
+    }
+}
+
+@media (max-width: 850px) {
+    .changeOptions {
+    left: 50%;
+    transform: translateX(-90%);
+    }
+
+    .showUserDetail {
+        left: 0%;
+        transform: translateX(0%);
+    }
+
+    .comment__reaction-counter .showUserDetail {
+        left: 100%;
+        transform: translateX(-100%);
     }
 }
 
@@ -623,15 +684,7 @@ form > .input-icons > input {
         padding: 10px;
     }
 
-    .option__count > .showUser > .MuiSvgIcon-root {
-        font-size: 10px;
-    }
-
-    .option__count > .showUser > img {
-        width: 16px;
-        height: 16px;
-    }
-
+   
     .emoji > img {
         width: 20px;
         margin-right: 5px;
@@ -654,10 +707,13 @@ form > .input-icons > input {
 
     form > .input-icons > input {
         width: 80%;
+        padding: 5px 10px;
     }
+
     .input-icons > .input-icons__icon {
         margin-right: 15px;
         margin-top: 5px;
+        position: relative;
     }
 
     .comment__content > p {
@@ -678,5 +734,18 @@ form > .input-icons > input {
 
     .comment__content > img {
         max-width: 150px;
+    }
+
+    .post__comments {
+        padding: 0 10px 20px;
+    }
+
+    .post__options > .post__reaction-mobile > .MuiSvgIcon-root {
+        font-size: 22px;
+    }
+
+    .post__options > .post__reaction-mobile > p {
+        margin-left: 5px;
+        font-size: 12px;
     }
 }

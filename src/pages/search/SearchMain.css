@@ -67,3 +67,13 @@
 .result__info > h2:hover{
     text-decoration: underline;
 }
+
+@media (max-width: 800px) {
+    .searchMain{
+        margin-left: 0;
+    }
+
+    .searchMain__result{
+        width: 80%;
+    }
+}

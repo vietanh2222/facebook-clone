@@ -47,17 +47,15 @@
     margin: 20px;
     display: flex;
     align-items: center;
+    border-radius: 6px;
 }
 
 .login__button > button:nth-child(1) {
     background-color: red;
 }
 
-.login__button > button:nth-child(2) {
-    color: #1c1e21;
-    font-weight: 600;
-    background-color: #E4E6EB;
-    opacity: 0.6;
+.login__button > .MuiButton-root:nth-child(3):hover {
+    background-color: #2e81f4;
 }
 
 .login__button > span {
@@ -103,9 +101,6 @@
     font-weight: 700;
 }
 
-.login__button > .css-1e6y48t-MuiButtonBase-root-MuiButton-root:last-child:hover {
-    background-color: #2e81f4;
-}
 
 @media (max-width: 600px) {
 
@@ -113,7 +108,4 @@
         font-size: 16px;
     }
 
-    .login__logo > h1 {
-        font-size: 35px;
-    }
 }

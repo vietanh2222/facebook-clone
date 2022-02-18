@@ -42,7 +42,7 @@ button[data-direction='right'] { /* Right button */
     right: -55px;
 }
 
-.styles-module_carousel-base__3keqD > div > .css-i4bv87-MuiSvgIcon-root{
+.styles-module_carousel-base__3keqD > div > .MuiSvgIcon-root{
     padding: 6px;
     border-radius: 999px;
     background-color: #ffffff;
@@ -58,7 +58,14 @@ button[data-direction='right'] { /* Right button */
 }
 
 @media (max-width: 890px) {
-    .styles-module_carousel-base__3keqD > div > .css-i4bv87-MuiSvgIcon-root {
+    .styles-module_carousel-base__3keqD > div > .MuiSvgIcon-root {
         display: none;
+    }
+
+    .storyReel {
+        overflow: hidden;
+    }
+    .styles-module_carousel-base__3keqD {
+        width: 680px !important;
     }
 }

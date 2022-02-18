@@ -42,3 +42,9 @@
     padding: 4px;
     border-radius: 999px;
 }
+
+@media (max-width: 800px) {
+    .searchSideBar{
+        display: none;
+    }
+}

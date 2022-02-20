@@ -24,6 +24,7 @@ import ImageUpload from './ImageUpload';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import DoneIcon from '@mui/icons-material/Done';
 import { deleteObject, ref } from 'firebase/storage';
+import DeleteConfirm from './DeleteConfirm';
 
 
 function Post({ id, profilePic, image, imageNameDelete, username, email, 
@@ -48,7 +49,10 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
     const [imageRef, setImageRef] = useState();
     const [imageName, setImageName] = useState('');
 
-    const [showSlackBar, setShowSlackBar] = useState(false)
+    const [showSlackBar, setShowSlackBar] = useState(false);
+    const [seeMoreComment, setSeeMoreComment] = useState(false);
+    const [showDeleteConFirmPost, setShowDeleteConFirmPost] = useState(false);
+    
 
     const reactionList = useRef([])
     const currentUserReaction = useRef({})
@@ -94,6 +98,18 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
         }
     }
     
+    const handleShowDeleteConFirmPost = () => {
+        setShowDeleteConFirmPost(true)
+        setIsChangeOptionsOpen(false)
+        document.removeEventListener('click', handleCloseChangeOptions)
+        window.addEventListener('click', handleCloseDeleteConFirmPost)
+    }
+
+    const handleCloseDeleteConFirmPost = () => {
+        setShowDeleteConFirmPost(false)
+        window.removeEventListener('click', handleCloseDeleteConFirmPost)
+    }
+
     const handleLike = async () => {
             if(userReaction === undefined){
                 await addDoc(collection(db, 'userReaction'), {
@@ -314,12 +330,13 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                     {isChangeOptionsOpen &&
                         <div className='change__options'>
                             <div 
-                                onClick={handleRemove}
+                                onClick={handleShowDeleteConFirmPost}
                                 className='post__remove change__option' 
                             >
                                 <DeleteIcon   className='post__close' />
                                 <p>Delete post</p>
                             </div>
+                            
                             <div 
                                 onClick={handleOpenMofidyForm}
                                 className="post__modify change__option"
@@ -328,8 +345,17 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                 <p>Modify Post</p>
                             </div>
                         </div>
+
                     }
                 </div>
+                {showDeleteConFirmPost && 
+                    <DeleteConfirm 
+                        isPost={true}
+                        handleRemovePost = {handleRemove}
+                        handleCloseDeleteConFirmPost = {handleCloseDeleteConFirmPost}
+                    />
+                }
+                
             </div>
             {isModifyFormOpen && 
             <HidenForm 
@@ -484,8 +510,10 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
             {isOpenComment && 
                 <div className="post__comments">
                     
-                    {userComment.map((comment, index) =>
-                        <div className="post__comment" key={comment.id}>
+                    {userComment.map((comment, index) => {
+                        if(index < 2) {
+                       
+                        return <div className="post__comment" key={comment.id}>
                             <Avatar src={comment.profilePic}/>
                             {modifyCommentId === comment.id
                             ? 
@@ -514,8 +542,85 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                                  userLogin={userLogin}
                                             />
                                             <p>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</p>
-                                            <p onClick={() => handleOpenModifyComment(comment.id)}>Modify</p>
-                                            <p onClick={() => handleRemoveComment(comment.id)}>Delete</p>
+                                          
+                                            
+                                    </div>
+                                
+                                </div>
+                                <div className='comment__reaction-counter'>
+                                <ReactionCounter 
+                                    reaction={userReactionComment.filter((
+                                    (commentReaction) => commentReaction.commentId === comment.id
+                                    ))} 
+                                    currentUserReaction={userReactionComment.filter((
+                                        (commentReaction) => commentReaction.commentId === comment.id && commentReaction.user === userLogin
+                                    ))}
+                                    isComment={true}
+                                />
+                                </div>
+                                    <div className='comment__change' onClick={(e) => {
+                                        e.stopPropagation();
+                                    }}>
+                                        <MoreHorizIcon onClick={() => handleToggleChangeComment(index)}/>
+                                        <div className='commentOptions'>
+                                            <p>Modify or Delete this comment</p>
+                                        </div>
+                                        <CommentOptions 
+                                            isOpen={index}
+                                            indexToOpen={isChangeCommentOpen}
+                                            handleRemoveComment={() => handleRemoveComment(comment.id)}
+                                            commentId={comment.id}
+                                            handleModifyComment={() => handleOpenModifyComment(comment.id)}
+                                            handleCloseChangeComment={handleCloseChangeComment}
+                                        />
+                                     
+                                    </div>                       
+                                </>
+                            }
+                            
+                        </div>
+                        }else {
+                            return <div key={index}></div>
+                        }
+                    }
+                    )}
+                    {seeMoreComment 
+                    ? 
+                    <>
+                        {userComment.map((comment, index) => {
+                        if(index < 2) {
+                            return <div key={index}></div>
+                        }else {
+                        return <div className="post__comment" key={comment.id}>
+                            <Avatar src={comment.profilePic}/>
+                            {modifyCommentId === comment.id
+                            ? 
+                                <ModifyComment 
+                                   title={comment.title}
+                                   id={comment.id}
+                                   closeModifyComment={handleCloseModifyComment}
+                                   imageModify={comment.image}
+                                   removeUploadImage={removeUploadImage}
+                                   imageModifyName={comment.imageName}
+                                />
+                            :   <>
+                                <div className='wrapComment'>
+                                    <div className="comment__content" >
+                                        <h2>{comment.user}</h2>
+                                        <p>{comment.title}</p>
+                                        {![undefined, ''].includes(comment.image) && <img src={comment.image} alt="" />}
+                                    </div>
+                                    <div className='comment__reaction'>
+                                            <CommentReaction 
+                                                 userReactionComment={userReactionComment.filter((
+                                                     (commentReaction) => commentReaction.commentId === comment.id
+                                                 ))}
+                                                 commentId={comment.id}
+                                                 postId={id}
+                                                 userLogin={userLogin}
+                                            />
+                                            <p>{comment.timestamp && <Timestamp relative date={comment.timestamp.seconds} autoUpdate />}</p>
+                                            
                                             
                                     </div>
                                     
@@ -550,7 +655,15 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                             }
                             
                         </div>
+                           
+                        }
+                    }
                     )}
+                    </>
+                    : 
+                    userComment.length > 2 &&
+                    (<p onClick={() => setSeeMoreComment(true)}>See more {userComment.length - 2} {userComment.length - 2 >= 2 ? 'comments' : 'comment'}...</p>)
+                    }
                     <form>
                         <Avatar src={userAvatar}/>
                         <div className="input-icons">

@@ -551,6 +551,19 @@ form > .input-icons > input {
 
 }
 
+.post__comments > p {
+    font-size: 14px;
+    padding-bottom: 20px;
+    color: gray;
+    margin-left: 50px;
+    
+}
+
+.post__comments > p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .commentOptions > p{
     white-space: nowrap;
 }
@@ -663,6 +676,16 @@ form > .input-icons > input {
     }
 }
 
+@media (max-width: 500px) {
+    .options__count {
+        flex-direction: column;
+    }
+
+    .wrapOptions {
+        justify-content: flex-end;
+    }
+}
+
 @media (max-width: 400px) {
 
     .post__options {
@@ -698,18 +721,18 @@ form > .input-icons > input {
     }
 
    
-    .emoji > img {
+    /* .emoji > img {
         width: 20px;
         margin-right: 5px;
       }
 
     .emoji > p{
         font-size: 12px;
-      }
+      } */
 
-    .option__count > p, .showUser > p {
+    /* .option__count > p, .showUser > p {
           font-size: 12px;
-    }
+    } */
 
     .option__count > .showUser > p {
         margin-left: 4px;

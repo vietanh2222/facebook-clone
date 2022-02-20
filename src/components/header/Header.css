@@ -247,9 +247,7 @@
         align-items: center;
     }
 
-    .header__right > button > .header__list {
-        display: block;
-    }
+
 
     .header__input{
         width: 100%;
@@ -268,11 +266,7 @@
 
 
 
-    .header__center > a[href="/gaming"],
-    .header__center > a[href="/groups"]
-    {
-        display: none;
-    }
+    
 
     .header > .sidebar {
         position: fixed;
@@ -286,17 +280,37 @@
         display: block;
     }
 
+    .header__option {
+        padding: 12px 30px;
+    }
+
+    .header__right > button > .header__list {
+        display: block;
+    }
+
+    .header__info {
+        display: none;
+    }
+    
+    .header__right {
+        min-width: 0;
+    }
+
 }
 
 @media (max-width: 890px) {
 
+
+    .header__center > a[href="/gaming"],
+    .header__center > a[href="/groups"]
+    {
+        display: none;
+    }
     .header{
         padding: 0 10px;
     }
 
-    .header__option{
-        display: none;
-    }
+   
 
     .header__left > a > img {
         padding: 4px 0;
@@ -306,16 +320,14 @@
         font-size: 17px;
     }
 
-    .header > .sidebar {
-        top: 44px;
-    }
+
 
     .header__left > a {
         padding: 6px 0;
     }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 650px) {
 
     .header__input {
         width: 22px;
@@ -325,14 +337,20 @@
         width: 90px;
         min-width: 0px;
     }
-    .header__right {
-        min-width: 0;
-    }
 
     .header__input > p {
         display: none;
     }
 
+}
+
+@media (max-width: 490px) {
+     .header__option{
+        display: none;
+    }
+    .header > .sidebar {
+        top: 56px;
+    }
 }
 
 @media (max-width: 380px) {

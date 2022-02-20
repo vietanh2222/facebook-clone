@@ -47,9 +47,6 @@ function Header() {
     window.removeEventListener('click', handleCloseSearchBar);
   }
 
-  const stopPropaganition = (e) => {
-    e.stopPropagation();
-  }
   const handleLogOut = () => {
     if (auth.currentUser) {
       signOut(auth)
@@ -79,7 +76,10 @@ function Header() {
           isHeaderClick={true}
         />
       }
-      <div className="header__left" onClick={stopPropaganition}>
+      <div className="header__left" onClick={(e) => {
+        e.stopPropagation();
+        setShowSidebar(false);
+      }}>
         <Link to="/">
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
@@ -102,7 +102,9 @@ function Header() {
         </div>
       </div>
 
-      <div className="header__center">
+      <div className="header__center" onClick={(e) => {
+        setShowSidebar(false);
+      }}>
         <Link to="/">
           <div
             className={

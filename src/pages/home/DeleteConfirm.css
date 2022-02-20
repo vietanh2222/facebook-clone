@@ -1,0 +1,94 @@
+.DeleteConfirm {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(243, 243, 244,0.5);
+    z-index: 104;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.DeleteConfirm__wrapper {
+    width: 70%;
+    max-width: 550px;
+    z-index: 10;
+    border: none;
+    box-shadow: 5px 5px 40px -5px rgb(0 0 0 / 75%);
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.DeleteConfirm__top {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 12px;
+    align-items: center;
+}
+
+.DeleteConfirm__top > .MuiSvgIcon-root {
+        color: #606770;
+        padding: 4px;
+        background-color: #e4e6eb;
+        border-radius: 999px;
+        cursor: pointer;
+
+}
+
+.DeleteConfirm__top > .MuiSvgIcon-root:hover {
+    background-color: #bdbec0;
+}
+
+.DeleteConfirm__top > h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000000;
+}
+
+.DeleteConfirm__body {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+}
+
+.DeleteConfirm__body > p{
+    color: #000000;
+}
+
+.DeleteConfirm__options {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.DeleteConfirm__options > button {
+    padding: 6px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-left: 10px;
+    width: 80px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.DeleteConfirm__options > button:first-child {
+    color: #1877F2;
+}
+
+.DeleteConfirm__options > button:first-child:hover {
+    background-color: #dee1e4;
+}
+
+.DeleteConfirm__options > button:last-child {
+    color: #ffffff;
+    background-color: #1877F2;
+}
+
+
+.DeleteConfirm__options > button:last-child:hover {
+    opacity: 0.7;
+}

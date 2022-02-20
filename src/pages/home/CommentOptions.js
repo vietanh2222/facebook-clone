@@ -1,16 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import './CommentOptions.css';
 import  DeleteIcon from '@mui/icons-material/Delete';
 import  BorderColorIcon  from '@mui/icons-material/BorderColor';
+import DeleteConfirm from './DeleteConfirm';
 
-function CommentOptions({isOpen, indexToOpen, handleRemoveComment, handleModifyComment}) {
+function CommentOptions({isOpen, indexToOpen, 
+  handleRemoveComment, handleModifyComment,
+  handleCloseChangeComment
+}) {
+
+  const [showDeleteConfirmComment, setShowDeleteConFirmComment] = useState(false);
+  
+  const handleShowDeleteConfirmComment = () => {
+    setShowDeleteConFirmComment(true);
+  }
+
+  const handleCloseDeleteConfirmComment = () => {
+    setShowDeleteConFirmComment(false);
+    handleCloseChangeComment();
+  }
 
   return (
     isOpen === indexToOpen ?
-    <div className="comment__options">
+    <div className={!showDeleteConfirmComment ? "comment__options" : "comment__deleteConfirm"}>
+      {!showDeleteConfirmComment && 
+      <>
       <div 
-        onClick={handleRemoveComment}
+        onClick={handleShowDeleteConfirmComment}
         className="comment__remove change__option"
-    >
+      >
         <DeleteIcon className="post__close" />
         <p>Delete comment</p>
       </div>
@@ -21,6 +39,15 @@ function CommentOptions({isOpen, indexToOpen, handleRemoveComment, handleModifyC
         <BorderColorIcon />
         <p>Modify comment</p>
       </div>
+      </>}
+      {showDeleteConfirmComment && 
+        <DeleteConfirm 
+            isPost={false}
+            handleRemoveComment={handleRemoveComment}
+            handleCloseDeleteConfirmComment={handleCloseDeleteConfirmComment}
+        />
+      }
+      
     </div>
     : <></>
   );

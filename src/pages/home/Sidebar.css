@@ -14,3 +14,9 @@
         top: 45px;
     }
 }
+
+@media (max-width: 890px) {
+    .sidebar {
+        padding: 0;
+    }
+}

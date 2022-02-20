@@ -193,6 +193,7 @@ form > button:hover {
     border-radius: 10px;
     padding: 4px;
     cursor: pointer;
+    text-align: center;
 }
 
 .introduce__option:hover{
@@ -306,6 +307,7 @@ form > button:hover {
 
     .profile__name {
         text-align: center;
+        margin-left: 0;
     }
 
     .profile__avatar {
@@ -321,12 +323,12 @@ form > button:hover {
     
     .profile__options {
         display: flex;
-        flex-wrap: wrap;
         justify-content: center;
     }
 
     .profile__options > button {
         margin-bottom: 20px;
+        /* margin-left: 0; */
     }
 
     .profile__navlink > ul {
@@ -336,6 +338,21 @@ form > button:hover {
     .profile__banner{
         padding-bottom: 50%;
         height: auto;
+    }
+}
+
+@media (max-width: 525px) {
+
+    .profile__options {
+        flex-direction: column;
+    }
+
+    .profile__options > button {
+        margin-left: 0;
+    }
+
+    .profile__image > button {
+        padding: 0;
     }
 }
 

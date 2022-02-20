@@ -32,7 +32,7 @@ function CommentReaction({
       (user) => user.emoji !== ""
     );
   }, [userReactionComment, userLogin]);
-  console.log(currentUserReaction.current);
+
   const handleLike = async () => {
     if (userReaction === undefined) {
       await addDoc(collection(db, "userReactionComment"), {

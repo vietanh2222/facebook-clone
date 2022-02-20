@@ -24,7 +24,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
   const [sadShowUserOpen, setSadShowUserOpen] = useState(false);
   const [allShowUserOpen, setAllShowUserOpen] = useState(false);
 
-  console.log(currentUserReaction.emoji);
+  
   return (
     <div className="option__count">
       {reactionLike.length > 0 && (

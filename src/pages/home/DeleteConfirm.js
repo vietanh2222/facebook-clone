@@ -8,7 +8,7 @@ function DeleteConfirm({isPost, handleRemovePost,
 }) {
   return (
     <div className='DeleteConfirm'
-        onClick={isPost ? handleCloseDeleteConFirmPost :handleCloseDeleteConfirmComment}
+        onClick={isPost ? handleCloseDeleteConFirmPost : handleCloseDeleteConfirmComment}
     >
         <div className="DeleteConfirm__wrapper"
             onClick={(e) => e.stopPropagation()}

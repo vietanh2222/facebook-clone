@@ -50,7 +50,7 @@ function Header() {
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
-  console.log(windowWidth);
+ 
   const handleShowSearchBar = () => {
     setShowSearchBar(true);
     window.addEventListener('click', handleCloseSearchBar);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import HomeIcon from "@mui/icons-material/Home";
@@ -22,6 +22,7 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "../../pages/home/firebase";
 import SearchBar from '../SearchBar/SearchBar';
+import facebookLogo from '../../assets/images/logo-facebook-chu.png';
 
 function Header() {
   const [{ user }] = useStateValue();
@@ -32,11 +33,24 @@ function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate()
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const reportWindowSize = () => {
+      setWindowWidth(window.innerWidth);
+    }
+    window.addEventListener('resize', reportWindowSize);
+    return () => {
+      window.removeEventListener('resize', reportWindowSize);
+    }
+  }, [])
+
+ 
 
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
-
+  console.log(windowWidth);
   const handleShowSearchBar = () => {
     setShowSearchBar(true);
     window.addEventListener('click', handleCloseSearchBar);
@@ -68,6 +82,8 @@ function Header() {
   const handleGetValueFromSearchBar = (value) => {
     setSearchValue(value);
   }
+
+
   return (
     <div className="header" >
       {showSidebar && 
@@ -81,11 +97,18 @@ function Header() {
         setShowSidebar(false);
       }}>
         <Link to="/">
+          {windowWidth < 490 
+          
+          ?  <img
+          src={facebookLogo}
+          alt=""
+        /> 
+          :
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
             alt=""
           />
-        
+          }
         </Link>
         {showSearchBar && 
           <SearchBar 

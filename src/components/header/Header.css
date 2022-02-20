@@ -351,6 +351,9 @@
     .header > .sidebar {
         top: 56px;
     }
+    .header__left {
+        width: 190px;
+    }
 }
 
 @media (max-width: 380px) {
@@ -358,12 +361,15 @@
         margin-right: 0px;
     }
 
-    .header__input {
+    /* .header__input {
         margin-left: 4px;
-    }
+    } */
 
     .header__info > h4{
         width: 40px;
+    }
+    .header__left {
+        width: 150px;
     }
 
 }

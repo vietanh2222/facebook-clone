@@ -28,6 +28,12 @@
 .friendSuggest__title > h4{
     font-weight: 600;
     cursor: pointer;
+    white-space: pre-wrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+     display: -webkit-box;
 }
 
 .friendSuggest__title > h4:hover{

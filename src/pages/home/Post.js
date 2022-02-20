@@ -644,11 +644,12 @@ function Post({ id, profilePic, image, imageNameDelete, username, email,
                                             <p>Modify or Delete this comment</p>
                                         </div>
                                         <CommentOptions 
-                                            isOpen={index}
-                                            indexToOpen={isChangeCommentOpen}
-                                            handleRemoveComment={() => handleRemoveComment(comment.id)}
-                                            commentId={comment.id}
-                                            handleModifyComment={() => handleOpenModifyComment(comment.id)}
+                                             isOpen={index}
+                                             indexToOpen={isChangeCommentOpen}
+                                             handleRemoveComment={() => handleRemoveComment(comment.id)}
+                                             commentId={comment.id}
+                                             handleModifyComment={() => handleOpenModifyComment(comment.id)}
+                                             handleCloseChangeComment={handleCloseChangeComment}
                                         />
                                     </div>                       
                                 </>

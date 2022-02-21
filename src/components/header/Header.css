@@ -1,66 +1,65 @@
 .header {
-    display: flex;
-    padding: 0 20px;
-    justify-content: space-between;
-    position: sticky;
-    background-color: white;
-    z-index: 100;
-    box-shadow: 0px 5px 8px -9px 
-    rgba(0, 0, 0, 0.75);
-    top: 0;
+  display: flex;
+  padding: 0 20px;
+  justify-content: space-between;
+  position: sticky;
+  background-color: white;
+  z-index: 100;
+  box-shadow: 0px 5px 8px -9px rgba(0, 0, 0, 0.75);
+  top: 0;
 }
 
-.header__left, 
-.header__center, 
+.header__left,
+.header__center,
 .header__right {
-    display: flex;
+  display: flex;
 }
 
-.header__left{
-    justify-content: space-evenly;
-    align-items: center;
-    width: 14%;
-    min-width: 250px;
+.header__left {
+  justify-content: space-evenly;
+  align-items: center;
+  width: 14%;
+  min-width: 250px;
 }
 
 .header__input {
-    display:flex;
-    align-items: center;
-    background-color: #eff2f5;
-    padding: 8px;
-    margin-left: 10px;
-    border-radius: 999px;
-    width: 190px;
+  display: flex;
+  align-items: center;
+  background-color: #eff2f5;
+  padding: 8px;
+  margin-left: 10px;
+  border-radius: 999px;
+  width: 190px;
 }
 
-.header__input > p{
-    color: rgb(112, 111, 111);
-    font-size: 16.5px;
-    font-weight: 500;
+.header__input > p {
+  color: rgb(112, 111, 111);
+  font-size: 16.5px;
+  font-weight: 500;
 }
 
-.header__input > .black{
-    color: #000000;
+.header__input > .black {
+  color: #000000;
 }
 
-.header__left > a{
-    display: flex;
-    min-width: 36px;
+.header__left > a {
+  display: flex;
+  min-width: 36px;
 }
 
 .header__left > a > img {
-    height: 36px;
+  height: 36px;
 }
 
 .header__input > .MuiSvgIcon-root {
-    font-size: 22px;
-    color: gray;
+  font-size: 22px;
+  color: gray;
 }
 
 .header__input > input {
-    border: none;
-    background-color: transparent;
-    outline-width: 0;
+  border: none;
+  background-color: transparent;
+  outline-width: 0;
 }
 
 /* .header__center > a {
@@ -69,9 +68,9 @@
 } */
 
 .header__option > .MuiSvgIcon-root {
-    color: #b8babd;
-    font-size: 34px;
-    height: 100%;
+  color: #b8babd;
+  font-size: 34px;
+  height: 100%;
 }
 
 /* .header__option:hover > .MuiSvgIcon-root {
@@ -79,141 +78,140 @@
 } */
 
 .header__option {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 12px 52px;
-    cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 52px;
+  cursor: pointer;
 }
 
 .header__option > p {
-    position: absolute;
-    top: 63px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    background-color: black;
-    font-size: 16px;
-    white-space: nowrap;
-    padding: 8px 14px;
-    border-radius: 6px;
-    opacity: 0.7;
-    display: none;
+  position: absolute;
+  top: 63px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: 6px;
+  opacity: 0.7;
+  display: none;
 }
 
 .header__option--active {
-    border-bottom: 3px solid #2e81f4;
+  border-bottom: 3px solid #2e81f4;
 }
 
 .header__option:not(.header__option--active):hover {
-    background-color: #eff2f5;
-    border-radius: 10px;
-    align-items: center;
-    border-bottom: none;
+  background-color: #eff2f5;
+  border-radius: 10px;
+  align-items: center;
+  border-bottom: none;
 }
 
-.header__option:hover > p{
-    display: block;
+.header__option:hover > p {
+  display: block;
 }
 
 .header__option--active > .MuiSvgIcon-root {
-    color: #2e81f4;
+  color: #2e81f4;
 }
 
 .header__right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 14%;
-    min-width: 250px;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 14%;
+  min-width: 250px;
+  position: relative;
 }
 
 .header__info {
-    display: flex;
-    align-items: center;
-    height: 36px;
-    cursor: pointer;
-    position: absolute;
-    left: -50px;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  cursor: pointer;
+  position: absolute;
+  left: -50px;
 }
 
 .header__info:hover {
-    background-color: #eff2f5;
-    border-radius: 999px;
+  background-color: #eff2f5;
+  border-radius: 999px;
 }
 
 .header__info > .MuiAvatar-root {
-    height: 35px;
-    width: 35px;
+  height: 35px;
+  width: 35px;
 }
 
 .header__info > h4 {
-    display: block;
-    width: 80px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    padding: 0 4px;
+  display: block;
+  width: 80px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 4px;
 }
 
-
 .header__right > button > .header__list {
-    display: none;
-    color: rgb(83, 82, 82);
-    padding: 4px 20px;
-    border-radius: 10px;
-    cursor: pointer;
+  display: none;
+  color: rgb(83, 82, 82);
+  padding: 4px 20px;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 .header__list:hover {
-    background-color: #e4e7eb;
+  background-color: #e4e7eb;
 }
 
 .header__right > .MuiButtonBase-root {
-    padding: 0;
-    margin-left: 8px;
+  padding: 0;
+  margin-left: 8px;
 }
 
 .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {
-    color: black;
-    font-size: 24px;
-    background-color: #e4e7eb;
-    padding: 6px;
-    border-radius: 999px;
+  color: black;
+  font-size: 24px;
+  background-color: #e4e7eb;
+  padding: 6px;
+  border-radius: 999px;
 }
 
 .header__right > .MuiButtonBase-root > .MuiSvgIcon-root:hover {
-    background-color: #cdd1d4;
+  background-color: #cdd1d4;
 }
 
-.header__icon{
-    position: relative;
+.header__icon {
+  position: relative;
 }
 
 .header__icon > p {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-    color: white;
-    background-color: black;
-    font-size: 16px;
-    white-space: nowrap;
-    padding: 8px 14px;
-    border-radius: 6px;
-    opacity: 0.7;
-    display: none;
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  background-color: black;
+  font-size: 16px;
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: 6px;
+  opacity: 0.7;
+  display: none;
 }
 
-.header__icon:hover > p{
-    display: block;
+.header__icon:hover > p {
+  display: block;
 }
 
 .header > .sidebar {
-    display: none;
+  display: none;
 }
 /* 
 @media (max-width: 1440px) {
@@ -230,158 +228,137 @@
 } */
 
 @media (max-width: 1360px) {
-
-    .header__option{
-        padding: 12px 40px;
-    }
+  .header__option {
+    padding: 12px 40px;
+  }
 }
 
 @media (max-width: 1260px) {
+  .header__right > .header__icon {
+    display: none;
+  }
 
-     .header__right > .header__icon {
-        display: none;
-    }
+  .header__right > .header__icon:last-child {
+    display: flex;
+    align-items: center;
+  }
 
-    .header__right > .header__icon:last-child {
-        display: flex;
-        align-items: center;
-    }
-
-
-
-    .header__input{
-        width: 100%;
-    }
-    /* .header__input > p {
+  .header__input {
+    width: 100%;
+  }
+  /* .header__input > p {
         display: none;
     } */
-    .header__info{
-        position: relative;
-        margin-right: 20px;
-        left: 0;
-    }
+  .header__info {
+    position: relative;
+    margin-right: 20px;
+    left: 0;
+  }
 }
 
 @media (max-width: 1200px) {
+  .header > .sidebar {
+    position: fixed;
+    background-color: #f1f2f5;
+    top: 61px;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 1000px;
+    max-width: 100%;
+    display: block;
+  }
 
+  .header__option {
+    padding: 12px 30px;
+  }
 
+  .header__right > button > .header__list {
+    display: block;
+  }
 
-    
+  .header__info {
+    display: none;
+  }
 
-    .header > .sidebar {
-        position: fixed;
-        background-color: #f1f2f5;
-        top: 61px;
-        left: 0;
-        z-index: 1;
-        width: 100%;
-        height: 1000px;
-        max-width: 100%;
-        display: block;
-    }
-
-    .header__option {
-        padding: 12px 30px;
-    }
-
-    .header__right > button > .header__list {
-        display: block;
-    }
-
-    .header__info {
-        display: none;
-    }
-    
-    .header__right {
-        min-width: 0;
-    }
-
+  .header__right {
+    min-width: 0;
+  }
 }
 
 @media (max-width: 890px) {
+  .header__center > a[href="/gaming"],
+  .header__center > a[href="/groups"] {
+    display: none;
+  }
+  .header {
+    padding: 0 10px;
+  }
 
+  .header__left > a > img {
+    padding: 4px 0;
+  }
 
-    .header__center > a[href="/gaming"],
-    .header__center > a[href="/groups"]
-    {
-        display: none;
-    }
-    .header{
-        padding: 0 10px;
-    }
+  .sidebarRow > h4 {
+    font-size: 17px;
+  }
 
-   
-
-    .header__left > a > img {
-        padding: 4px 0;
-    }
-
-    .sidebarRow > h4 {
-        font-size: 17px;
-    }
-
-
-
-    .header__left > a {
-        padding: 6px 0;
-    }
+  .header__left > a {
+    padding: 6px 0;
+  }
 }
 
 @media (max-width: 650px) {
+  .header__input {
+    width: 22px;
+  }
 
-    .header__input {
-        width: 22px;
-    }
+  .header__left {
+    width: 90px;
+    min-width: 0px;
+  }
 
-    .header__left  {
-        width: 90px;
-        min-width: 0px;
-    }
-
-    .header__input > p {
-        display: none;
-    }
-
+  .header__input > p {
+    display: none;
+  }
 }
 
 @media (max-width: 490px) {
-     .header__option{
-        display: none;
-    }
-    .header > .sidebar {
-        top: 56px;
-    }
-    .header__left {
-        width: 190px;
-    }
+  .header__option {
+    display: none;
+  }
+  .header > .sidebar {
+    top: 56px;
+  }
+  .header__left {
+    width: 190px;
+  }
 }
 
 @media (max-width: 380px) {
-    .header__info {
-        margin-right: 0px;
-    }
+  .header__info {
+    margin-right: 0px;
+  }
 
-    /* .header__input {
+  /* .header__input {
         margin-left: 4px;
     } */
 
-    .header__info > h4{
-        width: 40px;
-    }
-    .header__left {
-        width: 150px;
-    }
-
+  .header__info > h4 {
+    width: 40px;
+  }
+  .header__left {
+    width: 150px;
+  }
 }
 
 @media (max-width: 300px) {
-    .header__right > .MuiButtonBase-root {
-        padding: 0;
-        margin-left: 4px;
-    }
-    
-    
-    /* .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {
+  .header__right > .MuiButtonBase-root {
+    padding: 0;
+    margin-left: 4px;
+  }
+
+  /* .header__right > .MuiButtonBase-root > .MuiSvgIcon-root {
         color: black;
         font-size: 16px;
         background-color: #e4e7eb;

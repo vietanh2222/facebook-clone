@@ -1,13 +1,15 @@
-import React from 'react';
-import './Search.css';
-import SearchMain from './SearchMain';
-import SearchSideBar from './SearchSideBar';
+import React from "react";
+import "./Search.css";
+import SearchMain from "./SearchMain";
+import SearchSideBar from "./SearchSideBar";
 
 function Search() {
-  return <div className='search'>
+  return (
+    <div className="search">
       <SearchSideBar />
       <SearchMain />
-  </div>;
+    </div>
+  );
 }
 
 export default Search;

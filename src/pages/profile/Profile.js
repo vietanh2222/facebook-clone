@@ -130,20 +130,20 @@ function Profile() {
               )}
             </div>
             <div className="profile__image profile__box">
-                <h3>Images</h3>
-                <IconButton >
-                    <p>View all images</p>
-                </IconButton>
+              <h3>Images</h3>
+              <IconButton>
+                <p>View all images</p>
+              </IconButton>
             </div>
             <div className="profile__image profile__box">
-                <h3>Friends</h3>
-                <IconButton >
-                    <p>View all friends</p>
-                </IconButton>
+              <h3>Friends</h3>
+              <IconButton>
+                <p>View all friends</p>
+              </IconButton>
             </div>
           </div>
           <div className="profile__post">
-          <div className="profile__filter profile__box">
+            <div className="profile__filter profile__box">
               <h3>Post</h3>
               <IconButton>
                 <FilterListIcon />
@@ -194,17 +194,19 @@ function Profile() {
                 </div>
               </div>
             )}
-            <div className='postProfile profile__box'>
-                <div className="postProfile__top">
+            <div className="postProfile profile__box">
+              <div className="postProfile__top">
                 <Avatar src={state.avatar} />
                 <h2>{state.name}</h2>
-                </div>
-                <div className="postProfile__bottom">
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-                    <img src="https://picsum.photos/800/800" alt=""/>
-                </div>
+              </div>
+              <div className="postProfile__bottom">
+                <p>
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry
+                </p>
+                <img src="https://picsum.photos/800/800" alt="" />
+              </div>
             </div>
-           
           </div>
         </div>
       </div>

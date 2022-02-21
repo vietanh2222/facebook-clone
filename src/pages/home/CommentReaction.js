@@ -98,13 +98,13 @@ function CommentReaction({
 
   const handleOpenEmojiBarMobile = () => {
     setIsEmojiMobileOpen(true);
-    window.addEventListener('click', handleCloseEmojiBarMobile);
-  }
+    window.addEventListener("click", handleCloseEmojiBarMobile);
+  };
 
   const handleCloseEmojiBarMobile = () => {
     setIsEmojiMobileOpen(false);
-    window.removeEventListener('click', handleCloseEmojiBarMobile)
-  }
+    window.removeEventListener("click", handleCloseEmojiBarMobile);
+  };
   return (
     <div className="commentReactionOptions">
       {isOpenBar && (

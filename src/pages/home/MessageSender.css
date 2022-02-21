@@ -1,352 +1,346 @@
 .messageSender {
-    display: flex;
-    margin-top: 30px;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 7px -7px rgba(0, 0, 0, 0.75);
-    width: 100%;
+  display: flex;
+  margin-top: 30px;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 7px -7px rgba(0, 0, 0, 0.75);
+  width: 100%;
 }
 
 .messageSender__top {
-    display: flex;
-    border-bottom: 1px solid #eff2f5;
-    padding: 15px;
+  display: flex;
+  border-bottom: 1px solid #eff2f5;
+  padding: 15px;
 }
 
-
- form {
-    width: 100%;
-    display: flex;
+form {
+  width: 100%;
+  display: flex;
 }
 
- form > input {
-    outline-width: 0;
-    border: none;
-    padding: 5px 20px;
-    margin: 0 10px;
-    border-radius: 999px;
-    background-color: #eff2f5;
+form > input {
+  outline-width: 0;
+  border: none;
+  padding: 5px 20px;
+  margin: 0 10px;
+  border-radius: 999px;
+  background-color: #eff2f5;
 }
 
 form > .messageSender__button {
-    outline-width: 0;
-    border: none;
-    padding: 5px 20px;
-    margin: 0 10px;
-    border-radius: 999px;
-    background-color: #eff2f5;
-    width: 100%;
-    text-align: start;
-    color: rgb(112, 110, 110);
+  outline-width: 0;
+  border: none;
+  padding: 5px 20px;
+  margin: 0 10px;
+  border-radius: 999px;
+  background-color: #eff2f5;
+  width: 100%;
+  text-align: start;
+  color: rgb(112, 110, 110);
 }
-
 
 .hidenForm__top {
-    display: flex;
+  display: flex;
 }
 
-.hidenForm__top > h2{
-    flex: 1;
-    text-align: center;
-    font-size: 27px;
+.hidenForm__top > h2 {
+  flex: 1;
+  text-align: center;
+  font-size: 27px;
 }
 
 .messageSender__input {
-    width: 100%;
+  width: 100%;
 }
 
-.messageSender__hidenForm, .hidenForm{
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(243, 243, 244,0.5);
-    z-index: 103;
-    justify-content: center;
-    align-items: center;
-    display: flex;
+.messageSender__hidenForm,
+.hidenForm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(243, 243, 244, 0.5);
+  z-index: 103;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
-.upload-image{
-    display: none;
-    color: green;
+.upload-image {
+  display: none;
+  color: green;
 }
 
-.hidenForm__wrapper{
-    /* height: 400px; */
-    width: 500px;
-    z-index: 10;
-    border: none;
-    box-shadow: 5px 5px 40px -5px
-    rgba(0, 0, 0, 0.75);
-    background-color: #ffffff;
-    border-radius: 10px;
+.hidenForm__wrapper {
+  /* height: 400px; */
+  width: 500px;
+  z-index: 10;
+  border: none;
+  box-shadow: 5px 5px 40px -5px rgba(0, 0, 0, 0.75);
+  background-color: #ffffff;
+  border-radius: 10px;
 }
 
-.hidenForm__top{
-    border-bottom: 1px solid #e5e5e5;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    position: relative;
+.hidenForm__top {
+  border-bottom: 1px solid #e5e5e5;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-.hidenForm__top > h1{
-    font-size: 24px;
-    flex: 1;
-    font-weight: 700;
-    text-align: center;
+.hidenForm__top > h1 {
+  font-size: 24px;
+  flex: 1;
+  font-weight: 700;
+  text-align: center;
 }
 
 .hidenForm__top > .MuiSvgIcon-root {
-    color: #606770;
-    padding: 4px;
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    background-color: #e4e6eb;
-    border-radius: 999px;
-    cursor: pointer;
+  color: #606770;
+  padding: 4px;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background-color: #e4e6eb;
+  border-radius: 999px;
+  cursor: pointer;
 }
 
 .hidenForm__top > .MuiSvgIcon-root:hover {
-    background-color: #dcdee4;
+  background-color: #dcdee4;
 }
 
-.hidenForm__userInfo{
-    display: flex;
-    align-items: center;
+.hidenForm__userInfo {
+  display: flex;
+  align-items: center;
 }
 
-.hidenForm__userInfo > .MuiAvatar-root{
-    margin: 16px;
+.hidenForm__userInfo > .MuiAvatar-root {
+  margin: 16px;
 }
 
-.hidenForm__imagePreview{
-    margin: 16px;
-    padding: 8px;
+.hidenForm__imagePreview {
+  margin: 16px;
+  padding: 8px;
 
-    border: 1px solid #CED0D4;
-    border-radius: 8px;
+  border: 1px solid #ced0d4;
+  border-radius: 8px;
 
-    display: flex;
+  display: flex;
 }
 
 .modifyComment .hidenForm__imagePreview {
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 }
 
 .imagePreview__progress {
-    flex: 1;
+  flex: 1;
 }
 
 .hidenForm__imagePreview > .imagePreview__progress > progress {
-    width: 100%;
-    margin-bottom: 8px;
-    margin-top: 5px;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-top: 5px;
 }
 
 .imagePreview__progress > img {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 .imagePreview__remove {
-    margin-left: 8px;
+  margin-left: 8px;
 }
 
 .hidenForm__imagePreview > .imagePreview__remove > .MuiSvgIcon-root {
-    color: #606770;
-    padding: 4px;
-    font-size: 16px;
+  color: #606770;
+  padding: 4px;
+  font-size: 16px;
 
-    border: 1px solid #e4e6eb;
-    background-color: #ffffff;
-    border-radius: 999px;
+  border: 1px solid #e4e6eb;
+  background-color: #ffffff;
+  border-radius: 999px;
 
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .hidenForm__imagePreview > .imagePreview__remove > .MuiSvgIcon-root:hover {
-    background-color: #dcdee4;
+  background-color: #dcdee4;
 }
 
 .hidenForm__add {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    margin: 0 16px;
-    padding: 8px;
-    border: 1px solid #CED0D4;
-    border-radius: 8px;
+  margin: 0 16px;
+  padding: 8px;
+  border: 1px solid #ced0d4;
+  border-radius: 8px;
 }
 
 .add__options {
-    display: flex;
+  display: flex;
 }
 
-.hidenForm__wrapper  h3 {
-    font-size: 18px;
-    font-weight: 600;
+.hidenForm__wrapper h3 {
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .hidenForm__bottom > form {
-    flex-direction: column;
+  flex-direction: column;
 }
 
-.hidenForm__bottom > form >input{
-    margin: 0;
+.hidenForm__bottom > form > input {
+  margin: 0;
 }
 
-.hidenForm__bottom > form >input:first-child {
-    background-color: transparent;
-    padding: 12px 0 100px;
-    border-radius: 0;
-    display: block;
-    margin: 0 16px;
+.hidenForm__bottom > form > input:first-child {
+  background-color: transparent;
+  padding: 12px 0 100px;
+  border-radius: 0;
+  display: block;
+  margin: 0 16px;
 }
 
-.hidenForm__bottom > form >input:focus:first-child {
-    font-size:16px;
-    outline-width: 0;
-    border: none;
-    box-shadow: none;
+.hidenForm__bottom > form > input:focus:first-child {
+  font-size: 16px;
+  outline-width: 0;
+  border: none;
+  box-shadow: none;
 }
 
-.hidenForm__bottom > form >input:nth-child(2) {
-    padding: 12px 0;
-    border-radius: 10px;
-    margin: 0 16px;
+.hidenForm__bottom > form > input:nth-child(2) {
+  padding: 12px 0;
+  border-radius: 10px;
+  margin: 0 16px;
 }
 
-.hidenForm__bottom > form >input:first-child::placeholder {
-    font-size: 24px;
-    white-space: normal;
+.hidenForm__bottom > form > input:first-child::placeholder {
+  font-size: 24px;
+  white-space: normal;
 }
 
-.hidenForm__bottom > form >input:nth-child(2)::placeholder {
-    padding: 0 8px;
+.hidenForm__bottom > form > input:nth-child(2)::placeholder {
+  padding: 0 8px;
 }
 
-.hidenForm__bottom > form >button {
-    margin:16px;
-    padding: 8px;
-    color: white;
-    background-color: #1b74e4;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 16px;
+.hidenForm__bottom > form > button {
+  margin: 16px;
+  padding: 8px;
+  color: white;
+  background-color: #1b74e4;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
 }
 
 .hidenForm__bottom > form > button:hover {
-    opacity: 0.7;
-    background-color: #1b74e4;
+  opacity: 0.7;
+  background-color: #1b74e4;
 }
 
 .hidenForm__wrapper > .hidenForm__bottom > form > .button--disabled {
-    color: #1c1e21;
-    font-weight: 600;
-    background-color: #E4E6EB;
-    cursor:not-allowed;
-    opacity: 0.6;
+  color: #1c1e21;
+  font-weight: 600;
+  background-color: #e4e6eb;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .messageSender__bottom {
-    display: flex;
-    justify-content: space-evenly;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .messageSender__option {
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    color: gray;
-    margin: 5px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  color: gray;
+  margin: 5px;
 }
 
-.messageSender__option:hover{
-    background-color: #eff2f5;
-    border-radius: 12px;
+.messageSender__option:hover {
+  background-color: #eff2f5;
+  border-radius: 12px;
 }
 
 .messageSender__option > h3 {
-    font-size: medium;
-    margin-left: 10px;
-    cursor: pointer;
+  font-size: medium;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
-
 @media (max-width: 650px) {
+  .messageSender {
+    margin-top: 16px;
+  }
 
-    .messageSender{
-        margin-top: 16px;
-    }
+  .messageSender__top {
+    padding: 10px;
+  }
 
-    .messageSender__top {
-        padding: 10px;
-    }
+  form > .messageSender__button {
+    font-size: 14px;
+  }
 
-    form > .messageSender__button{
-        font-size: 14px;
-    }
+  ::placeholder {
+    font-size: 12px;
+  }
 
-    ::placeholder{
-        font-size: 12px;
-    }
+  .hidenForm__bottom > form > input:first-child::placeholder {
+    font-size: 18px;
+  }
 
-    .hidenForm__bottom > form >input:first-child::placeholder {
-        font-size: 18px;
-    }
+  .messageSender__option {
+    padding: 10px;
+  }
+  .messageSender__option > h3 {
+    font-size: 14px;
+  }
 
-    .messageSender__option{
-        padding: 10px;
-    }
-    .messageSender__option > h3 {
-        font-size: 14px;
-    }
+  .hidenForm__wrapper {
+    width: 90%;
+    margin: 0 auto;
+  }
 
-    .hidenForm__wrapper{
-        width: 90%;
-        margin: 0 auto;
-    }
+  .slack {
+    right: -50px;
+  }
 
-    .slack {
-        right: -50px;
-    }
+  .slack > div {
+    width: 230px !important;
+  }
 
-    .slack > div {
-        width: 230px !important;
-    }
+  .slack > div > div:nth-child(2) {
+    overflow: scroll;
+  }
 
-    .slack > div > div:nth-child(2){
-        overflow: scroll;
-    }
+  .imagePreview__progress > img {
+    max-height: 150px;
+  }
 
-    .imagePreview__progress > img {
-        max-height: 150px;
-    }
-
-    .hidenForm__bottom > form > input:first-child {
-        padding: 12px 0 35px;
-    }
-
+  .hidenForm__bottom > form > input:first-child {
+    padding: 12px 0 35px;
+  }
 }
 
 @media (max-width: 400px) {
+  .messageSender__option {
+    padding: 4px;
+  }
+  .messageSender__option > h3 {
+    font-size: 12px;
+    margin-left: 5px;
+  }
 
-    .messageSender__option{
-        padding: 4px;
-    }
-    .messageSender__option > h3 {
-        font-size: 12px;
-        margin-left: 5px;
-    }
-
-    .messageSender__option > .MuiSvgIcon-root {
-        font-size: 22px;
-    }
+  .messageSender__option > .MuiSvgIcon-root {
+    font-size: 22px;
+  }
 }

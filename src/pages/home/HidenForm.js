@@ -5,11 +5,11 @@ import { Avatar } from "@mui/material";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import db from "./firebase";
 import { deleteObject } from "firebase/storage";
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
-import { SlackSelector } from '@charkour/react-reactions';
-import ImageUpload from './ImageUpload';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import DoneIcon from '@mui/icons-material/Done';
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
+import { SlackSelector } from "@charkour/react-reactions";
+import ImageUpload from "./ImageUpload";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import DoneIcon from "@mui/icons-material/Done";
 
 function HidenForm({
   closeForm,
@@ -23,49 +23,48 @@ function HidenForm({
   const [message, setMessage] = useState(messageModify);
   const [showSlackBar, setShowSlackBar] = useState(false);
 
-  const [imageUpLoadUrl, setImageUpLoadUrl] = useState('');
+  const [imageUpLoadUrl, setImageUpLoadUrl] = useState("");
   const [progress, setProgress] = useState(0);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(imageModify);
   const [imageRef, setImageRef] = useState();
   const [imageName, setImageName] = useState(imageNameDelete);
-  const [isHaveImage, setIsHaveImage] = useState(imageModify !== '')
+  const [isHaveImage, setIsHaveImage] = useState(imageModify !== "");
 
   const handleModifyPost = async (e) => {
     e.preventDefault();
     closeForm();
     await updateDoc(doc(db, "posts", postId), {
       timesupdate: serverTimestamp(),
-      image:imageUpLoadUrl,
+      image: imageUpLoadUrl,
       message,
       imageName,
     });
   };
 
   const handleToggleShowSlackBar = () => {
-        
-    if(showSlackBar){
-        setShowSlackBar(false);
-        window.removeEventListener('click', handeCloseShowSlackBar)
-    }else {
-        setShowSlackBar(true);
-        window.addEventListener('click', handeCloseShowSlackBar) 
+    if (showSlackBar) {
+      setShowSlackBar(false);
+      window.removeEventListener("click", handeCloseShowSlackBar);
+    } else {
+      setShowSlackBar(true);
+      window.addEventListener("click", handeCloseShowSlackBar);
     }
-}
+  };
 
-const handeCloseShowSlackBar = () => {
+  const handeCloseShowSlackBar = () => {
     setShowSlackBar(false);
-}
+  };
 
-const removeUploadImage = async () => {
-  setImagePreviewUrl("");
-  setIsHaveImage(false);
-  setImageUpLoadUrl('');
+  const removeUploadImage = async () => {
+    setImagePreviewUrl("");
+    setIsHaveImage(false);
+    setImageUpLoadUrl("");
     setProgress(0);
-    if(imageUpLoadUrl !== ""){
-      setImagePreviewUrl('');
+    if (imageUpLoadUrl !== "") {
+      setImagePreviewUrl("");
       await deleteObject(imageRef);
     }
-}
+  };
 
   return (
     <div className="hidenForm" onClick={closeForm}>
@@ -137,7 +136,7 @@ const removeUploadImage = async () => {
                     )}
 
                     <img src={imagePreviewUrl} alt="" />
-                    {!isHaveImage && 
+                    {!isHaveImage && (
                       <>
                         {imageUpLoadUrl !== "" ? (
                           <div className="imagePreview__done">
@@ -149,7 +148,7 @@ const removeUploadImage = async () => {
                           </div>
                         )}
                       </>
-                    }
+                    )}
                   </div>
                   <div className="imagePreview__remove">
                     <CloseIcon onClick={removeUploadImage}></CloseIcon>
@@ -161,13 +160,23 @@ const removeUploadImage = async () => {
               onClick={handleModifyPost}
               type="submit"
               className={
-                (messageModify !== message && message !== "") || (isHaveImage && imagePreviewUrl !== imageModify) || (!isHaveImage && imagePreviewUrl !== imageModify && imageUpLoadUrl !== '')
+                (messageModify !== message && message !== "") ||
+                (isHaveImage && imagePreviewUrl !== imageModify) ||
+                (!isHaveImage &&
+                  imagePreviewUrl !== imageModify &&
+                  imageUpLoadUrl !== "")
                   ? ""
                   : `button--disabled`
               }
-              disabled={(messageModify !== message && message !== "") || (isHaveImage && imagePreviewUrl !== imageModify) || (!isHaveImage && imagePreviewUrl !== imageModify && imageUpLoadUrl !== '')
-              ? false 
-              : true}
+              disabled={
+                (messageModify !== message && message !== "") ||
+                (isHaveImage && imagePreviewUrl !== imageModify) ||
+                (!isHaveImage &&
+                  imagePreviewUrl !== imageModify &&
+                  imageUpLoadUrl !== "")
+                  ? false
+                  : true
+              }
             >
               SAVE
             </button>

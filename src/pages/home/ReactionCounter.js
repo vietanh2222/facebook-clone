@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import './ReactionCounter.css';
+import "./ReactionCounter.css";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import wow from "../../assets/images/emoji/wow.png";
 import angry from "../../assets/images/emoji/angry.png";
@@ -24,7 +24,6 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
   const [sadShowUserOpen, setSadShowUserOpen] = useState(false);
   const [allShowUserOpen, setAllShowUserOpen] = useState(false);
 
-  
   return (
     <div className="option__count">
       {reactionLike.length > 0 && (
@@ -215,12 +214,18 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
         onMouseEnter={() => setAllShowUserOpen(true)}
         onMouseLeave={() => setAllShowUserOpen(false)}
       >
-        {reaction.length === 1 && currentUserReaction.emoji !== "" && currentUserReaction.emoji !== undefined ? (
+        {reaction.length === 1 &&
+        currentUserReaction.emoji !== "" &&
+        currentUserReaction.emoji !== undefined ? (
           <p>{isComment ? reaction.length : reaction[0].user}</p>
         ) : (
           <>
             {reaction.length > 1 && currentUserReaction.emoji !== "" ? (
-              <p>{isComment ? reaction.length : `You and ${reaction.length - 1} others`}</p>
+              <p>
+                {isComment
+                  ? reaction.length
+                  : `You and ${reaction.length - 1} others`}
+              </p>
             ) : (
               <>
                 {reaction.length > noReaction.length && (

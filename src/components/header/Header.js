@@ -21,45 +21,43 @@ import {
 } from "../../../node_modules/react-router-dom/index";
 import { signOut } from "firebase/auth";
 import { auth } from "../../pages/home/firebase";
-import SearchBar from '../SearchBar/SearchBar';
-import facebookLogo from '../../assets/images/logo-facebook-chu.png';
+import SearchBar from "../SearchBar/SearchBar";
+import facebookLogo from "../../assets/images/logo-facebook-chu.png";
 
 function Header() {
   const [{ user }] = useStateValue();
 
   const [showSidebar, setShowSidebar] = useState(false);
 
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const { pathname } = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [showSearchBar, setShowSearchBar] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const reportWindowSize = () => {
       setWindowWidth(window.innerWidth);
-    }
-    window.addEventListener('resize', reportWindowSize);
+    };
+    window.addEventListener("resize", reportWindowSize);
     return () => {
-      window.removeEventListener('resize', reportWindowSize);
-    }
-  }, [])
-
- 
+      window.removeEventListener("resize", reportWindowSize);
+    };
+  }, []);
 
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
- 
+
   const handleShowSearchBar = () => {
     setShowSearchBar(true);
-    window.addEventListener('click', handleCloseSearchBar);
-  }
+    window.addEventListener("click", handleCloseSearchBar);
+  };
 
   const handleCloseSearchBar = () => {
     setShowSearchBar(false);
-    window.removeEventListener('click', handleCloseSearchBar);
-  }
+    window.removeEventListener("click", handleCloseSearchBar);
+  };
 
   const handleLogOut = () => {
     if (auth.currentUser) {
@@ -81,53 +79,53 @@ function Header() {
 
   const handleGetValueFromSearchBar = (value) => {
     setSearchValue(value);
-  }
-
+  };
 
   return (
-    <div className="header" >
-      {showSidebar && 
-        <Sidebar 
-          closeSideBarHeader={setShowSidebar}
-          isHeaderClick={true}
-        />
-      }
-      <div className="header__left" onClick={(e) => {
-        e.stopPropagation();
-        setShowSidebar(false);
-      }}>
+    <div className="header">
+      {showSidebar && (
+        <Sidebar closeSideBarHeader={setShowSidebar} isHeaderClick={true} />
+      )}
+      <div
+        className="header__left"
+        onClick={(e) => {
+          e.stopPropagation();
+          setShowSidebar(false);
+        }}
+      >
         <Link to="/">
-          {windowWidth < 490 
-          
-          ?  <img
-          src={facebookLogo}
-          alt=""
-        /> 
-          :
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
-            alt=""
-          />
-          }
+          {windowWidth < 490 ? (
+            <img src={facebookLogo} alt="" />
+          ) : (
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png"
+              alt=""
+            />
+          )}
         </Link>
-        {showSearchBar && 
-          <SearchBar 
+        {showSearchBar && (
+          <SearchBar
             handleGetValue={handleGetValueFromSearchBar}
             closeSearchBar={handleCloseSearchBar}
             valueSearchInit={searchValue}
           />
-        }
-        <div className="header__input" onClick={handleShowSearchBar}>
-          <SearchIcon />
-          <p className={searchValue ? "black" : {}}>
-            {searchValue || 'Search Facebook'}
-          </p>
-        </div>
+        )}
+        {windowWidth > 490 && (
+          <div className="header__input" onClick={handleShowSearchBar}>
+            <SearchIcon />
+            <p className={searchValue ? "black" : {}}>
+              {searchValue || "Search Facebook"}
+            </p>
+          </div>
+        )}
       </div>
 
-      <div className="header__center" onClick={(e) => {
-        setShowSidebar(false);
-      }}>
+      <div
+        className="header__center"
+        onClick={(e) => {
+          setShowSidebar(false);
+        }}
+      >
         <Link to="/">
           <div
             className={
@@ -195,10 +193,34 @@ function Header() {
         </Link>
       </div>
 
-      <div className="header__right">
-       
-        <div className="header__info" onClick={() => 
-                {navigate(`/profile/me`, {state: {name: user.displayName, avatar:user.photoURL }})}}>
+      <div
+        className="header__right"
+        onClick={(e) => {
+          if (windowWidth <= 490) {
+            e.stopPropagation();
+            setShowSidebar(false);
+          } else {
+            return;
+          }
+        }}
+      >
+        {windowWidth <= 490 && (
+          <div className="header__input" onClick={handleShowSearchBar}>
+            <SearchIcon />
+            <p className={searchValue ? "black" : {}}>
+              {searchValue || "Search Facebook"}
+            </p>
+          </div>
+        )}
+
+        <div
+          className="header__info"
+          onClick={() => {
+            navigate(`/profile/me`, {
+              state: { name: user.displayName, avatar: user.photoURL },
+            });
+          }}
+        >
           <Avatar src={user.photoURL} />
           <h4>{user.displayName}</h4>
         </div>

@@ -1,22 +1,22 @@
-.sidebar{
-    padding: 25px 10px;
-    width:15%;
-    min-width: 200px;
-    position: fixed;
-    top: 50px;
-    left: 0;
+.sidebar {
+  padding: 25px 10px;
+  width: 15%;
+  min-width: 200px;
+  position: fixed;
+  top: 50px;
+  left: 0;
 }
 
 @media (max-width: 1200px) {
-    .sidebar {
-        display: none;
-        padding: 0 10px;
-        top: 45px;
-    }
+  .sidebar {
+    display: none;
+    padding: 0 10px;
+    top: 45px;
+  }
 }
 
 @media (max-width: 890px) {
-    .sidebar {
-        padding: 0;
-    }
+  .sidebar {
+    padding: 0;
+  }
 }

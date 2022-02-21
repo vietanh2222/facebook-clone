@@ -1,26 +1,25 @@
-.friends{
-   
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
+.friends {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
 }
 
 .friends h2 {
-    font-size: 28px;
+  font-size: 28px;
 }
 
-@media (max-width:960px){
-    .friends{
-         min-height: 100vh;
-         justify-content: center;
-    }
-    .sidebarfriends {
-        display: none;
-    }
+@media (max-width: 960px) {
+  .friends {
+    min-height: 100vh;
+    justify-content: center;
+  }
+  .sidebarfriends {
+    display: none;
+  }
 }
 
 @media (max-width: 500px) {
-    .friends h2 {
-        font-size: 20px;
-    }
+  .friends h2 {
+    font-size: 20px;
+  }
 }

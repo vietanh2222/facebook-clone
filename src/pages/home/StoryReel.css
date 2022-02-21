@@ -1,71 +1,72 @@
 .storyReel {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .styles-module_carousel-base__3keqD {
-    position: relative;
+  position: relative;
 }
 
-.styles-module_item-tracker__3bypy{
-    display: flex;
-    gap: 10px;
+.styles-module_item-tracker__3bypy {
+  display: flex;
+  gap: 10px;
 }
 
-.styles-module_item-container__a8zaY{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+.styles-module_item-container__a8zaY {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 }
-
 
 button[data-direction] {
-    top: calc(40% - 17px);
-    width: 50px;
-    height: 50px;
-    display: block;
-    cursor: pointer;
-    border: none;
-    position: absolute;
-    background: url(https://cdn.dsmcdn.com/web/production/slick-arrow.svg) no-repeat center;
+  top: calc(40% - 17px);
+  width: 50px;
+  height: 50px;
+  display: block;
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  background: url(https://cdn.dsmcdn.com/web/production/slick-arrow.svg)
+    no-repeat center;
 }
 
-
-button[data-direction='left'] { /* Left button */
-    left: -55px;
-    transform: rotateZ(180deg);
-    display: none;
+button[data-direction="left"] {
+  /* Left button */
+  left: -55px;
+  transform: rotateZ(180deg);
+  display: none;
 }
 
-button[data-direction='right'] { /* Right button */
-    right: -55px;
+button[data-direction="right"] {
+  /* Right button */
+  right: -55px;
 }
 
-.styles-module_carousel-base__3keqD > div > .MuiSvgIcon-root{
-    padding: 6px;
-    border-radius: 999px;
-    background-color: #ffffff;
-    color: gray;
+.styles-module_carousel-base__3keqD > div > .MuiSvgIcon-root {
+  padding: 6px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: gray;
 
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: -20px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -20px;
 
-    font-size: 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-size: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 @media (max-width: 890px) {
-    .styles-module_carousel-base__3keqD > div > .MuiSvgIcon-root {
-        display: none;
-    }
+  .styles-module_carousel-base__3keqD > div > .MuiSvgIcon-root {
+    display: none;
+  }
 
-    .storyReel {
-        overflow: hidden;
-    }
-    .styles-module_carousel-base__3keqD {
-        width: 680px !important;
-    }
+  .storyReel {
+    overflow: hidden;
+  }
+  .styles-module_carousel-base__3keqD {
+    width: 680px !important;
+  }
 }

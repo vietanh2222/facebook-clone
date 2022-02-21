@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Groups() {
-    return (
-        <div>
-            Group is working....
-        </div>
-    )
+  return <div>Group is working....</div>;
 }
 
-export default Groups
+export default Groups;

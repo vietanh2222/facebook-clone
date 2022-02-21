@@ -1,38 +1,38 @@
 .sidebarfriendsRow {
-    display: flex;
-    align-items: center;
-    margin: 4px 8px;
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 8px;
+  display: flex;
+  align-items: center;
+  margin: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 8px;
 }
 
 .sidebarfriendsRow:hover {
-   background-color: #f0f3f3;
+  background-color: #f0f3f3;
 }
 
-.sidebarfriendsRow > h4{
-    flex: 1;
-    padding: 0 16px;
-    font-weight: 500;
+.sidebarfriendsRow > h4 {
+  flex: 1;
+  padding: 0 16px;
+  font-weight: 500;
 }
 
 a > .sidebarfriendsRow > .MuiSvgIcon-root {
-    color: white;
-    background-color: #2e81f4 !important;
+  color: white;
+  background-color: #2e81f4 !important;
 }
 
 .sidebarfriends__body > a > .sidebarfriendsRow {
-    background-color: #f0f3f3;
+  background-color: #f0f3f3;
 }
 
-.sidebarfriendsRow > .MuiSvgIcon-root:first-child{
-    padding: 6px;
-    background-color: #dadde0;
-    border-radius: 999px;
+.sidebarfriendsRow > .MuiSvgIcon-root:first-child {
+  padding: 6px;
+  background-color: #dadde0;
+  border-radius: 999px;
 }
 
-.sidebarfriendsRow > .MuiSvgIcon-root:last-child{
-    font-size: medium;
-    color: rgb(110, 109, 109);
+.sidebarfriendsRow > .MuiSvgIcon-root:last-child {
+  font-size: medium;
+  color: rgb(110, 109, 109);
 }

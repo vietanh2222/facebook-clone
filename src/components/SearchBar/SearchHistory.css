@@ -1,37 +1,37 @@
 .searchHistory {
-    display: flex;
-    margin: 10px 0;
-    align-items: center;
-    margin: 0 10px;
-    padding: 10px;
-    cursor: pointer;
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+  margin: 0 10px;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .searchHistory:hover {
-    background-color: #d9dcdf;
-    border-radius: 10px;
+  background-color: #d9dcdf;
+  border-radius: 10px;
 }
 
 .searchHistory > .MuiSvgIcon-root:first-child {
-    color: gray;
-    background-color: #eff2f5;
-    border-radius: 999px;
-    padding: 6px;
+  color: gray;
+  background-color: #eff2f5;
+  border-radius: 999px;
+  padding: 6px;
 }
 
 .searchHistory > p {
-    flex: 1;
-    padding: 0 10px;
+  flex: 1;
+  padding: 0 10px;
 }
 
 .searchHistory > .MuiSvgIcon-root:last-child {
-    color: gray;
-    font-size: 16px;
-    font-weight: 900;
-    padding: 4px;
+  color: gray;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 4px;
 }
 
 .searchHistory > .MuiSvgIcon-root:hover {
-    background-color: #c2c5c9;
-    border-radius: 999px;
+  background-color: #c2c5c9;
+  border-radius: 999px;
 }

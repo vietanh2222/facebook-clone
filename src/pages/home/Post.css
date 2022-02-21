@@ -1,624 +1,621 @@
 @font-face {
-    font-family: Slack;
-    src: url(../../assets/fonts/slack-icons-Regular.woff) format('woff'),
-        url(../../assets/fonts/slack-icons-Regular.ttf) format('truetype');
+  font-family: Slack;
+  src: url(../../assets/fonts/slack-icons-Regular.woff) format("woff"),
+    url(../../assets/fonts/slack-icons-Regular.ttf) format("truetype");
 }
 
 .post {
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 15px;
+  background-color: white;
+  box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
 }
 
-.post__top{
-    display: flex;
-    position: relative;
-    align-items: center;
-    padding: 15px;
-    padding-bottom: 0;
+.post__top {
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 15px;
+  padding-bottom: 0;
 }
 
 .post__avatar {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .post__topInfo > h3 {
-    font-size: medium;
+  font-size: medium;
 }
 
 .post__topInfo > p {
-    margin-top: 4px;
-    font-size: 14px;
-    color: gray;
-    font-style: italic;
+  margin-top: 4px;
+  font-size: 14px;
+  color: gray;
+  font-style: italic;
 }
 
 .post__change {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #65676b;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #65676b;
 }
 
 .post__change > .MuiSvgIcon-root {
-    cursor: pointer;
-    padding: 0 4px;
+  cursor: pointer;
+  padding: 0 4px;
 }
 
 .post__change:hover {
-    background-color: #eff2f5;
-    border-radius: 999px;
+  background-color: #eff2f5;
+  border-radius: 999px;
 }
 
 .change__options {
-    position: absolute;
-    top: 40px;
-    right: 2px;
-    z-index: 1;
+  position: absolute;
+  top: 40px;
+  right: 2px;
+  z-index: 1;
 
-    background-color: #ffffff;
-    box-shadow: -2px 2px 8px 1px rgb(207, 205, 205);
+  background-color: #ffffff;
+  box-shadow: -2px 2px 8px 1px rgb(207, 205, 205);
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    min-width: 200px;
+  min-width: 200px;
 }
 
 .change__option {
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    color: #000000;
-    cursor: pointer;
+  display: flex;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  color: #000000;
+  cursor: pointer;
 }
 
-.post__remove::before{
-    content: '';
-    background-color: white;
+.post__remove::before {
+  content: "";
+  background-color: white;
 
-    width: 10px;
-    height: 15px;
+  width: 10px;
+  height: 15px;
 
-    position: absolute;
-    transform: rotate(140deg);
-    top: -8px;
-    right: 8px;
-    
+  position: absolute;
+  transform: rotate(140deg);
+  top: -8px;
+  right: 8px;
 }
-
 
 .comment__remove::before {
-    content: '';
-    background-color: white;
+  content: "";
+  background-color: white;
 
-    width: 10px;
-    height: 15px;
+  width: 10px;
+  height: 15px;
 
-    position: absolute;
-    top: -8px;
-    left: 50%;
-    transform: translateX(-50%) rotate(140deg);
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(140deg);
 }
 
 .change__option:hover {
-    background-color: #eff2f5;
+  background-color: #eff2f5;
 }
 
 .change__option > .MuiSvgIcon-root {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .change__option > p {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .post__bottom {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 0 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0 15px;
 }
 
 .post__bottom > p {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .post__image > img {
-    width: 100%;
-    margin-bottom: -5px;
+  width: 100%;
+  margin-bottom: -5px;
 }
 
-.changeOptions{
-    background-color: black;
-    color: white;
+.changeOptions {
+  background-color: black;
+  color: white;
 
-    border-radius: 10px;
-    opacity: 0.7;
-    padding: 4px 10px;
+  border-radius: 10px;
+  opacity: 0.7;
+  padding: 4px 10px;
 
-    position: absolute;
-    top: -70%;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  top: -70%;
+  left: 50%;
+  transform: translateX(-50%);
 
-    display: none;
-
+  display: none;
 }
 
-.changeOptions > p{
-    white-space: nowrap;
+.changeOptions > p {
+  white-space: nowrap;
 }
 
 .post__change:hover > .changeOptions {
-    display: block;
+  display: block;
 }
 
 .post__options {
+  border-top: 1px solid lightgray;
 
-    border-top: 1px solid lightgray;
+  display: flex;
+  justify-content: space-evenly;
 
-    display: flex;
-    justify-content: space-evenly;
+  font-size: medium;
+  color: gray;
+  cursor: pointer;
 
-    font-size: medium;
-    color: gray;
-    cursor: pointer;
-    
-    padding: 15px;
+  padding: 15px;
 
-    position: relative;
+  position: relative;
 }
 
 .post__option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    padding: 5px;
-    flex: 1;
+  padding: 5px;
+  flex: 1;
 
-    position: relative;
+  position: relative;
 }
 
-.facebookSelector{
-    position: absolute;
-    top: -40px;
-    left: 0;
-    z-index: 100;
-    animation: mymove 0.1s ease-in;
+.facebookSelector {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 100;
+  animation: mymove 0.1s ease-in;
 }
 
 @keyframes mymove {
-    from {
-        top: 0px;
-        opacity: 0;
-    }
+  from {
+    top: 0px;
+    opacity: 0;
+  }
 }
 
 .commentReactionOptions > .facebookSelector {
-    top: -55px;
+  top: -55px;
 }
 
-.commentEmoji{
-    left: -30px;
+.commentEmoji {
+  left: -30px;
 }
 
 .post__option > p {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .post__option:hover {
-    background-color: #eff2f5;
-    border-radius: 10px;
+  background-color: #eff2f5;
+  border-radius: 10px;
 }
 
 .option--active {
-    color: #2e81f4;
+  color: #2e81f4;
 }
 
-.emoji{
-    display: flex;
-    align-items: center;
+.emoji {
+  display: flex;
+  align-items: center;
 }
 
-.emoji > img{
-    width: 24px;
-    margin-right: 10px;
+.emoji > img {
+  width: 24px;
+  margin-right: 10px;
 }
 
-.emoji > p{
-    font-weight: 600;
-    color: rgb(247, 177, 37);
+.emoji > p {
+  font-weight: 600;
+  color: rgb(247, 177, 37);
 }
 
 .options__count {
-    border-top: 1px solid lightgray;
-    display: flex;
-    justify-content: space-between;
-    font-size: medium;
-    color: gray;
-    cursor: pointer;
-    padding: 15px;
+  border-top: 1px solid lightgray;
+  display: flex;
+  justify-content: space-between;
+  font-size: medium;
+  color: gray;
+  cursor: pointer;
+  padding: 15px;
 }
 
-.wrapOptions{
-    display: flex;
+.wrapOptions {
+  display: flex;
 }
 
 .options__count--unDisplay {
-    display: none;
+  display: none;
 }
 
 .options__count > .option__count {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .option__count {
-    display: flex;
-    position: relative;
-    margin-left: 20px;
-    align-items: center;
+  display: flex;
+  position: relative;
+  margin-left: 20px;
+  align-items: center;
 }
 
 .option__count > .showUser > p {
-    margin-left: 10px;
-    padding: 4px;
+  margin-left: 10px;
+  padding: 4px;
 }
 
 .option__count > p:hover {
-   text-decoration: underline;
+  text-decoration: underline;
 }
 
 .option__count > .showUser > img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .option__count > .showUser > .MuiSvgIcon-root {
-    font-size: 14px;
+  font-size: 14px;
 
-    padding: 4px;
+  padding: 4px;
 
-    border-radius: 999px;
-    color: #ffffff;
-    background-color: #2e81f4;
+  border-radius: 999px;
+  color: #ffffff;
+  background-color: #2e81f4;
 }
 
 .showUser {
-    position: relative;
-    display: flex;
-    align-items: center;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.showUserDetail{
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+.showUserDetail {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 
-    color: white;
-    background-color: black;
-    font-size: 14px;
-    
-    padding: 8px 14px;
-    border-radius: 6px;
-  
-    min-width: 120px;
-    opacity: 0.7;
-    z-index: 100;
+  color: white;
+  background-color: black;
+  font-size: 14px;
+
+  padding: 8px 14px;
+  border-radius: 6px;
+
+  min-width: 120px;
+  opacity: 0.7;
+  z-index: 100;
 }
 
-.share__count:hover, .comment__count:hover {
-    text-decoration: underline;
+.share__count:hover,
+.comment__count:hover {
+  text-decoration: underline;
 }
 
 .like__count:hover > .like__showUser,
-.share__count:hover > .share__showUser
-{
-    display: block;
+.share__count:hover > .share__showUser {
+  display: block;
 }
 
-.like__showUser, .share__showUser {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+.like__showUser,
+.share__showUser {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
 
-    color: white;
-    background-color: black;
-    font-size: 14px;
-    
-    padding: 8px 14px;
-    border-radius: 6px;
-  
-    display: none;
-    min-width: 120px;
-    opacity: 0.7;
-    z-index: 100;
+  color: white;
+  background-color: black;
+  font-size: 14px;
+
+  padding: 8px 14px;
+  border-radius: 6px;
+
+  display: none;
+  min-width: 120px;
+  opacity: 0.7;
+  z-index: 100;
 }
 
-.share__count > .share__showUser{
-    right: 0;
+.share__count > .share__showUser {
+  right: 0;
 }
 
 .like__showUser > h2 {
-    font-size: 16px;
-    margin-bottom: 4px;
+  font-size: 16px;
+  margin-bottom: 4px;
 }
 
-.post__comments{
-    padding: 0 20px 20px;
+.post__comments {
+  padding: 0 20px 20px;
 }
 
-.post__comments > form > button{
-    display: none;
-    padding: 0 12px;
-    color: white;
-    background-color: #1b74e4;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 14px;
-    max-height: 40px;
+.post__comments > form > button {
+  display: none;
+  padding: 0 12px;
+  color: white;
+  background-color: #1b74e4;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  max-height: 40px;
 }
 
-.post__comments > form > button:not(.button--disabled):hover{
-    background-color: #1b74e4;
-    opacity: 0.7;
+.post__comments > form > button:not(.button--disabled):hover {
+  background-color: #1b74e4;
+  opacity: 0.7;
 }
 
 .displayNone {
-    display: none !important;
+  display: none !important;
 }
 
 .post__comment {
-    display: flex;
-    margin-bottom: 20px;
-    align-items: flex-start;
+  display: flex;
+  margin-bottom: 20px;
+  align-items: flex-start;
 }
 
 form > .input-icons > input {
-    outline-width: 0;
-    border: none;
-    padding: 5px 20px;
-    margin: 0 10px;
-    border-radius: 999px;
-    background-color: #eff2f5;
-    flex: 1;
+  outline-width: 0;
+  border: none;
+  padding: 5px 20px;
+  margin: 0 10px;
+  border-radius: 999px;
+  background-color: #eff2f5;
+  flex: 1;
 }
 
-.input-icons{
-    display: flex;
-    flex: 1;
-    flex-direction: column;
+.input-icons {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 
-    position: relative;
+  position: relative;
 }
 
 .input-icons > input {
-    min-height: 30px;
+  min-height: 30px;
 }
 
 .comment__content > img {
-    max-width: 200px;
-    /* display: none; */
-    border-radius: 10px;
-    margin-top: 6px;
+  max-width: 200px;
+  /* display: none; */
+  border-radius: 10px;
+  margin-top: 6px;
 }
 
 .input-icons > .input-icons__icon {
-    display: flex;
-    align-items: center;
-    
-    position: absolute;
-    top: 0;
-    right: 0;
+  display: flex;
+  align-items: center;
 
-    margin-right: 25px;
-    margin-top: 8px;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  margin-right: 25px;
+  margin-top: 8px;
 }
 
 .input-icons > .hidenForm__imagePreview > .imagePreview__progress > img {
-    max-width: 200px;
+  max-width: 200px;
 }
 
 .input-icon {
-    margin-left: 10px;
-    position: relative;
+  margin-left: 10px;
+  position: relative;
 }
 
 .slack {
-    position: absolute;
-    bottom: 36px;
-    right: 15px;
-    z-index: 100;
+  position: absolute;
+  bottom: 36px;
+  right: 15px;
+  z-index: 100;
 
-    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
 }
 
 .comment__content {
-    padding: 10px;
-    border-radius: 20px;
-    display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  display: inline-block;
 
-    background-color: #eff2f5;
+  background-color: #eff2f5;
 
-    margin-left: 10px;
-    max-width: 85%;
-    white-space: wrap;
+  margin-left: 10px;
+  max-width: 85%;
+  white-space: wrap;
 
-    position: relative;
+  position: relative;
 }
 
-.comment__content > h2{
-    font-size: 14px;
-    font-weight: 700;
+.comment__content > h2 {
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .comment__content > p {
-    word-break: break-word;
-    font-weight: 350;
+  word-break: break-word;
+  font-weight: 350;
 }
 
-.comment__reaction > p{
-    font-size: 14px;
-    color: #65676B;
-    font-weight: 600;
-    margin-right: 10px;
+.comment__reaction > p {
+  font-size: 14px;
+  color: #65676b;
+  font-weight: 600;
+  margin-right: 10px;
 }
 
-.comment__reaction > p:not(:nth-child(2)){
-    display: none;
+.comment__reaction > p:not(:nth-child(2)) {
+  display: none;
 }
 
 .comment__reaction {
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    position: relative;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  position: relative;
 }
 
-.commentReaction__Display > p{
-    color: #65676B;
-    font-weight: 600;
+.commentReaction__Display > p {
+  color: #65676b;
+  font-weight: 600;
 }
 
-.commentReaction__Display > p:hover{
-    text-decoration: underline;
-    cursor: pointer;
+.commentReaction__Display > p:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.comment__content > h2:hover{
-    cursor: pointer;
-    text-decoration: underline;
+.comment__content > h2:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .comment__change {
-    position: relative;
-    align-self: center;
-    margin-left: 10px;
-    color: #65676b;
-    border-radius: 999px;
-    padding: 0 4px;
-    
+  position: relative;
+  align-self: center;
+  margin-left: 10px;
+  color: #65676b;
+  border-radius: 999px;
+  padding: 0 4px;
 }
 
 .comment__change > .MuiSvgIcon-root {
-    visibility: hidden;
+  visibility: hidden;
 }
 
-.post__comment:hover > .comment__change > .MuiSvgIcon-root{
-    visibility: visible;
+.post__comment:hover > .comment__change > .MuiSvgIcon-root {
+  visibility: visible;
 }
 
 .comment__change:hover {
-    background-color: #eff2f5;
+  background-color: #eff2f5;
 }
 
-.commentOptions{
-    background-color: black;
-    color: white;
+.commentOptions {
+  background-color: black;
+  color: white;
 
-    border-radius: 10px;
-    opacity: 0.7;
-    padding: 4px 10px;
+  border-radius: 10px;
+  opacity: 0.7;
+  padding: 4px 10px;
 
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
 
-    display: none;
-
+  display: none;
 }
 
 .comment__options {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 101;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 101;
 
-    background-color: #ffffff;
-    box-shadow: -2px 2px 8px 1px rgb(207, 205, 205);
+  background-color: #ffffff;
+  box-shadow: -2px 2px 8px 1px rgb(207, 205, 205);
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    min-width: 200px;
-
+  min-width: 200px;
 }
 
 .post__comments > p {
-    font-size: 14px;
-    padding-bottom: 20px;
-    color: gray;
-    margin-left: 50px;
-    
+  font-size: 14px;
+  padding-bottom: 20px;
+  color: gray;
+  margin-left: 50px;
 }
 
 .post__comments > p:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-.commentOptions > p{
-    white-space: nowrap;
+.commentOptions > p {
+  white-space: nowrap;
 }
 
 .comment__change:hover > .commentOptions {
-    display: block;
+  display: block;
 }
 
-.MuiAvatar-root, .MuiSvgIcon-root {
-    cursor: pointer;
+.MuiAvatar-root,
+.MuiSvgIcon-root {
+  cursor: pointer;
 }
 
 .imagePreview__done > .MuiSvgIcon-root {
-    color: green;
+  color: green;
 }
 
 .imagePreview__uploading > .MuiSvgIcon-root {
-    color: red;
-    animation: rotate 0.5s linear infinite; 
+  color: red;
+  animation: rotate 0.5s linear infinite;
 }
 
-@keyframes rotate{
-    to{ transform: rotate(360deg); }
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
   }
+}
 
 .post__reaction-mobile {
-    display: none;
-    align-items: center;
-    padding: 5px;
-    flex: 1;
-    justify-content: center;
+  display: none;
+  align-items: center;
+  padding: 5px;
+  flex: 1;
+  justify-content: center;
 }
 
 .post__options > .post__reaction-mobile > p {
-    font-weight: 500;
-    margin-left: 10px;
-    font-size: 16px;
-    color: gray;
+  font-weight: 500;
+  margin-left: 10px;
+  font-size: 16px;
+  color: gray;
 }
 
 .post__options > .post__reaction-mobile:hover {
-    background-color: #eff2f5;
-    border-radius: 10px;
+  background-color: #eff2f5;
+  border-radius: 10px;
 }
 
 .post__options > .post__reaction-mobile.option--active > p {
-    color: rgb(32, 120, 244);
+  color: rgb(32, 120, 244);
 }
 
 .post__options > .post__reaction-mobile > .emoji > p {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 @media (max-width: 1200px) {
-    /* .comment__reaction > p:not(:nth-child(2)){
+  /* .comment__reaction > p:not(:nth-child(2)){
         display: block;
     }
 
@@ -627,101 +624,99 @@ form > .input-icons > input {
         text-decoration: underline;
     } */
 
-    .comment__change > .MuiSvgIcon-root{
-        display: block;
-        visibility: visible;
-    }
+  .comment__change > .MuiSvgIcon-root {
+    display: block;
+    visibility: visible;
+  }
 
-    .post__reaction-mobile {
-        display: flex;
-    }
-    .post__options > .post__option:first-child {
-        display: none;
-    }
+  .post__reaction-mobile {
+    display: flex;
+  }
+  .post__options > .post__option:first-child {
+    display: none;
+  }
 
-    .post__comments > form > button {
-        display: block;
-    }
-    .changeOptions {
-        top: -100%;
-    }
+  .post__comments > form > button {
+    display: block;
+  }
+  .changeOptions {
+    top: -100%;
+  }
 }
 
 @media (max-width: 850px) {
-    .changeOptions {
+  .changeOptions {
     left: 50%;
     transform: translateX(-90%);
-    }
+  }
 
-    .showUserDetail {
-        left: 0%;
-        transform: translateX(0%);
-    }
+  .showUserDetail {
+    left: 0%;
+    transform: translateX(0%);
+  }
 
-    .comment__reaction-counter .showUserDetail {
-        left: 100%;
-        transform: translateX(-100%);
-    }
+  .comment__reaction-counter .showUserDetail {
+    left: 100%;
+    transform: translateX(-100%);
+  }
 
-    .comment__change:hover > .commentOptions {
-        display: none;
-    }
+  .comment__change:hover > .commentOptions {
+    display: none;
+  }
 
-    .comment__options {
-        transform: translateX(-95%);
-    }
+  .comment__options {
+    transform: translateX(-95%);
+  }
 
-    .comment__remove::before {
-        left: 95%;
-    }
+  .comment__remove::before {
+    left: 95%;
+  }
 }
 
 @media (max-width: 500px) {
-    .options__count {
-        flex-direction: column;
-    }
+  .options__count {
+    flex-direction: column;
+  }
 
-    .wrapOptions {
-        justify-content: flex-end;
-    }
+  .wrapOptions {
+    justify-content: flex-end;
+  }
 }
 
 @media (max-width: 400px) {
+  .post__options {
+    padding: 5px;
+  }
 
-    .post__options {
-        padding: 5px;
-    }
+  .post__close {
+    right: 0;
+    top: 5px;
+  }
+  .post__option > p {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+  .post__option > .MuiSvgIcon-root {
+    font-size: 16px;
+  }
 
-    .post__close{
-        right: 0;
-        top: 5px;
-    }
-    .post__option > p {
-        font-size: 12px;
-        margin-left: 5px;
-    }
-    .post__option > .MuiSvgIcon-root {
-        font-size: 16px;
-    }
+  .post__topInfo > h3 {
+    font-size: 16px;
+  }
 
-    .post__topInfo > h3 {
-        font-size: 16px;
-    }
+  .post__topInfo > p {
+    font-size: 12px;
+  }
 
-    .post__topInfo > p {
-        font-size: 12px;
-    }
+  .post__bottom > p {
+    font-size: 14px;
+  }
 
-    .post__bottom > p {
-        font-size: 14px;
-    }
+  .options__count {
+    padding: 10px;
+  }
 
-    .options__count {
-        padding: 10px;
-    }
-
-   
-    /* .emoji > img {
+  /* .emoji > img {
         width: 20px;
         margin-right: 5px;
       }
@@ -730,66 +725,64 @@ form > .input-icons > input {
         font-size: 12px;
       } */
 
-    /* .option__count > p, .showUser > p {
+  /* .option__count > p, .showUser > p {
           font-size: 12px;
     } */
 
-    .option__count > .showUser > p {
-        margin-left: 4px;
-    }
-    .comment__reaction-counter > .option__count > .showUser > img {
-        max-width: none;
-    }
+  .option__count > .showUser > p {
+    margin-left: 4px;
+  }
+  .comment__reaction-counter > .option__count > .showUser > img {
+    max-width: none;
+  }
 
-    form > .input-icons > input {
-        width: 80%;
-        padding: 5px 10px;
-    }
+  form > .input-icons > input {
+    width: 80%;
+    padding: 5px 10px;
+  }
 
-    .input-icons > .input-icons__icon {
-        margin-right: 35px;
-        margin-top: 5px;
-        position: relative;
-        display: flex;
-        justify-content: flex-end;
-    }
+  .input-icons > .input-icons__icon {
+    margin-right: 35px;
+    margin-top: 5px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    .input-icon > .slack {
-        transform: translateX(30%);
-    }
+  .input-icon > .slack {
+    transform: translateX(30%);
+  }
 
-    .comment__content > p {
-        font-size: 13px;
-    }
+  .comment__content > p {
+    font-size: 13px;
+  }
 
-    .comment__content > h2 {
-        font-size: 12px;
-    }
+  .comment__content > h2 {
+    font-size: 12px;
+  }
 
-    .commentReaction__Display > p {
-        font-size: 12px;
-    }
+  .commentReaction__Display > p {
+    font-size: 12px;
+  }
 
-    .comment__reaction {
-        flex-wrap: wrap;
-    }
+  .comment__reaction {
+    flex-wrap: wrap;
+  }
 
-    .comment__content > img {
-        max-width: 150px;
-    }
+  .comment__content > img {
+    max-width: 150px;
+  }
 
-    .post__comments {
-        padding: 0 10px 20px;
-    }
+  .post__comments {
+    padding: 0 10px 20px;
+  }
 
-    .post__options > .post__reaction-mobile > .MuiSvgIcon-root {
-        font-size: 22px;
-    }
+  .post__options > .post__reaction-mobile > .MuiSvgIcon-root {
+    font-size: 22px;
+  }
 
-    .post__options > .post__reaction-mobile > p {
-        margin-left: 5px;
-        font-size: 12px;
-    }
-
-    
+  .post__options > .post__reaction-mobile > p {
+    margin-left: 5px;
+    font-size: 12px;
+  }
 }

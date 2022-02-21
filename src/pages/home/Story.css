@@ -1,25 +1,25 @@
 .story {
-    position: relative;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 200px;
-    border-radius: 20px;
-    transition: transform 100ms ease-in;
-    cursor: pointer;
+  position: relative;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  transition: transform 100ms ease-in;
+  cursor: pointer;
 }
 
 .story__avatar {
-    margin: 10px;
-    border: 5px solid #2e81f4;
+  margin: 10px;
+  border: 5px solid #2e81f4;
 }
 
 .story > h4 {
-    position: absolute;
-    bottom: 20px;
-    left: 0px;
-    color: white;
-    font-size: 16px;
-    padding: 0 10px;
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  color: white;
+  font-size: 16px;
+  padding: 0 10px;
 }

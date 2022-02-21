@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function Gaming() {
-    return (
-        <div>
-            Gaming is working...
-        </div>
-    )
+  return <div>Gaming is working...</div>;
 }
 
-export default Gaming
+export default Gaming;

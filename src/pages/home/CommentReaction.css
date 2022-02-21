@@ -1,54 +1,52 @@
-.commentReaction__Display > .emoji > p, 
-.commentReaction__Display > p 
-{
-    font-size: 14px;
-    margin-right: 10px;
-    cursor: pointer;
+.commentReaction__Display > .emoji > p,
+.commentReaction__Display > p {
+  font-size: 14px;
+  margin-right: 10px;
+  cursor: pointer;
 }
 
 .comment__reaction > p:not(nth-child(2)):hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
-.commentReactionOptions> .post__reaction-mobile {
-    padding: 0;
+.commentReactionOptions > .post__reaction-mobile {
+  padding: 0;
 }
 
 .post__reaction-mobile > p {
-    font-size: 14px;
-    margin-right: 10px;
-    cursor: pointer;
-    color: #65676B;
-    font-weight: 600;
-    display: none;
+  font-size: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #65676b;
+  font-weight: 600;
+  display: none;
 }
 
 .post__reaction-mobile > .emoji > p {
-    font-size: 14px;
-    margin-right: 10px;
-    cursor: pointer;
-    display: none;
-} 
-
+  font-size: 14px;
+  margin-right: 10px;
+  cursor: pointer;
+  display: none;
+}
 
 .post__reaction-mobile > .emoji {
-    justify-content: center;
+  justify-content: center;
 }
 @media (max-width: 1200px) {
-    .post__reaction-mobile > p {
-        display: inline-block;
-    }
+  .post__reaction-mobile > p {
+    display: inline-block;
+  }
 
-    .post__reaction-mobile > .emoji > p {
-        display: inline-block;
-    } 
+  .post__reaction-mobile > .emoji > p {
+    display: inline-block;
+  }
 
-    .commentReaction__Display {
-        display: none;
-    }
+  .commentReaction__Display {
+    display: none;
+  }
 
-    .comment__reaction {
-        margin-left: 12px;
-    }
+  .comment__reaction {
+    margin-left: 12px;
+  }
 }

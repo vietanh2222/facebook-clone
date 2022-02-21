@@ -39,7 +39,6 @@ function Post({
   image,
   imageNameDelete,
   username,
-  email,
   timestamp,
   message,
   reaction,
@@ -758,7 +757,7 @@ function Post({
           )}
           <form>
             <Avatar src={userAvatar} />
-            <div className="input-icons">
+            <div className="input-icons" id={`post__${id}`}>
               <input
                 autoFocus
                 value={comment}
@@ -768,6 +767,7 @@ function Post({
               />
               <div className="input-icons__icon">
                 <div
+                  
                   className="input-icon"
                   onClick={(e) => e.stopPropagation()}
                 >
@@ -784,7 +784,7 @@ function Post({
                           setComment(`${comment}${e}`);
                           handeCloseShowSlackBar();
                           document
-                            .querySelector(".input-icons > input")
+                            .querySelector(`#post__${id} > input`)
                             .focus();
                         }}
                       />

@@ -31,7 +31,6 @@ function ImageUpload({
         // Handle unsuccessful uploads
       },
       () => {
-        console.log(uploadTask);
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           getUrlUpLoad(downloadURL);
         });

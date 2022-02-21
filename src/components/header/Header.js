@@ -81,6 +81,10 @@ function Header() {
     setSearchValue(value);
   };
 
+  const handleGoToTop = () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
   return (
     <div className="header">
       {showSidebar && (
@@ -93,7 +97,7 @@ function Header() {
           setShowSidebar(false);
         }}
       >
-        <Link to="/">
+        <Link to="/" onClick={handleGoToTop}>
           {windowWidth < 490 ? (
             <img src={facebookLogo} alt="" />
           ) : (
@@ -198,7 +202,6 @@ function Header() {
         onClick={(e) => {
           if (windowWidth <= 490) {
             e.stopPropagation();
-            setShowSidebar(false);
           } else {
             return;
           }

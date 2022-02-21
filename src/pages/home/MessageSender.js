@@ -6,7 +6,7 @@ import PhotoLibraryIcon from "@mui/icons-material/PhotoLibrary";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import { useStateValue } from "../../store/StateProvider";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import db, { auth } from "./firebase";
+import db from "./firebase";
 import CloseIcon from "@mui/icons-material/Close";
 import ImageUpload from "./ImageUpload";
 import { deleteObject } from "firebase/storage";
@@ -27,11 +27,6 @@ function MessageSender() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!auth.currentUser) {
-      alert(`Sorry you can't add a new post because you sign in Anomyous`);
-      setInput("");
-      return;
-    }
     addDoc(collection(db, "posts"), {
       profilePic: user.photoURL,
       username: user.displayName,
@@ -72,14 +67,8 @@ function MessageSender() {
   const handleToggleShowSlackBar = () => {
     if (showSlackBar) {
       setShowSlackBar(false);
-      document
-        .querySelector(".messageSender__hidenForm > .hidenForm__wrapper")
-        .removeEventListener("click", handeCloseShowSlackBar);
     } else {
       setShowSlackBar(true);
-      document
-        .querySelector(".messageSender__hidenForm > .hidenForm__wrapper")
-        .addEventListener("click", handeCloseShowSlackBar);
     }
   };
 
@@ -149,7 +138,9 @@ function MessageSender() {
                     <div className="add__options">
                       <div
                         className="input-icon"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
                       >
                         <InsertEmoticonIcon
                           style={{
@@ -158,7 +149,7 @@ function MessageSender() {
                           onClick={handleToggleShowSlackBar}
                         />
                         {showSlackBar && (
-                          <div className="slack">
+                          <div className="slack" >
                             <SlackSelector
                               onSelect={(e) => {
                                 setInput(`${input}${e}`);

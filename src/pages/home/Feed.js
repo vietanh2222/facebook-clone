@@ -41,7 +41,7 @@ function Feed() {
 
     const qUserComments = query(
       collection(db, "userComment"),
-      orderBy("timestamp", "desc")
+      orderBy("timestamp", "asc")
     );
     onSnapshot(qUserComments, (snapshot) => {
       setUserComment(

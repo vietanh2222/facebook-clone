@@ -101,7 +101,7 @@ function Post({
 
     listUserShare.current = userShares.filter((user) => user.isShare === true);
   }, [userLogin, userShares]);
-
+  
   useEffect(() => {
     return () => {
       window.removeEventListener("click", handleCloseChangeOptions);

@@ -48,7 +48,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                       </p>
                     );
                   } else {
-                    return <></>;
+                    return <div key={index}></div>;
                   }
                 }
               })}
@@ -78,7 +78,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                       </p>
                     );
                   } else {
-                    return <></>;
+                    return <div key={index}></div>;
                   }
                 }
               })}
@@ -109,7 +109,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                       </p>
                     );
                   } else {
-                    return <></>;
+                    return <div key={index}></div>;
                   }
                 }
               })}
@@ -139,7 +139,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                       </p>
                     );
                   } else {
-                    return <></>;
+                    return <div key={index}></div>;
                   }
                 }
               })}
@@ -169,7 +169,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                       </p>
                     );
                   } else {
-                    return <></>;
+                    return <div key={index}></div>;
                   }
                 }
               })}
@@ -200,7 +200,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                       </p>
                     );
                   } else {
-                    return <></>;
+                    return <div key={index}></div>;
                   }
                 }
               })}
@@ -220,7 +220,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
           <p>{isComment ? reaction.length : reaction[0].user}</p>
         ) : (
           <>
-            {reaction.length > 1 && currentUserReaction.emoji !== "" ? (
+            {reaction.length > 1 && !['', undefined].includes(currentUserReaction.emoji) ? (
               <p>
                 {isComment
                   ? reaction.length
@@ -251,7 +251,7 @@ function ReactionCounter({ reaction, currentUserReaction, isComment }) {
                     <p key={index}>and {reaction.length - index} others...</p>
                   );
                 } else {
-                  return <></>;
+                  return <div key={index}></div>;
                 }
               }
             })}

@@ -25,7 +25,7 @@ function ImageUpload({
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
         getProgress(progress);
-        console.log("Upload is " + progress + "% done");
+        
       },
       (error) => {
         // Handle unsuccessful uploads

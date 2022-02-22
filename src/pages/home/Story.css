@@ -10,6 +10,19 @@
   cursor: pointer;
 }
 
+
+.story::before{
+  content: '';
+  width: 100%;
+  display: block;
+  height: 100%;
+  border-radius: 20px;
+}
+
+.story:hover::before {
+  background-color: rgba(111, 110, 110, 0.3)
+}
+
 .story__avatar {
   margin: 10px;
   border: 5px solid #2e81f4;

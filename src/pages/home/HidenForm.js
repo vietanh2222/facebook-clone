@@ -3,8 +3,8 @@ import "./HidenForm.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { Avatar } from "@mui/material";
 import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import db from "./firebase";
-import { deleteObject } from "firebase/storage";
+import db, { storage } from "./firebase";
+import { deleteObject, ref } from "firebase/storage";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import { SlackSelector } from "@charkour/react-reactions";
 import ImageUpload from "./ImageUpload";
@@ -33,6 +33,9 @@ function HidenForm({
   const handleModifyPost = async (e) => {
     e.preventDefault();
     closeForm();
+    if(imagePreviewUrl !== imageModify && imageModify !== ''){
+      await deleteObject(ref(storage, `images/${imageNameDelete}`))
+    }
     await updateDoc(doc(db, "posts", postId), {
       timesupdate: serverTimestamp(),
       image: imageUpLoadUrl,
@@ -40,7 +43,7 @@ function HidenForm({
       imageName,
     });
   };
-
+ 
   const handleToggleShowSlackBar = () => {
     if (showSlackBar) {
       setShowSlackBar(false);
@@ -57,11 +60,11 @@ function HidenForm({
 
   const removeUploadImage = async () => {
     setImagePreviewUrl("");
-    setIsHaveImage(false);
     setImageUpLoadUrl("");
+    setImageName("");
+    setIsHaveImage(false);
     setProgress(0);
     if (imageUpLoadUrl !== "") {
-      setImagePreviewUrl("");
       await deleteObject(imageRef);
     }
   };
@@ -161,18 +164,18 @@ function HidenForm({
               type="submit"
               className={
                 (messageModify !== message && message !== "") ||
-                (isHaveImage && imagePreviewUrl !== imageModify) ||
+                (!isHaveImage && imagePreviewUrl === '') ||
                 (!isHaveImage &&
-                  imagePreviewUrl !== imageModify &&
+                  imagePreviewUrl !== "" &&
                   imageUpLoadUrl !== "")
                   ? ""
                   : `button--disabled`
               }
               disabled={
                 (messageModify !== message && message !== "") ||
-                (isHaveImage && imagePreviewUrl !== imageModify) ||
+                (!isHaveImage && imagePreviewUrl === '') ||
                 (!isHaveImage &&
-                  imagePreviewUrl !== imageModify &&
+                  imagePreviewUrl !== "" &&
                   imageUpLoadUrl !== "")
                   ? false
                   : true

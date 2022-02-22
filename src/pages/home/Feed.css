@@ -5,6 +5,7 @@
   align-items: center;
   width: 100%;
   max-width: 680px;
+  margin-bottom: 50px;
 }
 
 .infinite-scroll-component__outerdiv {

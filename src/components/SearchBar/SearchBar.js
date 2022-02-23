@@ -55,20 +55,23 @@ function SearchBar({ handleGetValue, closeSearchBar, valueSearchInit }) {
       where("user", "==", user.displayName),
       orderBy("timestamp", "desc")
     );
-    onSnapshot(q, (snapshot) => {
+    const unsubcribe = onSnapshot(q, (snapshot) => {
       setSearchHistory(
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     });
+    return () => {
+      unsubcribe();
+    }
   }, [user.displayName]);
 
-  const handleFindContact = (key) => {
-    setSearchKey(key);
-    handleGetValue(key);
-    searchResult.current = listSearch.current.filter((contact) =>
-      contact.name.trim().toLowerCase().includes(key.toLowerCase())
-    );
-  };
+
+  useEffect(() => {
+      handleGetValue(searchKey);
+      searchResult.current = listSearch.current.filter((contact) =>
+        contact.name.trim().toLowerCase().includes(searchKey.toLowerCase())
+      );
+  }, [searchKey, handleGetValue])
 
   const stopPropaganition = (e) => {
     e.stopPropagation();
@@ -98,7 +101,7 @@ function SearchBar({ handleGetValue, closeSearchBar, valueSearchInit }) {
               type="text"
               placeholder="Search Facebook"
               onChange={(e) => {
-                handleFindContact(e.target.value);
+                setSearchKey(e.target.value);
               }}
               value={searchKey}
             />

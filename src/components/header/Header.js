@@ -45,18 +45,28 @@ function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleCloseSearchBarWindow = () => {
+      setShowSearchBar(false);
+    };
+
+    window.addEventListener("click", handleCloseSearchBarWindow);
+
+    return () => {
+      window.removeEventListener("click", handleCloseSearchBarWindow);
+    }
+  }, [])
+
   const handleClick = () => {
     setShowSidebar(!showSidebar);
   };
 
   const handleShowSearchBar = () => {
     setShowSearchBar(true);
-    window.addEventListener("click", handleCloseSearchBar);
   };
 
   const handleCloseSearchBar = () => {
     setShowSearchBar(false);
-    window.removeEventListener("click", handleCloseSearchBar);
   };
 
   const handleLogOut = () => {

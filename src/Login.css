@@ -101,6 +101,17 @@
   font-weight: 700;
 }
 
+@media (max-height: 800px ) and (min-width: 1366px) {
+  .login__wrapper {
+    flex-direction: row;
+    gap: 100px;
+  }
+
+  .login__logo > h1 {
+    display: none;
+  }
+}
+
 @media (max-width: 600px) {
   .login__wrapper > button {
     font-size: 16px;
